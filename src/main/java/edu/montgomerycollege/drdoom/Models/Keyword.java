@@ -27,8 +27,6 @@ public class Keyword {
 
 
     //Getters and Setters
-
-
     public long getKid() {
         return kid;
     }
@@ -43,5 +41,13 @@ public class Keyword {
 
     public void setKword(String kword) {
         this.kword = kword;
+    }
+
+    public Collection<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Collection<Job> jobs) {
+        this.jobs = jobs;
     }
 }

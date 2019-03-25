@@ -93,4 +93,12 @@ public class Job {
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
+
+    public Collection<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Collection<Keyword> keywords) {
+        this.keywords = keywords;
+    }
 }

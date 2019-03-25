@@ -1,9 +1,11 @@
 package edu.montgomerycollege.drdoom.Services;
 
 import edu.montgomerycollege.drdoom.Models.Job;
+import edu.montgomerycollege.drdoom.Models.Keyword;
 import edu.montgomerycollege.drdoom.Models.Role;
 import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
+import edu.montgomerycollege.drdoom.Repositories.KeywordRepository;
 import edu.montgomerycollege.drdoom.Repositories.RoleRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     JobRepository jobRepository;
+
+    @Autowired
+    KeywordRepository keywordRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,6 +61,15 @@ public class DataLoader implements CommandLineRunner {
             jobRepository.save(new Job("Java Web Developer", "Java web development", new Date(), false));
             jobRepository.save(new Job("QA", "Quality assurance", new Date(), false));
             jobRepository.save(new Job("DBA", "Database Architect", new Date(), false));
+        }
+
+        if(keywordRepository.count() == 0) {
+            keywordRepository.save(new Keyword("Oracle"));
+            keywordRepository.save(new Keyword("Java Web Development"));
+            keywordRepository.save(new Keyword("Java"));
+            keywordRepository.save(new Keyword("JavaScript"));
+            keywordRepository.save(new Keyword("SpringBoot"));
+            keywordRepository.save(new Keyword("Spring"));
         }
     }
 }
