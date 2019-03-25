@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="base :: nav"></div>
+<div class="container">
+<h2>Insecure page</h2>
+    <a href="/secure">Secure page</a>
+    <a href="/interview">Interviews</a>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+</body>
+
+</html>
