@@ -3,7 +3,11 @@ package edu.montgomerycollege.drdoom.Models;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Entity
@@ -32,6 +36,19 @@ public class User {
     @Column(name="username")
     private String username;
 
+    @Column(name = "userpicture")
+    private String userpicture;
+
+    // additions from former Applicant class
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "interview_time")
+    private LocalDateTime interviewTime; //jen uses localdatetime, jesse - date
+
+    @Column(name = "application_status")
+    private String appStatus;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
@@ -48,7 +65,9 @@ public class User {
 
     }
 
-    public User(String email, String password, String firstName, String lastName, boolean enabled, String username)
+    public User(String email, String password, String firstName,
+                String lastName, boolean enabled, String username,
+                String phoneNumber, String interviewTime, String appStatus)
     {
         this.setEmail(email);
         this.setPassword(password);
@@ -56,9 +75,11 @@ public class User {
         this.setLastName(lastName);
         this.setEnabled(enabled);
         this.setUsername(username);
+        this.setPhoneNumber(phoneNumber);
+        this.setInterviewTime(interviewTime);
+        this.setAppStatus(appStatus);
     }
-
-
+    
 
     //Getters and setters
 
@@ -76,7 +97,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (isEmailValid(email)){
+            this.email = email;
+        }
     }
 
     public String getPassword() {
@@ -120,6 +143,41 @@ public class User {
         this.username = username;
     }
 
+    public String getUserpicture() {
+        return userpicture;
+    }
+
+    public void setUserpicture(String userpicture) {
+        this.userpicture = userpicture;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        if (isPhoneNumberValid(phoneNumber)){
+            this.phoneNumber = phoneNumber;
+        }
+    }
+
+    public LocalDateTime getInterviewTime() {
+        return interviewTime;
+    }
+
+    public void setInterviewTime(String interviewTime) {
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy HH:mm");
+        this.interviewTime = LocalDateTime.parse(interviewTime, f);
+    }
+
+    public String getAppStatus() {
+        return appStatus;
+    }
+
+    public void setAppStatus(String appStatus) {
+        this.appStatus = appStatus;
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -144,5 +202,30 @@ public class User {
     public void setResume(Resume resume)
     {
         this.resume = resume;
+    }
+
+    private boolean isEmailValid(String email){
+        boolean isValid = false;
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+        //Make the comparison case-insensitive.
+        Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if(matcher.matches()){
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    private boolean isPhoneNumberValid(String phoneNumber){
+        boolean isValid = false;
+        String expression = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$";
+        CharSequence inputStr = phoneNumber;
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(inputStr);
+        if(matcher.matches()){
+            isValid = true;
+        }
+        return isValid;
     }
 }

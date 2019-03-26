@@ -58,4 +58,5 @@ public class SecurityController {
         model.addAttribute("myuser", myuser);
         return "secure";
     }
+
 }
