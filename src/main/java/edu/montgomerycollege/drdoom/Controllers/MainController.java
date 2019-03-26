@@ -25,8 +25,6 @@ import java.util.Map;
 @Controller
 public class MainController
 {
-
-
     @Autowired
     private UserService userService;
 
@@ -83,7 +81,7 @@ public class MainController
 
         //save user
         userRepository.save(user);
-
+        //parse resume and see if it matches 80% of keywords
         model.addAttribute("jobs", userService.getUser().getJobs());
         return "applied";
     }

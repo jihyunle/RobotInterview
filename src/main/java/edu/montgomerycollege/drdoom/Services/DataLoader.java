@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -55,15 +56,23 @@ public class DataLoader implements CommandLineRunner {
         }
 
 
-        if(jobRepository.count() == 0) {
+        if(jobRepository.count() == 0)
+        {
             Job job = new Job("Java Web Developer", "Java web development", new Date(), false);
-            //job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
-            //                               new Keyword("Spring")));
+            job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
+                                           new Keyword("Spring")));
+
             jobRepository.save(job);
-            jobRepository.save(new Job("QA", "Quality assurance", new Date(), false));
-            jobRepository.save(new Job("DBA", "Database Architect", new Date(), false));
+
+            job = new Job("QA", "Quality Assurance", new Date(), false);
+            //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
+            jobRepository.save(job);
+
+            job = new Job("DBA", "Database Administrator", new Date(), false);
+            ///job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
+            jobRepository.save(job);
+
+
         }
-
-
-    }
+        }
 }
