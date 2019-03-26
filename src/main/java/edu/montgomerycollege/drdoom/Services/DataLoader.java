@@ -65,11 +65,11 @@ public class DataLoader implements CommandLineRunner {
             jobRepository.save(job);
 
             job = new Job("QA", "Quality Assurance", new Date(), false);
-            //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
+            job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
             jobRepository.save(job);
 
             job = new Job("DBA", "Database Administrator", new Date(), false);
-            ///job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
+            job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
             jobRepository.save(job);
 
 

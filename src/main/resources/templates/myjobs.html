@@ -2,14 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="base :: header"></th:block>
-    <title>My jobs</title>
+    <title>My Jobs</title>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <h2>Insecure page</h2>
-    <a href="/secure">Secure page</a>
-    <a href="/interview">Interviews</a>
+    <div class="list-group" th:each="job : ${jobs}">
+        <div class="row">
+            <div class="col">
+                <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"></a>-->
+                <a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${job.jobTitle}"></h5>
+                        <small th:text="${job.jobDatePosted}"></small>
+                    </div>
+                    <p class="mb-1" th:text="${job.jobDescription}"></p>
+                    <small>Click to apply</small>
+                </a>
+            </div>
+            <div class="col-2">
+                <span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="base :: footer"></div>
