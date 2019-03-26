@@ -79,7 +79,7 @@ public class User {
         this.setInterviewTime(interviewTime);
         this.setAppStatus(appStatus);
     }
-    
+
 
     //Getters and setters
 
