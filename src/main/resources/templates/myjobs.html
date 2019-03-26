@@ -10,22 +10,18 @@
     <div class="list-group" th:each="job : ${jobs}">
         <div class="row">
             <div class="col">
-                <div th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"></a>-->
+                <a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1" th:text="${job.jobTitle}"></h5>
                         <small th:text="${job.jobDatePosted}"></small>
                     </div>
                     <p class="mb-1" th:text="${job.jobDescription}"></p>
-                </div>
-            </div>
-            <div class="col-1">
-                <span class="badge badge-danger">Status</span>
-                <span class="badge badge-warning">Warning</span>
-                <span class="badge badge-secondary">Secondary</span>
-                <span class="badge badge-success">Success</span>
+                    <small>Click to apply</small>
+                </a>
             </div>
             <div class="col-2">
-                <a type="button" class="btn btn-primary" th:href="@{/interview/{id}(id=${job.getJobId()})}">Interview</a>
+                <span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span>
             </div>
         </div>
     </div>
