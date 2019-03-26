@@ -59,8 +59,7 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(user);
 
             user = new User("admin@admin.com", "password", "Admin",
-                    "Admin", true, "admin",
-                    "", "", "");
+                    "Admin", true, "admin");
             user.setRoles(Arrays.asList(adminRole));
             userRepository.save(user);
         }
@@ -68,7 +67,19 @@ public class DataLoader implements CommandLineRunner {
 
         if(jobRepository.count() == 0)
         {
-            Job job = new Job("Java Web Developer", "Java web development", new Date(), false);
+            Job job = new Job("Java Web Developer",
+                    "Java web development: Develop comprehensive application testing procedures\n" +
+                    "                Update existing applications to meet the security and functionality standards as outlined in the company’s website policies\n" +
+                    "                Implement testing tools that monitor the ongoing performance of the company website\n" +
+                    "                Assist in updating application development policies to ensure that all future applications meet the latest technical requirements\n" +
+                    "                Web Developer qualifications and skills\n" +
+                    "                Next, outline the required and preferred skills for your position. \n" +
+                    "            This may include education, previous job experience, certifications and technical skills. \n" +
+                    "            You may also include soft skills and personality traits that you envision for a successful hire. \n" +
+                    "            While it may be tempting to include a long list of skills and requirements, including too many could dissuade qualified candidates from applying. \n" +
+                    "            Keep your list of qualifications concise, but provide enough detail with relevant keywords and terms.",
+                    new Date(),
+                    false);
             job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
                                            new Keyword("Spring")));
 
