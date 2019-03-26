@@ -90,13 +90,7 @@ public class MainController
         model.addAttribute("job", jobObject);
         return "applied";
     }
-    @GetMapping({"/interview/{id}"})
-    public String interviewGet(@PathVariable("id") long id, Model model)
-    {
-        Job jobObject = jobRepository.findById(id).get();
-        model.addAttribute("job", jobObject);
-        return "interview";
-    }
+
 
 
 
