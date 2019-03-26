@@ -59,12 +59,7 @@ public class MainController
     public String apply(@PathVariable("id") long id, Model model)
     {
         model.addAttribute("job", jobRepository.findById(id).get());
-//        Resume resume = userService.getUser().getResume();
-//        if(resume==null)
-//        {
-//            resume = new Resume();
-//        }
-//        model.addAttribute("resume", resume);
+        model.addAttribute("job_id", id);
         model.addAttribute("resume", new Resume());
         return "apply";
     }
