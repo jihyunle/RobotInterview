@@ -24,10 +24,10 @@ public class Job {
     @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
     private Collection<User> users;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
-    private Collection<Keyword> keywords;
+//
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
+//    private Collection<Keyword> keywords;
 
 
     /*******************************************************/
@@ -94,11 +94,11 @@ public class Job {
         this.users = users;
     }
 
-    public Collection<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Collection<Keyword> keywords) {
-        this.keywords = keywords;
-    }
+//    public Collection<Keyword> getKeywords() {
+//        return keywords;
+//    }
+//
+//    public void setKeywords(Collection<Keyword> keywords) {
+//        this.keywords = keywords;
+//    }
 }

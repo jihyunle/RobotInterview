@@ -7,10 +7,17 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <h2>Insecure page</h2>
-    <a href="/secure">Secure page</a>
-    <a href="/interview">Interviews</a>
-    Dummy data <a href="/apply">Apply</a>
+    <div class="list-group" th:each="job : ${jobs}">
+            <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"><span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span></a>-->
+        <a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${job.jobTitle}"></h5>
+                <small th:text="${job.jobDatePosted}"></small>
+            </div>
+            <p class="mb-1" th:text="${job.jobDescription}"></p>
+            <small>Click to apply</small>
+        </a>
+    </div>
 </div>
 
 <div th:replace="base :: footer"></div>

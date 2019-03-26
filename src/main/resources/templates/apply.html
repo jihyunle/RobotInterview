@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head th:replace="base :: header">
+    <title>Apply</title>
+</head>
+<body>
+<div th:replace="base :: nav"></div>
+<div class="container">
+        <form th:action="@{/apply}" th:object="${resume}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <h3>You are applying for: <span th:text="${job.jobTitle}"></span></h3>
+            <input type="hidden" th:field="${job.jobId}"/>
+            <input type="hidden" th:field="${job_id}"/>
+
+            <div class="form-group">
+                <label for="resume">Please paste your resume here:</label>
+                <textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Apply</button>  <button type="reset" class="btn btn-primary">Reset</button>
+        </form>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+</body>
+
+</html>

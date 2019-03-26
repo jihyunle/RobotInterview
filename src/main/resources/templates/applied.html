@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Jobs</title>
+</head>
+<body>
+<div th:replace="base :: nav"></div>
+<div class="container">
+
+       You have applied to:<span th:text="${job.jobTitle}"></span>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+</body>
+
+</html>

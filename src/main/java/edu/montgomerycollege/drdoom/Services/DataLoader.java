@@ -38,7 +38,6 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception
     {
         if(roleRepository.count() == 0) {
-            System.out.println("Data loader user run");
 
             roleRepository.save(new Role("USER"));
             roleRepository.save(new Role("ADMIN"));
@@ -57,19 +56,14 @@ public class DataLoader implements CommandLineRunner {
 
 
         if(jobRepository.count() == 0) {
-            System.out.println("Data loader user run");
-            jobRepository.save(new Job("Java Web Developer", "Java web development", new Date(), false));
+            Job job = new Job("Java Web Developer", "Java web development", new Date(), false);
+            //job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
+            //                               new Keyword("Spring")));
+            jobRepository.save(job);
             jobRepository.save(new Job("QA", "Quality assurance", new Date(), false));
             jobRepository.save(new Job("DBA", "Database Architect", new Date(), false));
         }
 
-        if(keywordRepository.count() == 0) {
-            keywordRepository.save(new Keyword("Oracle"));
-            keywordRepository.save(new Keyword("Java Web Development"));
-            keywordRepository.save(new Keyword("Java"));
-            keywordRepository.save(new Keyword("JavaScript"));
-            keywordRepository.save(new Keyword("SpringBoot"));
-            keywordRepository.save(new Keyword("Spring"));
-        }
+
     }
 }

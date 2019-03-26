@@ -40,6 +40,10 @@ public class User {
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="job_jobid"))
     private Collection<Job> jobs;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="resume_id")
+    private Resume resume;
+
     public User() {
 
     }
@@ -130,5 +134,15 @@ public class User {
 
     public void setJobs(Collection<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public Resume getResume()
+    {
+        return resume;
+    }
+
+    public void setResume(Resume resume)
+    {
+        this.resume = resume;
     }
 }

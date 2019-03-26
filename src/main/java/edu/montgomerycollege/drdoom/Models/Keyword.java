@@ -12,8 +12,8 @@ public class Keyword {
 
     private String kword;
 
-    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
-    private Collection<Job> jobs;
+//    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
+//    private Collection<Job> jobs;
 
     //Constructors
 
@@ -43,11 +43,11 @@ public class Keyword {
         this.kword = kword;
     }
 
-    public Collection<Job> getJobs() {
-        return jobs;
-    }
-
-    public void setJobs(Collection<Job> jobs) {
-        this.jobs = jobs;
-    }
+//    public Collection<Job> getJobs() {
+//        return jobs;
+//    }
+//
+//    public void setJobs(Collection<Job> jobs) {
+//        this.jobs = jobs;
+//    }
 }
