@@ -80,6 +80,18 @@ public class User {
         this.setAppStatus(appStatus);
     }
 
+    public User(String email, String password, String firstName,
+                String lastName, boolean enabled, String username)
+    {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEnabled(enabled);
+        this.setUsername(username);
+    }
+
+
 
     //Getters and setters
 
