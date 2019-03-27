@@ -11,10 +11,15 @@ public class Resume
     private long id;
 
     @NotEmpty
+    @Lob
     private String resumeData;
 
-    @OneToOne(mappedBy = "resume")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
+
+//    @OneToOne(mappedBy = "resume")
+//    private User user;
 
     //Getters and Setters
     public long getId()
@@ -37,13 +42,11 @@ public class Resume
         this.resumeData = resumeData;
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 }

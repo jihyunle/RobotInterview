@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long userId;
 
     @Column(name="email", nullable = false)
     private String email;
@@ -53,13 +54,17 @@ public class User {
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="job_jobid"))
-    private Collection<Job> jobs;
+    @OneToMany(mappedBy = "id",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<JobInterviewUser> jobInterviewUsers;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="resume_id")
-    private Resume resume;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "jobInterviewUser_id")
+//    private JobInterviewUser jobInterviewUser;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Set<Resume> resumes;
+
 
     public User() {
 
@@ -92,17 +97,26 @@ public class User {
     }
 
 
-
     //Getters and setters
 
-
-    public long getId() {
-        return id;
+    public long getUserId()
+    {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long userId)
+    {
+        this.userId = userId;
     }
+
+
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getEmail() {
         return email;
@@ -198,22 +212,30 @@ public class User {
         this.roles = roles;
     }
 
-    public Collection<Job> getJobs() {
-        return jobs;
-    }
-
-    public void setJobs(Collection<Job> jobs) {
-        this.jobs = jobs;
-    }
-
-    public Resume getResume()
+    public Set<JobInterviewUser> getJobInterviewUsers()
     {
-        return resume;
+        return jobInterviewUsers;
     }
 
-    public void setResume(Resume resume)
+    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
     {
-        this.resume = resume;
+        this.jobInterviewUsers = jobInterviewUsers;
+    }
+
+    //    public JobInterviewUser getJobInterviewUser() {
+//        return jobInterviewUser;
+//    }
+//
+//    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
+//        this.jobInterviewUser = jobInterviewUser;
+//    }
+
+    public Set<Resume> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(Set<Resume> resumes) {
+        this.resumes = resumes;
     }
 
     private boolean isEmailValid(String email){

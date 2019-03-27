@@ -1,7 +1,9 @@
 package edu.montgomerycollege.drdoom.Controllers;
 
 
+
 import edu.montgomerycollege.drdoom.Models.Job;
+import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
@@ -22,6 +24,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class MainController
@@ -37,6 +40,8 @@ public class MainController
 
     @Autowired
     ParseResume parser;
+
+
 
     @RequestMapping({"/index","/"})
     public String welcomePage()
@@ -54,7 +59,7 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("jobs", userService.getUser().getJobs());
+        //model.addAttribute("jobs", userService.getUser().g);
 
         return "myjobs";
     }
@@ -70,25 +75,27 @@ public class MainController
 
     @PostMapping({"/apply"})
     public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
-                          @ModelAttribute("job")Job job, BindingResult resultB,
+                          @ModelAttribute("job") Job job, BindingResult resultB,
                           Model model)
         {
         //add Job to my jobs collection
-        User user = userService.getUser();
-        Job jobObject = jobRepository.findById(job.getJobId()).get();
-        Collection<Job> jobs = user.getJobs();
-        jobs.add(jobObject);
-        user.setJobs(jobs);
+        //User user = userService.getUser();
+        //JobInterviewUser user2 = user.getJobInterviewUser();
+        //Job jobObject = jobRepository.findById(job.getJobId()).get();
+        //Set<Job> jobs = user2.getJobs();
+       // jobs.add(jobObject);
+        //user2.setJobs(jobs);
 
         //add Resume to user
-        user.setResume(resume);
+
+        //user.set
 
         //save user
-        userRepository.save(user);
+        //userRepository.save(user);
 
 
-        model.addAttribute("job", jobObject);
-        model.addAttribute("resume", resume);
+       // model.addAttribute("job", jobObject);
+       // model.addAttribute("resume", resume);
         return "applied";
     }
 

@@ -1,10 +1,9 @@
 package edu.montgomerycollege.drdoom.Models;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Job {
@@ -15,19 +14,28 @@ public class Job {
 
     private String jobTitle;
 
+    @Lob
     private String jobDescription;
 
     private Date jobDatePosted;
 
     private boolean jobClosed;
 
+    @OneToMany(mappedBy = "id",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<JobInterviewUser> jobInterviewUsers;
 
-    @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
-    private Collection<User> users;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "jobInterviewUser_id")
+//    private JobInterviewUser jobInterviewUser;
+
+//    @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
+//    private Collection<User> users;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
+    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"),
+            inverseJoinColumns = @JoinColumn(name="keyword_kid"))
     private Collection<Keyword> keywords;
 
 
@@ -87,13 +95,31 @@ public class Job {
         this.jobClosed = jobClosed;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    public Set<JobInterviewUser> getJobInterviewUsers()
+    {
+        return jobInterviewUsers;
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
+    {
+        this.jobInterviewUsers = jobInterviewUsers;
     }
+
+    //    public JobInterviewUser getJobInterviewUser() {
+//        return jobInterviewUser;
+//    }
+//
+//    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
+//        this.jobInterviewUser = jobInterviewUser;
+//    }
+
+//    public Collection<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Collection<User> users) {
+//        this.users = users;
+//    }
 
     public Collection<Keyword> getKeywords() {
         return keywords;
