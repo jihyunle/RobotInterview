@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>It looks like you missed your interview timeslot.</h2>
+
+<form th:action="@{/appeal}" th:object="${}" method="POST">
+
+    <h3>Please fill in your appeal form below.</h3>
+        <h4>Reason for missing the interview: </h4>
+        <h4>Further description: </h4>
+        <textarea cols="30" rows="10">
+
+        </textarea>
+        <button type="submit">Submit</button>
+    </h4>
+</form>
+
+
+</body>
+</html>
