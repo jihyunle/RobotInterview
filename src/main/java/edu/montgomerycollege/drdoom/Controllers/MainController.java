@@ -7,6 +7,7 @@ import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
+import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +34,9 @@ public class MainController
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ParseResume parser;
 
     @RequestMapping({"/index","/"})
     public String welcomePage()
@@ -81,7 +85,10 @@ public class MainController
         //save user
         userRepository.save(user);
         //parse resume and see if it matches 80% of keywords
+            System.out.println(parser.parseResume(resume, jobObject));
+
         model.addAttribute("job", jobObject);
+        model.addAttribute("resume", resume);
         return "applied";
     }
 
