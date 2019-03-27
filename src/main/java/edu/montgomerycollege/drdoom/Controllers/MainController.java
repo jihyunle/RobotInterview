@@ -34,7 +34,6 @@ public class MainController
     @Autowired
     UserRepository userRepository;
 
-
     @RequestMapping({"/index","/"})
     public String welcomePage()
     {
@@ -85,6 +84,7 @@ public class MainController
         model.addAttribute("job", jobObject);
         return "applied";
     }
+
 
 
 

@@ -67,6 +67,7 @@ public class DataLoader implements CommandLineRunner {
 
         if(jobRepository.count() == 0)
         {
+//            Job job;
             Job job = new Job("Java Web Developer",
                     "Java web development: Develop comprehensive application testing procedures\n" +
                     "                Update existing applications to meet the security and functionality standards as outlined in the company’s website policies\n" +
