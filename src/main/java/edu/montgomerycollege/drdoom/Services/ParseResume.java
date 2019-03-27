@@ -31,12 +31,10 @@ public class ParseResume
         if(matches >= (.8*keywords.size()))
         {
             return true;
-
         }
         else
         {
             return false;
-
         }
     }
 }

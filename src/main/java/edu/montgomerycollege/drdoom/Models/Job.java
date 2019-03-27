@@ -21,6 +21,7 @@ public class Job {
 
     private boolean jobClosed;
 
+
     @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
     private Collection<User> users;
 

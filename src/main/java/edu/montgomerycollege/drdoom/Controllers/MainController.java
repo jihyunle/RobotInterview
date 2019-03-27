@@ -55,6 +55,7 @@ public class MainController
     public String myJobs(Model model)
     {
         model.addAttribute("jobs", userService.getUser().getJobs());
+
         return "myjobs";
     }
 
@@ -84,8 +85,7 @@ public class MainController
 
         //save user
         userRepository.save(user);
-        //parse resume and see if it matches 80% of keywords
-            System.out.println(parser.parseResume(resume, jobObject));
+
 
         model.addAttribute("job", jobObject);
         model.addAttribute("resume", resume);
