@@ -24,6 +24,9 @@ public class Interview {
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobInterviewUser> jobInterviewUsers;
 
+    @OneToMany(mappedBy="interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<Question> questions;
+
     public Interview(){
 
     }
@@ -88,4 +91,15 @@ public class Interview {
 //    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
 //        this.jobInterviewUser = jobInterviewUser;
 //    }
+
+
+    public Set<Question> getQuestions()
+    {
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions)
+    {
+        this.questions = questions;
+    }
 }

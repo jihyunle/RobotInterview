@@ -21,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class MainController
@@ -40,6 +37,8 @@ public class MainController
 
     @Autowired
     ParseResume parser;
+
+
 
 
 
@@ -59,7 +58,17 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        //model.addAttribute("jobs", userService.getUser().g);
+        model.addAttribute("jobs", jobRepository.findAll());
+//Get user
+        User user = userService.getUser();
+        //get userId
+        long userId = user.getUserId();
+        //New instance of JUI
+        JobInterviewUser test = new JobInterviewUser();
+        //get id of JUI
+        long juiId = test.getId();
+        System.out.println(juiId);
+        //JobInterviewUser jobInterviewUser =
 
         return "myjobs";
     }
@@ -79,9 +88,13 @@ public class MainController
                           Model model)
         {
         //add Job to my jobs collection
-        //User user = userService.getUser();
-        //JobInterviewUser user2 = user.getJobInterviewUser();
-        //Job jobObject = jobRepository.findById(job.getJobId()).get();
+        User user = userService.getUser();
+        //JobInterviewUser jobInterviewUser = jobReposit
+        //JobInterviewUser user2 = user.getJobInterviewUsers();
+            System.out.println(user.getJobInterviewUsers());
+        Long userId =  user.getUserId();
+        //job.getJobId();
+        Job jobObject = jobRepository.findById(job.getJobId()).get();
         //Set<Job> jobs = user2.getJobs();
        // jobs.add(jobObject);
         //user2.setJobs(jobs);
