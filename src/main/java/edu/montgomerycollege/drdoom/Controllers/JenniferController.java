@@ -18,6 +18,11 @@ public class JenniferController {
     JobUserRepository jobUserRepository;
     private User user;
 
+//    @RequestMapping("/checkmatch")
+//    public boolean checkMatch(){
+//
+//    }
+
     @RequestMapping("/appeal")
     public String appeal(@PathVariable("id") long id, Model model){
         return "appeal";
