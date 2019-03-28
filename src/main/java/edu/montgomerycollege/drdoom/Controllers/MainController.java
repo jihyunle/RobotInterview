@@ -6,6 +6,7 @@ import edu.montgomerycollege.drdoom.Models.Job;
 import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
+import edu.montgomerycollege.drdoom.Repositories.JobInterviewUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
@@ -38,7 +39,8 @@ public class MainController
     @Autowired
     ParseResume parser;
 
-
+    @Autowired
+    JobInterviewUserRepository jobInterviewUserRepository;
 
 
 
@@ -59,16 +61,14 @@ public class MainController
     public String myJobs(Model model)
     {
         model.addAttribute("jobs", jobRepository.findAll());
-//Get user
-        User user = userService.getUser();
+
         //get userId
-        long userId = user.getUserId();
-        //New instance of JUI
-        JobInterviewUser test = new JobInterviewUser();
-        //get id of JUI
-        long juiId = test.getId();
-        System.out.println(juiId);
-        //JobInterviewUser jobInterviewUser =
+        long userId = userService.getUser().getUserId();
+        //Get JIUs associated with this user
+        //jobInterviewUserRepository.findAllById(userId);
+        //get set of jobs for this user
+//        Collection<Job> jobs = jobRepository
+
 
         return "myjobs";
     }

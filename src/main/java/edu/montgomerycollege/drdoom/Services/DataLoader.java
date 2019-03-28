@@ -1,13 +1,7 @@
 package edu.montgomerycollege.drdoom.Services;
 
-import edu.montgomerycollege.drdoom.Models.Job;
-import edu.montgomerycollege.drdoom.Models.Keyword;
-import edu.montgomerycollege.drdoom.Models.Role;
-import edu.montgomerycollege.drdoom.Models.User;
-import edu.montgomerycollege.drdoom.Repositories.JobRepository;
-import edu.montgomerycollege.drdoom.Repositories.KeywordRepository;
-import edu.montgomerycollege.drdoom.Repositories.RoleRepository;
-import edu.montgomerycollege.drdoom.Repositories.UserRepository;
+import edu.montgomerycollege.drdoom.Models.*;
+import edu.montgomerycollege.drdoom.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +25,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     KeywordRepository keywordRepository;
+
+    @Autowired
+    InterviewRepository interviewRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -94,6 +91,29 @@ public class DataLoader implements CommandLineRunner {
             job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
             jobRepository.save(job);
 
+
+        }
+
+        if(interviewRepository.count()==0)
+        {
+            Interview interview = new Interview();
+            //List<Question> temp = new List<>();
+            Question temps[] = new Question[4];
+            //temps[0]=new Question("Text");
+
+            //temp.add(new Question());
+            //interview.setQuestions(Arrays.asList(temps));
+
+            Answer answer = new Answer("");
+
+            Question question = new Question("Question", answer);
+            Interview interview1=new Interview();
+
+            question.setQuestionText("What's your favorite color?");
+         question.setAnswer(new Answer("Blue"));
+
+         //questionRepository.save(question);
+            //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
 
         }
         }

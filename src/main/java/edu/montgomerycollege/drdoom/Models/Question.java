@@ -20,6 +20,22 @@ public class Question
     @JoinColumn(name="interview_id")
     private Interview interview;
 
+    public Question()
+    {
+    }
+
+    public Question(String questionText, Answer answer)
+    {
+        this.questionText = questionText;
+        this.answer = answer;
+    }
+
+    public Question(String questionText, Answer answer, Interview interview)
+    {
+        this.questionText = questionText;
+        this.answer = answer;
+        this.interview = interview;
+    }
 
     public long getId()
     {

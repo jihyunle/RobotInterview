@@ -25,7 +25,7 @@ public class Interview {
     private Set<JobInterviewUser> jobInterviewUsers;
 
     @OneToMany(mappedBy="interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<Question> questions;
+    private Set<Question> questions;
 
     public Interview(){
 

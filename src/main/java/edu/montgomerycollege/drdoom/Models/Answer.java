@@ -14,6 +14,21 @@ public class Answer
     @OneToOne(mappedBy = "answer")
     private Question question;
 
+    public Answer(String answerText)
+    {
+        this.answerText = answerText;
+    }
+
+    public Answer()
+    {
+    }
+
+    public Answer(String answerText, Question question)
+    {
+        this.answerText = answerText;
+        this.question = question;
+    }
+
     public long getId()
     {
         return id;
