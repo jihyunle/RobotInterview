@@ -17,9 +17,9 @@ public class Interview {
     // make this varchar as TEXT in MySQL
     private String chatHistory;
 
-    @OneToMany(mappedBy = "id",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<JobInterviewUser> jobInterviewUsers;
+//    @OneToMany(mappedBy = "id",
+//            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Collection<JobInterviewUser> jobInterviewUsers;
 
     @OneToMany(mappedBy="interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<Question> questions;
@@ -63,13 +63,13 @@ public class Interview {
         this.chatHistory = chatHistory;
     }
 
-    public Collection<JobInterviewUser> getJobInterviewUsers() {
-        return jobInterviewUsers;
-    }
-
-    public void setJobInterviewUsers(Collection<JobInterviewUser> jobInterviewUsers) {
-        this.jobInterviewUsers = jobInterviewUsers;
-    }
+//    public Collection<JobInterviewUser> getJobInterviewUsers() {
+//        return jobInterviewUsers;
+//    }
+//
+//    public void setJobInterviewUsers(Collection<JobInterviewUser> jobInterviewUsers) {
+//        this.jobInterviewUsers = jobInterviewUsers;
+//    }
 
     public Collection<Question> getQuestions() {
         return questions;

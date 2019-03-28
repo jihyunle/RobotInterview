@@ -3,13 +3,10 @@ package edu.montgomerycollege.drdoom.Controllers;
 
 
 import edu.montgomerycollege.drdoom.Models.Job;
-import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
+//import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
-import edu.montgomerycollege.drdoom.Repositories.InterviewRepository;
-import edu.montgomerycollege.drdoom.Repositories.JobInterviewUserRepository;
-import edu.montgomerycollege.drdoom.Repositories.JobRepository;
-import edu.montgomerycollege.drdoom.Repositories.UserRepository;
+import edu.montgomerycollege.drdoom.Repositories.*;
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
 import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
@@ -43,8 +40,11 @@ public class MainController
     @Autowired
     ParseResume parser;
 
+//    @Autowired
+//    JobInterviewUserRepository jobInterviewUserRepository;
+
     @Autowired
-    JobInterviewUserRepository jobInterviewUserRepository;
+    JobUserRepository jobUserRepository;
 
 
     @RequestMapping({"/index","/"})
@@ -94,7 +94,7 @@ public class MainController
         User user = userService.getUser();
         //JobInterviewUser jobInterviewUser = jobReposit
         //JobInterviewUser user2 = user.getJobInterviewUsers();
-            System.out.println(user.getJobInterviewUsers());
+//            System.out.println(user.getJobInterviewUsers());
         Long userId =  user.getUserId();
         //job.getJobId();
         Job jobObject = jobRepository.findById(job.getJobId()).get();

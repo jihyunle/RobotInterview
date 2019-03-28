@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: header"></th:block>
+    <title>My Interviews</title>
+</head>
+<body>
+<div th:replace="base :: nav"></div>
+
+<div class="container">
+   <th:block th:each="job : ${jobs}">
+       Job Name: <span th:text="${job.job.jobTitle}"></span>
+   </th:block>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+
+<div th:if="${job.matched==true}">
+    <a class="btn btn-primary" th:href="@{#}">Click here to start interview</a>
+
+    <!--see below for format only-->
+    <!--<a th:href="@{/updatecar/{id}(id=${car.id})}"> Update </a>-->
+</div>
+</body>
+
+</html>

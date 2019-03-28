@@ -22,7 +22,17 @@ public class Job {
     private boolean jobClosed;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobInterviewUser> jobInterviewUsers;
+    private Set<JobUser> jobUsers;
+
+    private boolean matched;
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
+    private Collection<Keyword> keywords;
+
+    //    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<JobInterviewUser> jobInterviewUsers;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "jobInterviewUser_id")
@@ -32,9 +42,6 @@ public class Job {
 //    private Collection<User> users;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
-    private Collection<Keyword> keywords;
 
 
     /*******************************************************/
@@ -93,17 +100,41 @@ public class Job {
         this.jobClosed = jobClosed;
     }
 
-    public Set<JobInterviewUser> getJobInterviewUsers()
-    {
-        return jobInterviewUsers;
+    public Set<JobUser> getJobUsers() {
+        return jobUsers;
     }
 
-    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
-    {
-        this.jobInterviewUsers = jobInterviewUsers;
+    public void setJobUsers(Set<JobUser> jobUsers) {
+        this.jobUsers = jobUsers;
     }
 
-    //    public JobInterviewUser getJobInterviewUser() {
+    public boolean isMatched() {
+        return matched;
+    }
+
+    public void setMatched(boolean matched) {
+        this.matched = matched;
+    }
+
+    public Collection<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Collection<Keyword> keywords) {
+        this.keywords = keywords;
+    }
+
+        //    public Set<JobInterviewUser> getJobInterviewUsers()
+//    {
+//        return jobInterviewUsers;
+//    }
+//
+//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
+//    {
+//        this.jobInterviewUsers = jobInterviewUsers;
+//    }
+
+        //    public JobInterviewUser getJobInterviewUser() {
 //        return jobInterviewUser;
 //    }
 //
@@ -119,11 +150,5 @@ public class Job {
 //        this.users = users;
 //    }
 
-    public Collection<Keyword> getKeywords() {
-        return keywords;
-    }
 
-    public void setKeywords(Collection<Keyword> keywords) {
-        this.keywords = keywords;
-    }
 }

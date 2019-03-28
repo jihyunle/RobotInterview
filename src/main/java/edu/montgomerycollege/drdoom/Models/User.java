@@ -55,9 +55,19 @@ public class User {
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "id",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobInterviewUser> jobInterviewUsers;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<JobUser> jobUsers;
+
+    public Set<JobUser> getJobUsers() {
+        return jobUsers;
+    }
+
+    public void setJobUsers(Set<JobUser> jobUsers) {
+        this.jobUsers = jobUsers;
+    }
+//    @OneToMany(mappedBy = "id",
+//            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<JobInterviewUser> jobInterviewUsers;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "jobInterviewUser_id")
@@ -213,15 +223,15 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<JobInterviewUser> getJobInterviewUsers()
-    {
-        return jobInterviewUsers;
-    }
-
-    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
-    {
-        this.jobInterviewUsers = jobInterviewUsers;
-    }
+//    public Set<JobInterviewUser> getJobInterviewUsers()
+//    {
+//        return jobInterviewUsers;
+//    }
+//
+//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
+//    {
+//        this.jobInterviewUsers = jobInterviewUsers;
+//    }
 
     //    public JobInterviewUser getJobInterviewUser() {
 //        return jobInterviewUser;
