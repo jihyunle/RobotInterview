@@ -1,6 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class JobUser {
@@ -21,8 +22,15 @@ public class JobUser {
     private boolean matched;
     // if matched returns true, instantiate JUI obj
 
-    @OneToOne(mappedBy = "jobUser")
-    private JobUser_Interview jobUser_interview;
+//    @OneToOne(mappedBy = "jobUser")
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "jobUser_id")
+
+    @OneToMany(mappedBy = "jobUser", cascade = CascadeType.ALL)
+    private Set<JobUser_Interview> jobUser_interview;
+
+
 
 
     // Constructor
@@ -78,11 +86,11 @@ public class JobUser {
         this.matched = matched;
     }
 
-    public JobUser_Interview getJobUser_interview() {
+    public Set<JobUser_Interview> getJobUser_interview() {
         return jobUser_interview;
     }
 
-    public void setJobUser_interview(JobUser_Interview jobUser_interview) {
+    public void setJobUser_interview(Set<JobUser_Interview> jobUser_interview) {
         this.jobUser_interview = jobUser_interview;
     }
 }

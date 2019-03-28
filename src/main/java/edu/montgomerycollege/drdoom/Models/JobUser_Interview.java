@@ -10,8 +10,12 @@ public class JobUser_Interview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL) // assuming one interview per job per user
-    @JoinColumn(name = "jui_id")
+//    @OneToOne(cascade = CascadeType.ALL) // assuming one interview per job per user
+//    @JoinColumn(name = "jui_id")
+
+//    @OneToOne(mappedBy = "jobUser_interview")
+
+    @ManyToOne
     private JobUser jobUser;
 
     private LocalDateTime interviewTime;
