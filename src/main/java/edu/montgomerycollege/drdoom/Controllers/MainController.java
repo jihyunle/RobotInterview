@@ -6,6 +6,7 @@ import edu.montgomerycollege.drdoom.Models.Job;
 import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
+import edu.montgomerycollege.drdoom.Repositories.InterviewRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobInterviewUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
@@ -34,6 +35,9 @@ public class MainController
     JobRepository jobRepository;
 
     @Autowired
+    InterviewRepository interviewRepository;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -41,7 +45,6 @@ public class MainController
 
     @Autowired
     JobInterviewUserRepository jobInterviewUserRepository;
-
 
 
     @RequestMapping({"/index","/"})
