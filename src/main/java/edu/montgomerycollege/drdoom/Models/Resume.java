@@ -15,12 +15,13 @@ public class Resume
     @Lob
     private String resumeData;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<JobInterviewUser> jobInterviewUsers;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobInterviewUser> jobInterviewUsers;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 //    @OneToOne(mappedBy = "resume")
 //    private User user;
@@ -46,19 +47,19 @@ public class Resume
         this.resumeData = resumeData;
     }
 
-    public Set<JobInterviewUser> getJobInterviewUsers() {
-        return jobInterviewUsers;
-    }
-
-    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers) {
-        this.jobInterviewUsers = jobInterviewUsers;
-    }
-
-    //    public User getUser() {
-//        return user;
+//    public Set<JobInterviewUser> getJobInterviewUsers() {
+//        return jobInterviewUsers;
 //    }
 //
-//    public void setUser(User user) {
-//        this.user = user;
+//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers) {
+//        this.jobInterviewUsers = jobInterviewUsers;
 //    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
