@@ -63,9 +63,10 @@ public class MainController
         model.addAttribute("jobs", jobRepository.findAll());
 
         //get userId
-        long userId = userService.getUser().getUserId();
+        User user = userService.getUser();
         //Get JIUs associated with this user
-        //jobInterviewUserRepository.findAllById(userId);
+//        Set<User> users = jobInterviewUserRepository.findAllByUser(user);
+//        System.out.println(users.toString());
         //get set of jobs for this user
 //        Collection<Job> jobs = jobRepository
 

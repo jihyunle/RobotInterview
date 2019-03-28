@@ -7,9 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -32,10 +30,13 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    JobInterviewUserRepository jobInterviewUserRepository;
+
     @Override
     public void run(String... strings) throws Exception
     {
-        if(roleRepository.count() == 0) {
+        if(roleRepository.count() == 8000) {
 
             roleRepository.save(new Role("USER"));
             roleRepository.save(new Role("ADMIN"));
@@ -44,16 +45,18 @@ public class DataLoader implements CommandLineRunner {
             Role adminRole = roleRepository.findByRole("ADMIN");
 
             User user = new User("jim@jim.com", "password", "Jim",
-                    "Jimmerson", true, "jim",
-                    "123-456-7890", "03/22/19 10:30", "submitted");
+                    "Jimmerson", true, "jim");
+//             User user = new User("jim@jim.com", "password", "Jim",
+//                    "Jimmerson", true, "jim",
+//                    "123-456-7890", "03/22/19 10:30", "submitted");
             user.setRoles(Arrays.asList(userRole));
             userRepository.save(user);
 
-            user = new User("sam@sammy.com", "password", "Sam",
-                    "Sammy", true, "sam",
-                    "703-456-7890", "03/21/19 16:15", "pending interview");
-            user.setRoles(Arrays.asList(userRole));
-            userRepository.save(user);
+//            user = new User("sam@sammy.com", "password", "Sam",
+//                    "Sammy", true, "sam",
+//                    "703-456-7890", "03/21/19 16:15", "pending interview");
+//            user.setRoles(Arrays.asList(userRole));
+//            userRepository.save(user);
 
             user = new User("admin@admin.com", "password", "Admin",
                     "Admin", true, "admin");
@@ -94,23 +97,24 @@ public class DataLoader implements CommandLineRunner {
 
         }
 
-        if(interviewRepository.count()==0)
+        if(jobInterviewUserRepository.count()==0)
         {
+            System.out.println("data loader run");
+            JobInterviewUser jobInterviewUser = new JobInterviewUser();
+
+            //Generate questions
+
+            Collection<Question> questions = Arrays.asList(new Question("What's 3x4?", new Answer()),
+                                                           new Question("What's 3x5?", new Answer()),
+                                                           new Question("What's your favorite color?", new Answer()));
             Interview interview = new Interview();
-            //List<Question> temp = new List<>();
-            Question temps[] = new Question[4];
-            //temps[0]=new Question("Text");
+            interview.setQuestions(questions);
+            jobInterviewUser.setInterview(interview);
+            //Saves interview (jobid=null), question(interviewid=null), answer(answerString=null)
+            jobInterviewUserRepository.save(jobInterviewUser);
 
-            //temp.add(new Question());
-            //interview.setQuestions(Arrays.asList(temps));
 
-            Answer answer = new Answer("");
 
-            Question question = new Question("Question", answer);
-            Interview interview1=new Interview();
-
-            question.setQuestionText("What's your favorite color?");
-         question.setAnswer(new Answer("Blue"));
 
          //questionRepository.save(question);
             //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));

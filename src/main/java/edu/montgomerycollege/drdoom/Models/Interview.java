@@ -1,6 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Interview {
     private Set<JobInterviewUser> jobInterviewUsers;
 
     @OneToMany(mappedBy="interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Question> questions;
+    private Collection<Question> questions;
 
     public Interview(){
 
@@ -73,12 +74,12 @@ public class Interview {
     }
 
 
-    public Set<Question> getQuestions()
+    public Collection<Question> getQuestions()
     {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions)
+    public void setQuestions(Collection<Question> questions)
     {
         this.questions = questions;
     }
