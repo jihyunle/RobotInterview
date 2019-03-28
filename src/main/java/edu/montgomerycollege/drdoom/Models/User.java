@@ -60,6 +60,17 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="resume_id")
     private Resume resume;
+    @ManyToOne
+    private JobInterviewUser jobInterviewUser;
+
+    public JobInterviewUser getJobInterviewUser() {
+        return jobInterviewUser;
+    }
+
+    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
+        this.jobInterviewUser = jobInterviewUser;
+    }
+
 
     public User() {
 

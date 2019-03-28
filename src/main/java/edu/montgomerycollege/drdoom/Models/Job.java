@@ -15,6 +15,7 @@ public class Job {
 
     private String jobTitle;
 
+    @Lob
     private String jobDescription;
 
     private Date jobDatePosted;
@@ -29,6 +30,16 @@ public class Job {
     @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
     private Collection<Keyword> keywords;
 
+    public JobInterviewUser getJobInterviewUser() {
+        return jobInterviewUser;
+    }
+
+    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
+        this.jobInterviewUser = jobInterviewUser;
+    }
+
+    @ManyToOne
+    private JobInterviewUser jobInterviewUser;
 
     /*******************************************************/
     //Constructors

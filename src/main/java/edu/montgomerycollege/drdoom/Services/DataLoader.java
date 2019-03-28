@@ -70,14 +70,7 @@ public class DataLoader implements CommandLineRunner {
             Job job = new Job("Java Web Developer",
                     "Java web development: Develop comprehensive application testing procedures\n" +
                     "                Update existing applications to meet the security and functionality standards as outlined in the company’s website policies\n" +
-                    "                Implement testing tools that monitor the ongoing performance of the company website\n" +
-                    "                Assist in updating application development policies to ensure that all future applications meet the latest technical requirements\n" +
-                    "                Web Developer qualifications and skills\n" +
-                    "                Next, outline the required and preferred skills for your position. \n" +
-                    "            This may include education, previous job experience, certifications and technical skills. \n" +
-                    "            You may also include soft skills and personality traits that you envision for a successful hire. \n" +
-                    "            While it may be tempting to include a long list of skills and requirements, including too many could dissuade qualified candidates from applying. \n" +
-                    "            Keep your list of qualifications concise, but provide enough detail with relevant keywords and terms.",
+                    "                Implement testing tools that monitor the ongoing performance of the company website",
                     new Date(),
                     false);
             job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
@@ -85,11 +78,13 @@ public class DataLoader implements CommandLineRunner {
 
             jobRepository.save(job);
 
-            job = new Job("QA", "Quality Assurance", new Date(), false);
+            job = new Job("QA", "Quality Assurance : JOB SKILLS AND REQUIREMENTS. Dexterity: QA analysts need to be able to manipulate materials with their hands and take apart sample items to make sure they work properly. Math: Basic math and computer knowledge are needed when analyzing, calibrating or measuring materials.", new Date(), false);
             job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
             jobRepository.save(job);
 
-            job = new Job("DBA", "Database Administrator", new Date(), false);
+            job = new Job("DBA", "Database Administrator : Proven working experience as a Database administrator\n" +
+                    "Hands-on experience with database standards and end user applications\n" +
+                    "Excellent knowledge of data backup, recovery, security, integrity and SQLProven working experience as a Database administrator ", new Date(), false);
             job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
             jobRepository.save(job);
 
