@@ -68,7 +68,7 @@ public class MainController
         //get userId
         long userId = userService.getUser().getUserId();
         //Get JIUs associated with this user
-        //jobInterviewUserRepository.findAllById(userId);
+//        jobInterviewUserRepository.findAllById(userId);
         //get set of jobs for this user
 //        Collection<Job> jobs = jobRepository
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public interface JobRepository extends CrudRepository<Job, Long> {
-    Job findByJobInterviewUsers(String jobInterviewUser)
+    Job findByJobInterviewUsers(String jobInterviewUser);
 
 //    Job findByKeyword(String keyword);
     Job findByKeywords(ArrayList<String> keywords);

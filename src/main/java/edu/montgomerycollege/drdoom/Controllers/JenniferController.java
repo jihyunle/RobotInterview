@@ -13,4 +13,6 @@ public class JenniferController {
         return "appeal";
     }
 
+    @RequestMapping("/")
+
 }

@@ -8,9 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface JobInterviewUserRepository extends CrudRepository<JobInterviewUser, Long> {
 
+    Iterable<JobInterviewUser> findAllByUser(User user); // return all JIU associated with the user
+
     JobInterviewUser findByJobTitle(String jobInterviewUser);
 
-//    Job findByJobId(String jobInterviewUser.job.jobId.get());
+    Job findByJobId();
     Job findByTitle(String jobTitle);
 
     Interview findByInterviewId(String interviewId);
