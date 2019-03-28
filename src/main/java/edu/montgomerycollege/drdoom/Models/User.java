@@ -50,6 +50,7 @@ public class User {
     @Column(name = "application_status")
     private String appStatus;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
@@ -192,7 +193,7 @@ public class User {
     }
 
     public void setInterviewTime(String interviewTime) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy HH:mm");
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm");
         this.interviewTime = LocalDateTime.parse(interviewTime, f);
     }
 

@@ -14,15 +14,14 @@ public class Job {
 
     private String jobTitle;
 
-    @Lob
+    @Lob // to set sql limit longer
     private String jobDescription;
 
     private Date jobDatePosted;
 
     private boolean jobClosed;
 
-    @OneToMany(mappedBy = "id",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobInterviewUser> jobInterviewUsers;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
@@ -34,8 +33,7 @@ public class Job {
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"),
-            inverseJoinColumns = @JoinColumn(name="keyword_kid"))
+    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
     private Collection<Keyword> keywords;
 
 

@@ -14,6 +14,10 @@ public class Answer
     @OneToOne(mappedBy = "answer")
     private Question question;
 
+    public Answer(){
+
+    }
+
     public long getId()
     {
         return id;
