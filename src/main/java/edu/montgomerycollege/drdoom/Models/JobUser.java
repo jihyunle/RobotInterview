@@ -20,8 +20,9 @@ public class JobUser {
 
     private boolean matched;
     // if matched returns true, instantiate JUI obj
-        @OneToOne
-        private JobUser_Interview jobUser_interview;
+
+    @OneToOne(mappedBy = "jobUser")
+    private JobUser_Interview jobUser_interview;
 
 
     // Constructor

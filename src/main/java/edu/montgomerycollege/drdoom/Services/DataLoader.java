@@ -123,6 +123,7 @@ public class DataLoader implements CommandLineRunner {
 
         JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
 //        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
+        jui.setJobUser(jobUser);
 
         jobUser_interviewRepository.save(jui); // to generate the id
 

@@ -1,5 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -44,17 +46,21 @@ public class User {
     private String phoneNumber;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Role> roles;
 
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // removed fetch type intentionally
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<JobUser> jobUsers;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Collection<Resume> resumes;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Resume> resumes;
 
 
 
@@ -169,8 +175,6 @@ public class User {
         }
     }
 
-
-
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -185,6 +189,10 @@ public class User {
 
     public void setJobUsers(Collection<JobUser> jobUsers) {
         this.jobUsers = jobUsers;
+    }
+
+    public Collection<Resume> getResumes() {
+        return resumes;
     }
 
     public void setResumes(Collection<Resume> resumes) {
