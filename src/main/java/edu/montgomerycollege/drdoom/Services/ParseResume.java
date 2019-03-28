@@ -22,7 +22,7 @@ public class ParseResume
         int matches = 0;
         //search resumeString for keywords, increase COUNT when/if found
         for (Keyword keywordObject : keywords) {
-            if (resumeString.toLowerCase().contains(keywordObject.getKword().toLowerCase())){
+            if (resumeString.toLowerCase().contains(keywordObject.getKeyword().toLowerCase())){
                 matches ++;
             }
         }

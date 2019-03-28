@@ -14,10 +14,9 @@ import java.util.regex.Pattern;
 @Entity
 @Table(name="USER_DATA")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private long id;
 
     @Column(name="email", nullable = false)
     private String email;
@@ -40,42 +39,26 @@ public class User {
     @Column(name = "userpicture")
     private String userpicture;
 
-    // additions from former Applicant class
+
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @Column(name = "interview_time")
-    private LocalDateTime interviewTime; //jen uses localdatetime, jesse - date
-
-    @Column(name = "application_status")
-    private String appStatus;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
 
+
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobUser> jobUsers;
+    private Collection<JobUser> jobUsers;
 
-    public Set<JobUser> getJobUsers() {
-        return jobUsers;
-    }
-
-    public void setJobUsers(Set<JobUser> jobUsers) {
-        this.jobUsers = jobUsers;
-    }
-//    @OneToMany(mappedBy = "id",
-//            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<JobInterviewUser> jobInterviewUsers;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "jobInterviewUser_id")
-//    private JobInterviewUser jobInterviewUser;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Resume> resumes;
+    public Collection<Resume> resumes;
 
+
+
+    //constructors
 
     public User() {
 
@@ -83,7 +66,7 @@ public class User {
 
     public User(String email, String password, String firstName,
                 String lastName, boolean enabled, String username,
-                String phoneNumber, String interviewTime, String appStatus)
+                String phoneNumber)
     {
         this.setEmail(email);
         this.setPassword(password);
@@ -92,8 +75,6 @@ public class User {
         this.setEnabled(enabled);
         this.setUsername(username);
         this.setPhoneNumber(phoneNumber);
-        this.setInterviewTime(interviewTime);
-        this.setAppStatus(appStatus);
     }
 
     public User(String email, String password, String firstName,
@@ -110,24 +91,14 @@ public class User {
 
     //Getters and setters
 
-    public long getUserId()
-    {
-        return userId;
+
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId)
-    {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
-
-
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
 
     public String getEmail() {
         return email;
@@ -198,22 +169,7 @@ public class User {
         }
     }
 
-    public LocalDateTime getInterviewTime() {
-        return interviewTime;
-    }
 
-    public void setInterviewTime(String interviewTime) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm");
-        this.interviewTime = LocalDateTime.parse(interviewTime, f);
-    }
-
-    public String getAppStatus() {
-        return appStatus;
-    }
-
-    public void setAppStatus(String appStatus) {
-        this.appStatus = appStatus;
-    }
 
     public Collection<Role> getRoles() {
         return roles;
@@ -223,29 +179,15 @@ public class User {
         this.roles = roles;
     }
 
-//    public Set<JobInterviewUser> getJobInterviewUsers()
-//    {
-//        return jobInterviewUsers;
-//    }
-//
-//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
-//    {
-//        this.jobInterviewUsers = jobInterviewUsers;
-//    }
-
-    //    public JobInterviewUser getJobInterviewUser() {
-//        return jobInterviewUser;
-//    }
-//
-//    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
-//        this.jobInterviewUser = jobInterviewUser;
-//    }
-
-    public Set<Resume> getResumes() {
-        return resumes;
+    public Collection<JobUser> getJobUsers() {
+        return jobUsers;
     }
 
-    public void setResumes(Set<Resume> resumes) {
+    public void setJobUsers(Collection<JobUser> jobUsers) {
+        this.jobUsers = jobUsers;
+    }
+
+    public void setResumes(Collection<Resume> resumes) {
         this.resumes = resumes;
     }
 

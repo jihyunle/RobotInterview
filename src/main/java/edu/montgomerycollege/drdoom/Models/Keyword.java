@@ -8,9 +8,9 @@ public class Keyword {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long kid;
+    private long id;
 
-    private String kword;
+    private String keyword;
 
     @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
     private Collection<Job> jobs;
@@ -18,28 +18,30 @@ public class Keyword {
     //Constructors
 
     public Keyword() {
+
     }
 
-    public Keyword(String kword) {
-        this.kword = kword;
+    public Keyword(String keyword){
+        setKeyword(keyword);
     }
-
 
     //Getters and Setters
-    public long getKid() {
-        return kid;
+
+
+    public long getId() {
+        return id;
     }
 
-    public void setKid(long kid) {
-        this.kid = kid;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getKword() {
-        return kword;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setKword(String kword) {
-        this.kword = kword;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public Collection<Job> getJobs() {

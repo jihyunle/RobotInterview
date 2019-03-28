@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -27,7 +28,13 @@ public class DataLoader implements CommandLineRunner {
     KeywordRepository keywordRepository;
 
     @Autowired
-    InterviewRepository interviewRepository;
+    JobUserRepository jobUserRepository;
+
+    @Autowired
+    JobUser_InterviewRepository jobUser_interviewRepository;
+
+    @Autowired
+    QuestionAnswerRepository qaRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -35,7 +42,7 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception
     {
-        if(roleRepository.count() == 0) {
+//        if(roleRepository.count() == 0) {
 
             roleRepository.save(new Role("USER"));
             roleRepository.save(new Role("ADMIN"));
@@ -45,13 +52,13 @@ public class DataLoader implements CommandLineRunner {
 
             User user = new User("jim@jim.com", "password", "Jim",
                     "Jimmerson", true, "jim",
-                    "123-456-7890", "03/22/19 10:30", "submitted");
+                    "123-456-7890");
             user.setRoles(Arrays.asList(userRole));
             userRepository.save(user);
 
             user = new User("sam@sammy.com", "password", "Sam",
                     "Sammy", true, "sam",
-                    "703-456-7890", "03/21/19 16:15", "pending interview");
+                    "703-456-7890");
             user.setRoles(Arrays.asList(userRole));
             userRepository.save(user);
 
@@ -59,11 +66,10 @@ public class DataLoader implements CommandLineRunner {
                     "Admin", true, "admin");
             user.setRoles(Arrays.asList(adminRole));
             userRepository.save(user);
-        }
+//        }
 
 
-        if(jobRepository.count() == 0)
-        {
+
 //            Job job;
             Job job = new Job("Java Web Developer",
                     "Java web development: Develop comprehensive application testing procedures\n" +
@@ -76,11 +82,9 @@ public class DataLoader implements CommandLineRunner {
                     "            You may also include soft skills and personality traits that you envision for a successful hire. \n" +
                     "            While it may be tempting to include a long list of skills and requirements, including too many could dissuade qualified candidates from applying. \n" +
                     "            Keep your list of qualifications concise, but provide enough detail with relevant keywords and terms.",
-                    new Date(),
-                    false);
+                    new Date(), false);
             job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
                                            new Keyword("Spring")));
-
             jobRepository.save(job);
 
             job = new Job("QA", "Quality Assurance", new Date(), false);
@@ -91,30 +95,72 @@ public class DataLoader implements CommandLineRunner {
             job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
             jobRepository.save(job);
 
+            JobUser jobUser = new JobUser(job, user, "pending interview", true);
+            jobUserRepository.save(jobUser);
 
+
+
+
+        QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
+        qaRepository.save(qa);
+        qa = new QuestionAnswer("What makes you a strong candidate for this position?");
+        qaRepository.save(qa);
+        qa = new QuestionAnswer("How did you hear about this company?");
+        qaRepository.save(qa);
+
+        QuestionAnswer[] qaList = new QuestionAnswer[3];
+
+        Iterable<QuestionAnswer> questions = qaRepository.findAll();
+        Iterator<QuestionAnswer> it = questions.iterator();
+
+        // looping thru qaRepository and saving each onto the array i created in line above
+        int i = 0;
+        while(it.hasNext()){
+            qaList[i] = it.next();
+            i++;
+            it.remove();
         }
 
-        if(interviewRepository.count()==0)
-        {
-            Interview interview = new Interview();
-            //List<Question> temp = new List<>();
-            Question temps[] = new Question[4];
-            //temps[0]=new Question("Text");
+        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
+//        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
 
-            //temp.add(new Question());
-            //interview.setQuestions(Arrays.asList(temps));
+        jobUser_interviewRepository.save(jui); // to generate the id
 
-            Answer answer = new Answer("");
-
-            Question question = new Question("Question", answer);
-            Interview interview1=new Interview();
-
-            question.setQuestionText("What's your favorite color?");
-         question.setAnswer(new Answer("Blue"));
-
-         //questionRepository.save(question);
-            //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
-
+        // assigning jui-specific id to each qa entry
+        for (int j=0; j<jui.getChatHistory().length; j++){
+            jui.getChatHistory()[j].setJobUser_interview(jui);
+            qaRepository.save(jui.getChatHistory()[j]);
         }
+
+
+
+
+
+
+
+
+//
+//        if(jobUser_interviewRepository.count()==0)
+//        {
+//            Interview interview = new Interview();
+//            //List<Question> temp = new List<>();
+//            Question temps[] = new Question[4];
+//            //temps[0]=new Question("Text");
+//
+//            //temp.add(new Question());
+//            //interview.setQuestions(Arrays.asList(temps));
+//
+//            Answer answer = new Answer("");
+//
+//            Question question = new Question("Question", answer);
+//            Interview interview1=new Interview();
+//
+//            question.setQuestionText("What's your favorite color?");
+//         question.setAnswer(new Answer("Blue"));
+//
+//         //questionRepository.save(question);
+//            //job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
+//
+//        }
         }
 }

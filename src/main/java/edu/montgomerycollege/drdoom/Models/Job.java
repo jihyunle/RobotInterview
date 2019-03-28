@@ -7,113 +7,93 @@ import java.util.Set;
 
 @Entity
 public class Job {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long jobId;
+    private long id;
 
-    private String jobTitle;
+    private String title;
 
     @Lob // to set sql limit longer
-    private String jobDescription;
+    private String description;
 
-    private Date jobDatePosted;
+    private Date datePosted;
 
-    private boolean jobClosed;
+    private boolean closed;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobUser> jobUsers;
-
-    private boolean matched;
+    private Collection<JobUser> jobUsers;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
+    @JoinTable(joinColumns = @JoinColumn(name="job_id"),
+            inverseJoinColumns = @JoinColumn(name="keyword_id"))
     private Collection<Keyword> keywords;
-
-    //    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<JobInterviewUser> jobInterviewUsers;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "jobInterviewUser_id")
-//    private JobInterviewUser jobInterviewUser;
-
-//    @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
-//    private Collection<User> users;
-
-
 
 
     /*******************************************************/
     //Constructors
 
     public Job() {
-        this.jobClosed = false;
+        this.closed = false;
     }
 
-    public Job(String jobTitle, String jobDescription, Date jobDatePosted, boolean jobClosed) {
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.jobDatePosted = jobDatePosted;
-        this.jobClosed = jobClosed;
+    public Job(String title, String description, Date datePosted, boolean closed) {
+        this.title = title;
+        this.description = description;
+        this.datePosted = datePosted;
+        this.closed = closed;
     }
 
     /*******************************************************/
     //Getters and setters
-    public long getJobId() {
-        return jobId;
+
+
+    public long getId() {
+        return id;
     }
 
-    public void setJobId(long jobId) {
-        this.jobId = jobId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getJobDatePosted() {
-        return jobDatePosted;
+    public Date getDatePosted() {
+        return datePosted;
     }
 
-    public void setJobDatePosted(Date jobDatePosted) {
-        this.jobDatePosted = jobDatePosted;
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
     }
 
-    public boolean isJobClosed() {
-        return jobClosed;
+    public boolean isClosed() {
+        return closed;
     }
 
-    public void setJobClosed(boolean jobClosed) {
-        this.jobClosed = jobClosed;
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
-    public Set<JobUser> getJobUsers() {
+    public Collection<JobUser> getJobUsers() {
         return jobUsers;
     }
 
-    public void setJobUsers(Set<JobUser> jobUsers) {
+    public void setJobUsers(Collection<JobUser> jobUsers) {
         this.jobUsers = jobUsers;
-    }
-
-    public boolean isMatched() {
-        return matched;
-    }
-
-    public void setMatched(boolean matched) {
-        this.matched = matched;
     }
 
     public Collection<Keyword> getKeywords() {
@@ -123,32 +103,4 @@ public class Job {
     public void setKeywords(Collection<Keyword> keywords) {
         this.keywords = keywords;
     }
-
-        //    public Set<JobInterviewUser> getJobInterviewUsers()
-//    {
-//        return jobInterviewUsers;
-//    }
-//
-//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
-//    {
-//        this.jobInterviewUsers = jobInterviewUsers;
-//    }
-
-        //    public JobInterviewUser getJobInterviewUser() {
-//        return jobInterviewUser;
-//    }
-//
-//    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
-//        this.jobInterviewUser = jobInterviewUser;
-//    }
-
-//    public Collection<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Collection<User> users) {
-//        this.users = users;
-//    }
-
-
 }

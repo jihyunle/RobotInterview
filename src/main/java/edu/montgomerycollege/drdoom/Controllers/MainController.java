@@ -31,8 +31,6 @@ public class MainController
     @Autowired
     JobRepository jobRepository;
 
-    @Autowired
-    InterviewRepository interviewRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -63,14 +61,11 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("jobs", jobUserRepository.findAllByUser(userService.getUser()));
 
         //get userId
-        long userId = userService.getUser().getUserId();
         //Get JIUs associated with this user
-//        jobInterviewUserRepository.findAllById(userId);
         //get set of jobs for this user
-//        Collection<Job> jobs = jobRepository
 
 
         return "myjobs";
@@ -95,9 +90,9 @@ public class MainController
         //JobInterviewUser jobInterviewUser = jobReposit
         //JobInterviewUser user2 = user.getJobInterviewUsers();
 //            System.out.println(user.getJobInterviewUsers());
-        Long userId =  user.getUserId();
+        Long userId =  user.getId();
         //job.getJobId();
-        Job jobObject = jobRepository.findById(job.getJobId()).get();
+//        Job jobObject = jobRepository.findById(job.getId();
         //Set<Job> jobs = user2.getJobs();
        // jobs.add(jobObject);
         //user2.setJobs(jobs);

@@ -7,12 +7,20 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <h2 th:text="${job.jobTitle}"></h2>
-        <form th:action="@{/interview}" th:object="${questions}" method="POST">
-            <div th:each="question : ${questions}">
-                <button type="button" class="btn btn-primary">Primary</button>
-            </div>
-        </form>
+
+    <form action="#" th:action="@{/interview}" th:object="${jui}" method="post">
+        <div th:each="qa : ${jui.chatHistory}">
+
+            <div th:inline="text" name="question">[[${qa.question}]] </div>
+
+            <input type="text" name="answer" />
+
+        </div>
+
+
+        <input type="submit" value="submit">
+    </form>
+
 </div>
 
 <div th:replace="base :: footer"></div>
