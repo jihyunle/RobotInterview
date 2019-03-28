@@ -19,7 +19,7 @@ public class Interview {
 
     @OneToMany(mappedBy = "id",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobInterviewUser> jobInterviewUsers;
+    private Collection<JobInterviewUser> jobInterviewUsers;
 
     @OneToMany(mappedBy="interview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<Question> questions;
@@ -63,24 +63,19 @@ public class Interview {
         this.chatHistory = chatHistory;
     }
 
-    public Set<JobInterviewUser> getJobInterviewUsers()
-    {
+    public Collection<JobInterviewUser> getJobInterviewUsers() {
         return jobInterviewUsers;
     }
 
-    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers)
-    {
+    public void setJobInterviewUsers(Collection<JobInterviewUser> jobInterviewUsers) {
         this.jobInterviewUsers = jobInterviewUsers;
     }
 
-
-    public Collection<Question> getQuestions()
-    {
+    public Collection<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Collection<Question> questions)
-    {
+    public void setQuestions(Collection<Question> questions) {
         this.questions = questions;
     }
 }
