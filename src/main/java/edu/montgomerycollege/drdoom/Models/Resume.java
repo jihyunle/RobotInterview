@@ -2,6 +2,7 @@ package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Entity
 public class Resume
@@ -14,9 +15,13 @@ public class Resume
     @Lob
     private String resumeData;
 
+//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<JobInterviewUser> jobInterviewUsers;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
 
 //    @OneToOne(mappedBy = "resume")
 //    private User user;
@@ -41,6 +46,14 @@ public class Resume
     {
         this.resumeData = resumeData;
     }
+
+//    public Set<JobInterviewUser> getJobInterviewUsers() {
+//        return jobInterviewUsers;
+//    }
+//
+//    public void setJobInterviewUsers(Set<JobInterviewUser> jobInterviewUsers) {
+//        this.jobInterviewUsers = jobInterviewUsers;
+//    }
 
     public User getUser() {
         return user;

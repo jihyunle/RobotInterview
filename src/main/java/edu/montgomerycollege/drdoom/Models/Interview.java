@@ -16,10 +16,6 @@ public class Interview {
     // make this varchar as TEXT in MySQL
     private String chatHistory;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "jobInterviewUser_id")
-//    private JobInterviewUser jobInterviewUser;
-
     @OneToMany(mappedBy = "id",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobInterviewUser> jobInterviewUsers;
@@ -41,13 +37,6 @@ public class Interview {
         this.interviewId = interviewId;
     }
 
-    //    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
 
     public String getInterviewDate() {
         return interviewDate;
@@ -82,15 +71,6 @@ public class Interview {
     {
         this.jobInterviewUsers = jobInterviewUsers;
     }
-
-    //
-//    public JobInterviewUser getJobInterviewUser() {
-//        return jobInterviewUser;
-//    }
-//
-//    public void setJobInterviewUser(JobInterviewUser jobInterviewUser) {
-//        this.jobInterviewUser = jobInterviewUser;
-//    }
 
 
     public Set<Question> getQuestions()
