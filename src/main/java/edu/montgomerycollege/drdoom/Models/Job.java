@@ -20,7 +20,7 @@ public class Job {
 
     private boolean closed;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<JobUser> jobUsers;
 
 

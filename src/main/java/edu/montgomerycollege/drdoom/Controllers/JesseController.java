@@ -59,20 +59,31 @@ public class JesseController
     }
 
     @PostMapping("/interview")
-    public String processInterview(@ModelAttribute JobUser_Interview jui,
-                  @RequestParam("question")String[] questions,
+    public String processInterview(@ModelAttribute("jui") JobUser_Interview jui,
                   @RequestParam("answer")String[] answers,
+                                   @RequestParam("juiID") long id,
                                    Model model){
+
+        jui = juiRepository.findById(id).get();
 
         QuestionAnswer[] chatHistory = jui.getChatHistory();
 
         for (int i=0; i<chatHistory.length; i++){
             chatHistory[i].setAnswer(answers[i]);
-            qaRepository.save(chatHistory[i]);
+            QuestionAnswer qa =
+                    qaRepository.findById(chatHistory[i].getId()).get();
+            qaRepository.save(qa);
         }
+
+        jui.setChatHistory(chatHistory);
 
         // resave jui obj
         juiRepository.save(jui);
+
+//        for(QuestionAnswer qa: jui.getChatHistory()){
+//            System.out.println(qa.getQuestion());
+//        }
+//        System.out.println("question answer.....");
         // now we have ans associated with each question
         model.addAttribute("jui", jui);
         return "interviewHistory";

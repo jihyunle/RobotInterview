@@ -95,6 +95,8 @@ public class DataLoader implements CommandLineRunner {
             job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
             jobRepository.save(job);
 
+            job = jobRepository.findByTitle("QA");
+
             JobUser jobUser = new JobUser(job, user, "pending interview", true);
             jobUserRepository.save(jobUser);
 
@@ -121,6 +123,8 @@ public class DataLoader implements CommandLineRunner {
             it.remove();
         }
 
+        jobUser = jobUserRepository.findByAppStatus("pending interview");
+
         JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
 //        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
         jui.setJobUser(jobUser);
@@ -132,13 +136,6 @@ public class DataLoader implements CommandLineRunner {
             jui.getChatHistory()[j].setJobUser_interview(jui);
             qaRepository.save(jui.getChatHistory()[j]);
         }
-
-
-
-
-
-
-
 
 //
 //        if(jobUser_interviewRepository.count()==0)

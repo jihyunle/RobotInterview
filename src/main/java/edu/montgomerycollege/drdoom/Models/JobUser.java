@@ -30,9 +30,6 @@ public class JobUser {
     @OneToMany(mappedBy = "jobUser", cascade = CascadeType.ALL)
     private Set<JobUser_Interview> jobUser_interview;
 
-
-
-
     // Constructor
     public JobUser(){
 

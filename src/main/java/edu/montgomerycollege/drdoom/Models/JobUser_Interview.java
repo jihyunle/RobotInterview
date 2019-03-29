@@ -1,5 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +20,10 @@ public class JobUser_Interview {
     @ManyToOne
     private JobUser jobUser;
 
-    private LocalDateTime interviewTime;
+    private String interviewTime;
 
+    @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
+    @OrderColumn
     private QuestionAnswer[] chatHistory;
 
     // Constructor
@@ -30,7 +34,7 @@ public class JobUser_Interview {
 
     public JobUser_Interview(JobUser jobUser, String interviewTime, QuestionAnswer[] chatHistory) {
         this.jobUser = jobUser;
-        this.setInterviewTime(interviewTime);
+        this.interviewTime = interviewTime;
         this.chatHistory = chatHistory;
     }
 
@@ -53,15 +57,15 @@ public class JobUser_Interview {
         this.jobUser = jobUser;
     }
 
-    public LocalDateTime getInterviewTime() {
+    public String getInterviewTime() {
         return interviewTime;
     }
 
     public void setInterviewTime(String interviewTime) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm");
-        this.interviewTime = LocalDateTime.parse(interviewTime, f);
+//        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm");
+//        this.interviewTime = LocalDateTime.parse(interviewTime, f);
 
-
+        this.interviewTime = interviewTime;
     }
 
     public QuestionAnswer[] getChatHistory() {
