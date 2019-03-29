@@ -61,25 +61,24 @@ public class MainController
 
         //get user
         User user = userService.getUser();
-
+        //get jiu's associated with that user
         Iterable<JobInterviewUser> jIUs = jobInterviewUserRepository.findAllByUser(user);
+        //create a collection to hold job objects
         Collection<Job> jobs=new ArrayList<Job>();
-        for(JobInterviewUser user1: jIUs){
+        //create collection to hold jius
+        Collection<String> jiusStatus= new ArrayList<String>();
+        //iterate through jiu's, adding jobs
+        for(JobInterviewUser user1: jIUs)
+        {
                 jobs.add(user1.getJob());
-            //System.out.println(jobs.size());
+                jiusStatus.add(user1.getStatus());
         }
         model.addAttribute("jobs", jobs);
+        //model.addAttribute("jius", jius);
+        model.addAttribute("status", jiusStatus);
+        System.out.println(jiusStatus.size());
 
-
-        //System.out.println(temp);
-        //Get JIUs associated with this user
-//        Set<User> users = jobInterviewUserRepository.findAllByUser(user);
-//        System.out.println(users.toString());
-        //get set of jobs for this user
-//        Collection<Job> jobs = jobRepository
-
-
-        return "myjobs";
+        return "myjobs2";
     }
 
     @GetMapping({"/apply/{id}"})
@@ -114,11 +113,11 @@ public class MainController
 
             if(parser.parseResume(resume, jobObject))
             {
-                jobObject.setJobStatus("interview");
+                newUserJob.setStatus("interview");
             }
             else
             {
-                jobObject.setJobStatus("closed");
+                newUserJob.setStatus("closed");
             }
             jobInterviewUserRepository.save(newUserJob);
 

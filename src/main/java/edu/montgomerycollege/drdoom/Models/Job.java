@@ -22,7 +22,6 @@ public class Job {
 
     private boolean jobClosed;
 
-    private String jobStatus;
 
     @Email
     private String hiringManagerEmail;
@@ -143,13 +142,5 @@ public class Job {
         this.hiringManagerEmail = hiringManagerEmail;
     }
 
-    public String getJobStatus()
-    {
-        return jobStatus;
-    }
 
-    public void setJobStatus(String jobStatus)
-    {
-        this.jobStatus = jobStatus;
-    }
 }

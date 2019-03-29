@@ -12,6 +12,8 @@ public class JobInterviewUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String status;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "interview_id")
     private Interview interview;
@@ -102,9 +104,14 @@ public class JobInterviewUser {
 //        this.jobs = jobs;
 //    }
 
-    @Override
-    public String toString()
+
+    public String getStatus()
     {
-        return "";
+        return "Not applied";
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
     }
 }
