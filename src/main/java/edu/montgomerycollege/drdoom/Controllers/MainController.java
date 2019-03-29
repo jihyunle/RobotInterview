@@ -86,7 +86,7 @@ public class MainController
                           @ModelAttribute("job") Job job, BindingResult resultB,
                           @RequestParam("jobId") long id,
                           Model model) {
-            // resumeRepository.save(resume);
+        // resumeRepository.save(resume);
 
         // get user
         User user = userService.getUser();
@@ -132,7 +132,7 @@ public class MainController
         //job.getJobId();
 //        Job jobObject = jobRepository.findById(job.getId();
         //Set<Job> jobs = user2.getJobs();
-       // jobs.add(jobObject);
+        // jobs.add(jobObject);
         //user2.setJobs(jobs);
 
         //add Resume to user
@@ -143,8 +143,8 @@ public class MainController
         //userRepository.save(user);
 
 
-       // model.addAttribute("job", jobObject);
-       // model.addAttribute("resume", resume);
+        // model.addAttribute("job", jobObject);
+        // model.addAttribute("resume", resume);
         return "applied";
     }
 
