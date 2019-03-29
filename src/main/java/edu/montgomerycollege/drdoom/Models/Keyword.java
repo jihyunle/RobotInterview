@@ -12,18 +12,28 @@ public class Keyword {
 
     private String kword;
 
-    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
-    private Collection<Job> jobs;
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
 
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    //    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
+//    private Collection<JobTitle>jobTitles ;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="jobTitle_id")
+    private JobTitle jobTitle;
     //Constructors
 
 
-//    public Keyword() {
-//    }
-//
-//    public Keyword(String kword) {
-//        this.kword = kword;
-//    }
+    public Keyword() {
+    }
+
+    public Keyword(String kword) {
+        this.kword = kword;
+    }
 
 
     //Getters and Setters
@@ -43,11 +53,5 @@ public class Keyword {
         this.kword = kword;
     }
 
-    public Collection<Job> getJobs() {
-        return jobs;
-    }
 
-    public void setJobs(Collection<Job> jobs) {
-        this.jobs = jobs;
-    }
 }

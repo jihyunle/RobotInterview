@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface JobRepository extends CrudRepository<Job, Long> {
 //    Job findByKeyword(String keyword);
-    Job findByKeywords(ArrayList<String> keywords);//select * from job where keywords=?
+
     Job findByjobTitle(String jobTitle);
 }

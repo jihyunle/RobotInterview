@@ -14,41 +14,34 @@ public class Job {
     private long jobId;
 
    // private String jobTitle;
-
+    @Lob
     private String jobDescription;
 
     private String jobDatePosted;
 
     private String jobClosed;
 
-    @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "jobs", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<User> users;
-
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="job_jobid"), inverseJoinColumns = @JoinColumn(name="keyword_kid"))
-    private Collection<Keyword> keywords;
-
 
 
 
    @ManyToOne
-
    private JobTitle jobTitle;
 
     /*******************************************************/
     //Constructors
 
 
-//public Job(){
-//
-//}
-//
-//    public Job(String jobDescription, String jobDatePosted, String jobClosed) {
-//        this.jobDescription = jobDescription;
-//        this.jobDatePosted = jobDatePosted;
-//        this.jobClosed = jobClosed;
-//    }
+public Job(){
+
+}
+
+    public Job(String jobDescription, String jobDatePosted, String jobClosed) {
+        this.jobDescription = jobDescription;
+        this.jobDatePosted = jobDatePosted;
+        this.jobClosed = jobClosed;
+    }
 
     /*******************************************************/
     //Getters and setters
@@ -100,13 +93,7 @@ public class Job {
         this.users = users;
     }
 
-    public Collection<Keyword> getKeywords() {
-        return keywords;
-    }
 
-    public void setKeywords(Collection<Keyword> keywords) {
-        this.keywords = keywords;
-    }
 
     public JobTitle getJobTitle() {
         return jobTitle;

@@ -35,6 +35,42 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception
     {
+        if(jobTitleRepository.count()==0){
+            JobTitle jobTitle1=new JobTitle("Java Web developer");
+
+            jobTitle1.setKeywords(Arrays.asList(new Keyword("Java"),new Keyword("J2EE"),
+                    new Keyword("Spring boot"),new Keyword("javascript"),new Keyword("hibernate"),
+                    new Keyword("Core Java"),new Keyword("Spring"),new Keyword("Jquery"),new Keyword("Struct"),new Keyword("mysql")));
+            jobTitleRepository.save(jobTitle1);
+            JobTitle jobTitle2=new JobTitle("DBA");
+
+            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"),new Keyword("Designer"),
+                    new Keyword("SQL"),new Keyword("Business analyst"),new Keyword("Software"),
+                    new Keyword("PHP"),new Keyword("mysql"),new Keyword("C++"),new Keyword("C"),new Keyword("mysql")));
+            jobTitleRepository.save(jobTitle2);
+            JobTitle jobTitle3=new JobTitle("Quality Assurance");
+
+            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"),new Keyword("technical skills"),
+                    new Keyword("numerical skills"),new Keyword("Business analyst"),new Keyword("statistics"),
+                    new Keyword("Leadership skills"),new Keyword("Planning"),new Keyword("Communication"),
+                    new Keyword("Teamworking"),new Keyword("Problem-solving skills")));
+            jobTitleRepository.save(jobTitle3);
+            JobTitle jobTitle4=new JobTitle("Cyber Security");
+
+            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"),new Keyword("detection"),
+                    new Keyword("Malware"),new Keyword("analysis"),new Keyword("mitigation"),
+                    new Keyword("Cloud security"),new Keyword("Planning"),new Keyword("cybersecurity"),
+                    new Keyword("linux"),new Keyword("programming")));
+            jobTitleRepository.save(jobTitle4);
+            JobTitle jobTitle5=new JobTitle("Assembly language");
+
+            jobTitle4.setKeywords(Arrays.asList(new Keyword("low level"),new Keyword("C"),
+                    new Keyword("C++"),new Keyword("analysis"),new Keyword("machine"),
+                    new Keyword("java"),new Keyword(" cybersecurity"),new Keyword("programming"),
+                    new Keyword("linux"),new Keyword("Problem-solving skills")));
+            jobTitleRepository.save(jobTitle5);
+
+        }
         if(roleRepository.count() == 0) {
 
             roleRepository.save(new Role("USER"));

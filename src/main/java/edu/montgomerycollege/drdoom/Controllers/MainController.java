@@ -2,6 +2,7 @@ package edu.montgomerycollege.drdoom.Controllers;
 
 
 import edu.montgomerycollege.drdoom.Models.Job;
+import edu.montgomerycollege.drdoom.Models.JobTitle;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
@@ -70,7 +71,8 @@ public class MainController
     }
 
     @PostMapping({"/apply"})
-    public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
+    public String applied(@ModelAttribute("resume")Resume resume, @ModelAttribute("jobTitle") JobTitle jobTitle,
+                          BindingResult resultA,
                           @ModelAttribute("job")Job job, BindingResult resultB,
                           Model model)
         {
@@ -84,10 +86,11 @@ public class MainController
         //add Resume to user
         user.setResume(resume);
 
+
         //save user
         userRepository.save(user);
         //parse resume and see if it matches 80% of keywords
-              Boolean bool=ParseResume.parseResume(resume,jobObject);
+              Boolean bool=ParseResume.parseResume(resume,jobObject.getJobTitle());
             model.addAttribute("bool",bool);
             if(bool){
                 System.out.println("true");
