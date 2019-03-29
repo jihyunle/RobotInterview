@@ -41,14 +41,14 @@ public class Job {
         this.closed = false;
     }
 
-    public Job(JobTitle, String description, Date datePosted, boolean closed) {
-        this.title = title;
-        this.description = description;
-        this.datePosted = datePosted;
-        this.closed = closed;
-
-
-    }
+//    public Job(, String description, Date datePosted, boolean closed) {
+//        this.title = title;
+//        this.description = description;
+//        this.datePosted = datePosted;
+//        this.closed = closed;
+//
+//
+//    }
 
 
     /*******************************************************/

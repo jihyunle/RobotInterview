@@ -43,47 +43,46 @@ public class DataLoader implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... strings) throws Exception
-    {
+    public void run(String... strings) throws Exception {
 
 
-        if(jobTitleRepository.count()==0){
-            JobTitle jobTitle1=new JobTitle("Java Web developer");
+        if (jobTitleRepository.count() == 0) {
+            JobTitle jobTitle1 = new JobTitle("Java Web developer");
 
-            jobTitle1.setKeywords(Arrays.asList(new Keyword("Java"),new Keyword("J2EE"),
-                    new Keyword("Spring boot"),new Keyword("javascript"),new Keyword("hibernate"),
-                    new Keyword("Core Java"),new Keyword("Spring"),new Keyword("Jquery"),new Keyword("Struct"),new Keyword("mysql")));
+            jobTitle1.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
+                    new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
+                    new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
             jobTitleRepository.save(jobTitle1);
-            JobTitle jobTitle2=new JobTitle("DBA");
+            JobTitle jobTitle2 = new JobTitle("DBA");
 
-            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"),new Keyword("Designer"),
-                    new Keyword("SQL"),new Keyword("Business analyst"),new Keyword("Software"),
-                    new Keyword("PHP"),new Keyword("mysql"),new Keyword("C++"),new Keyword("C"),new Keyword("mysql")));
+            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
+                    new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
+                    new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
             jobTitleRepository.save(jobTitle2);
-            JobTitle jobTitle3=new JobTitle("Quality Assurance");
+            JobTitle jobTitle3 = new JobTitle("Quality Assurance");
 
-            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"),new Keyword("technical skills"),
-                    new Keyword("numerical skills"),new Keyword("Business analyst"),new Keyword("statistics"),
-                    new Keyword("Leadership skills"),new Keyword("Planning"),new Keyword("Communication"),
-                    new Keyword("Teamworking"),new Keyword("Problem-solving skills")));
+            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
+                    new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
+                    new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
+                    new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
             jobTitleRepository.save(jobTitle3);
-            JobTitle jobTitle4=new JobTitle("Cyber Security");
+            JobTitle jobTitle4 = new JobTitle("Cyber Security");
 
-            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"),new Keyword("detection"),
-                    new Keyword("Malware"),new Keyword("analysis"),new Keyword("mitigation"),
-                    new Keyword("Cloud security"),new Keyword("Planning"),new Keyword("cybersecurity"),
-                    new Keyword("linux"),new Keyword("programming")));
+            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
+                    new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
+                    new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
+                    new Keyword("linux"), new Keyword("programming")));
             jobTitleRepository.save(jobTitle4);
-            JobTitle jobTitle5=new JobTitle("Assembly language");
+            JobTitle jobTitle5 = new JobTitle("Assembly language");
 
-            jobTitle4.setKeywords(Arrays.asList(new Keyword("low level"),new Keyword("C"),
-                    new Keyword("C++"),new Keyword("analysis"),new Keyword("machine"),
-                    new Keyword("java"),new Keyword(" cybersecurity"),new Keyword("programming"),
-                    new Keyword("linux"),new Keyword("Problem-solving skills")));
+            jobTitle4.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
+                    new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
+                    new Keyword("java"), new Keyword(" cybersecurity"), new Keyword("programming"),
+                    new Keyword("linux"), new Keyword("Problem-solving skills")));
             jobTitleRepository.save(jobTitle5);
 
         }
-        if(roleRepository.count() == 0) {
+        if (roleRepository.count() == 0) {
 
 
             roleRepository.save(new Role("USER"));
@@ -109,7 +108,6 @@ public class DataLoader implements CommandLineRunner {
             user.setRoles(Arrays.asList(adminRole));
             userRepository.save(user);
 //        }
-
 
 
 //            Job job = new Job("Java Web Developer",
@@ -140,50 +138,48 @@ public class DataLoader implements CommandLineRunner {
             job = jobRepository.findByTitle("QA");
 
 
-
             JobUser jobUser = new JobUser(job, user, "pending interview", true);
             jobUserRepository.save(jobUser);
 
 
+            QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
+            qaRepository.save(qa);
+            qa = new QuestionAnswer("What makes you a strong candidate for this position?");
+            qaRepository.save(qa);
+            qa = new QuestionAnswer("How did you hear about this company?");
+            qaRepository.save(qa);
 
+            QuestionAnswer[] qaList = new QuestionAnswer[3];
 
-        QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
-        qaRepository.save(qa);
-        qa = new QuestionAnswer("What makes you a strong candidate for this position?");
-        qaRepository.save(qa);
-        qa = new QuestionAnswer("How did you hear about this company?");
-        qaRepository.save(qa);
+            Iterable<QuestionAnswer> questions = qaRepository.findAll();
+            Iterator<QuestionAnswer> it = questions.iterator();
 
-        QuestionAnswer[] qaList = new QuestionAnswer[3];
+            // looping thru qaRepository and saving each onto the array i created in line above
+            int i = 0;
+            while (it.hasNext()) {
+                qaList[i] = it.next();
+                i++;
+                it.remove();
+            }
 
-        Iterable<QuestionAnswer> questions = qaRepository.findAll();
-        Iterator<QuestionAnswer> it = questions.iterator();
+            jobUser = jobUserRepository.findByAppStatus("pending interview");
 
-        // looping thru qaRepository and saving each onto the array i created in line above
-        int i = 0;
-        while(it.hasNext()){
-            qaList[i] = it.next();
-            i++;
-            it.remove();
-        }
-
-        jobUser = jobUserRepository.findByAppStatus("pending interview");
-
-        JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
+            JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
 //        jobUser = jobUserRepository.findByAppStatus("pending interview");
 
 //        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
 //        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
-        jui.setJobUser(jobUser);
+            jui.setJobUser(jobUser);
 
-        jobUser_interviewRepository.save(jui); // to generate the id
+            jobUser_interviewRepository.save(jui); // to generate the id
 
-        // assigning jui-specific id to each qa entry
-        for (int j=0; j<jui.getChatHistory().length; j++){
-            jui.getChatHistory()[j].setJobUser_interview(jui);
-            qaRepository.save(jui.getChatHistory()[j]);
+            // assigning jui-specific id to each qa entry
+            for (int j = 0; j < jui.getChatHistory().length; j++) {
+                jui.getChatHistory()[j].setJobUser_interview(jui);
+                qaRepository.save(jui.getChatHistory()[j]);
+            }
+
+
         }
-
-
-        }
+    }
 }

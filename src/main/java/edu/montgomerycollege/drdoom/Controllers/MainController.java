@@ -158,8 +158,8 @@ public class MainController
 
         userRepository.save(user);
         //parse resume and see if it matches 80% of keywords
-              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle().);
-              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle().);
+              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle());
+              bool=ParseResume.parseResume(resume,job.getJobTitle());
             model.addAttribute("bool",bool);
             if(bool){
                 System.out.println("true");
