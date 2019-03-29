@@ -1,6 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 public class QuestionAnswer {

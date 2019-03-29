@@ -58,8 +58,9 @@ public class JobUser_Interview {
     }
 
     public void setInterviewTime(String interviewTime) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yy hh:mm");
-        this.interviewTime = LocalDateTime.parse(interviewTime, f);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        this.interviewTime = LocalDateTime.parse(interviewTime, formatter);
 
 
     }
