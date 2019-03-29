@@ -9,5 +9,7 @@ import java.util.Set;
 public interface JobRepository extends CrudRepository<Job, Long> {
 //    Job findByJobUser(String jobUser);
 
+  Job findByTitle(String title);
+
 
 }

@@ -9,9 +9,13 @@
 <div class="container">
 
     <form action="#" th:action="@{/interview}" th:object="${jui}" method="post">
+
+        <input type="hidden" name="juiID" th:value="${jui.id}"/>
+
         <div th:each="qa : ${jui.chatHistory}">
 
-            <div th:inline="text" name="question">[[${qa.question}]] </div>
+            <div name="question" th:text="${qa.question}">
+            </div>
 
             <input type="text" name="answer" />
 

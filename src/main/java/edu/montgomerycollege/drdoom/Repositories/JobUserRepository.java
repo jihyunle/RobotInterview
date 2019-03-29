@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface JobUserRepository extends CrudRepository<JobUser, Long> {
     Iterable<JobUser> findAllByUser(User user);
+    JobUser findByAppStatus(String appStatus);
 }
