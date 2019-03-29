@@ -125,7 +125,7 @@ public class DataLoader implements CommandLineRunner {
 
         jobUser = jobUserRepository.findByAppStatus("pending interview");
 
-        JobUser_Interview jui = new JobUser_Interview(jobUser, "2019-03-29 10:30", qaList);
+        JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
 //        jobUser = jobUserRepository.findByAppStatus("pending interview");
 
 //        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);

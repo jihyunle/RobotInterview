@@ -2,10 +2,8 @@ package edu.montgomerycollege.drdoom.Controllers;
 
 
 
-import edu.montgomerycollege.drdoom.Models.Job;
+import edu.montgomerycollege.drdoom.Models.*;
 //import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
-import edu.montgomerycollege.drdoom.Models.Resume;
-import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.*;
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
 import edu.montgomerycollege.drdoom.Services.ParseResume;
@@ -43,6 +41,9 @@ public class MainController
 
     @Autowired
     JobUserRepository jobUserRepository;
+
+    @Autowired
+    ResumeRepository resumeRepository;
 
 
     @RequestMapping({"/index","/"})
@@ -83,10 +84,47 @@ public class MainController
     @PostMapping({"/apply"})
     public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
                           @ModelAttribute("job") Job job, BindingResult resultB,
-                          Model model)
-        {
-        //add Job to my jobs collection
+                          @RequestParam("jobId") long id,
+                          Model model) {
+            // resumeRepository.save(resume);
+
+        // get user
         User user = userService.getUser();
+        // add the resume to that user
+        user.getResumes().add(resume);
+        // re-save user
+        userRepository.save(user);
+
+        // find job by its id
+        job = jobRepository.findById(id).get();
+        // create a new jobUser obj
+        JobUser jobUser = new JobUser();
+        // save the job and user to the new obj
+        jobUser.setJob(job);
+        jobUser.setUser(user);
+        jobUser.setMatched(true);
+        jobUser.setAppStatus("pending interview");
+        // save the obj to the repository
+        jobUserRepository.save(jobUser);
+
+        // if user's resume for that job matches, create a jui obj
+        if(jobUser.isMatched()){
+            // creating obj
+            JobUser_Interview jui = new JobUser_Interview();
+            jui.setJobUser(jobUser);
+            // assigning chatHistory field
+//            QuestionAnswer[] chatHistory = new QuestionAnswer[];
+//            for (int i=0; i<chatHistory.length; i++){
+//
+//            }
+//            jui.setChatHistory(chatHistory);
+        }
+
+        model.addAttribute("jobUser", jobUser);
+
+
+
+
         //JobInterviewUser jobInterviewUser = jobReposit
         //JobInterviewUser user2 = user.getJobInterviewUsers();
 //            System.out.println(user.getJobInterviewUsers());

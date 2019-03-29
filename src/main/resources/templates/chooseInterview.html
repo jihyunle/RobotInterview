@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div th:replace="base :: nav"></div>
+<div class="container">
+    <h1>Congrats, you have been selected for an interview!</h1>
+    <h2>Choose Interview Date and Time</h2>
+
+    <a href="/setinterview">Set Interview</a>
+    <div class="container">
+        <div class="my-5"></div>
+        <form action="#"
+              method="post"
+              th:action="@{/setinterview}" th:object="${jui}">
+
+            <input th:field="*{id}" type="hidden" />
+
+            <label>Choose Date:</label><br>
+            <input th:field="*{interviewDate}" type="date"/>
+            <!--<span th:errors="*{chooseDate}"-->
+            <!--th:if="${#fields.hasErrors('chooseDate')}"></span>-->
+            <br/>
+            <!--<input th:field="*{jobTitle}" type="text" />-->
+            <!--<input th:field="*{jobDescription}" type="text" />-->
+            <!--<input th:field="*{jobDatePosted}" type="date" />-->
+            <!--<input th:field="*{jobClosed}" type="hidden" />-->
+            <label>ChooseTime:</label><br>
+            <input th:field="*{interviewTime}" type="time"/>
+            <!--<span th:errors="*{chooseTime}"-->
+            <!--th:if="${#fields.hasErrors('chooseTime')}"></span>-->
+            <br/>
+
+
+            <input type="submit" value="Post"/>
+
+        </form>
+
+    </div>
+</div>
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
 
 </body>
 </html>

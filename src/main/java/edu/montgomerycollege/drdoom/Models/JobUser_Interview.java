@@ -20,22 +20,27 @@ public class JobUser_Interview {
     @ManyToOne
     private JobUser jobUser;
 
-    private String interviewTime;
+    private LocalDateTime interviewTime;
 
     @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
     @OrderColumn
     private QuestionAnswer[] chatHistory;
 
+
+
+
+
     // Constructor
 
     public JobUser_Interview(){
+        setInterviewTime();
 
     }
 
-    public JobUser_Interview(JobUser jobUser, String interviewTime, QuestionAnswer[] chatHistory) {
+    public JobUser_Interview(JobUser jobUser, QuestionAnswer[] chatHistory) {
         this.jobUser = jobUser;
-        this.interviewTime = interviewTime;
         this.chatHistory = chatHistory;
+        setInterviewTime();
     }
 
 
@@ -57,16 +62,25 @@ public class JobUser_Interview {
         this.jobUser = jobUser;
     }
 
-    public String getInterviewTime() {
+    public LocalDateTime getInterviewTime() {
         return interviewTime;
     }
 
-    public void setInterviewTime(String interviewTime) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        this.interviewTime = LocalDateTime.parse(interviewTime, formatter);
+    public void setInterviewTime() {
 
-        this.interviewTime = interviewTime;
+        this.interviewTime = LocalDateTime.now();
     }
+
+    //    public String getInterviewTime() {
+//        return interviewTime;
+//    }
+//
+//    public void setInterviewTime(String interviewTime) {
+////        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+////        this.interviewTime = LocalDateTime.parse(interviewTime, formatter);
+//
+//        this.interviewTime = interviewTime;
+//    }
 
     public QuestionAnswer[] getChatHistory() {
         return chatHistory;

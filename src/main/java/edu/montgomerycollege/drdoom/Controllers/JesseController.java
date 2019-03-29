@@ -60,7 +60,7 @@ public class JesseController
 
     @PostMapping("/interview")
     public String processInterview(@ModelAttribute("jui") JobUser_Interview jui,
-                  @RequestParam("answer")String[] answers,
+                                   @RequestParam("answers")String[] answers,
                                    @RequestParam("juiID") long id,
                                    Model model){
 
