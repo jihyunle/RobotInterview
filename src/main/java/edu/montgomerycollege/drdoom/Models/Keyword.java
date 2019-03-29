@@ -18,12 +18,12 @@ public class Keyword {
     //Constructors
 
 
-    public Keyword() {
-    }
-
-    public Keyword(String kword) {
-        this.kword = kword;
-    }
+//    public Keyword() {
+//    }
+//
+//    public Keyword(String kword) {
+//        this.kword = kword;
+//    }
 
 
     //Getters and Setters

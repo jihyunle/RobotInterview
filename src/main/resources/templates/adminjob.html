@@ -9,14 +9,15 @@
 
 <div class="container">
     <div class="list-group" th:each="job : ${jobs}">
-            <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"><span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span></a>-->
-        <a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"><span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span></a>-->
+        <a class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
                 <small th:text="${job.jobDatePosted}"></small>
             </div>
             <p class="mb-1" th:text="${job.jobDescription}"></p>
-            <small>Click to apply</small>
+            <span><a th:href="@{/edit/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
+            <span><a th:href="@{/delete/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
         </a>
     </div>
 </div>

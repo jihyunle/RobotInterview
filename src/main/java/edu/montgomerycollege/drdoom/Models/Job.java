@@ -13,13 +13,13 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long jobId;
 
-    private String jobTitle;
+   // private String jobTitle;
 
     private String jobDescription;
 
-    private Date jobDatePosted;
+    private String jobDatePosted;
 
-    private boolean jobClosed;
+    private String jobClosed;
 
     @ManyToMany(mappedBy = "jobs", fetch = FetchType.LAZY)
     private Collection<User> users;
@@ -30,19 +30,25 @@ public class Job {
     private Collection<Keyword> keywords;
 
 
+
+
+   @ManyToOne
+
+   private JobTitle jobTitle;
+
     /*******************************************************/
     //Constructors
 
-    public Job() {
-        this.jobClosed = false;
-    }
 
-    public Job(String jobTitle, String jobDescription, Date jobDatePosted, boolean jobClosed) {
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.jobDatePosted = jobDatePosted;
-        this.jobClosed = jobClosed;
-    }
+//public Job(){
+//
+//}
+//
+//    public Job(String jobDescription, String jobDatePosted, String jobClosed) {
+//        this.jobDescription = jobDescription;
+//        this.jobDatePosted = jobDatePosted;
+//        this.jobClosed = jobClosed;
+//    }
 
     /*******************************************************/
     //Getters and setters
@@ -53,14 +59,14 @@ public class Job {
     public void setJobId(long jobId) {
         this.jobId = jobId;
     }
+//    public String getJobTitle() {
 
-    public String getJobTitle() {
-        return jobTitle;
-    }
+//        return jobTitle;
+//    }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
+//    public void setJobTitle(String jobTitle) {
+//        this.jobTitle = jobTitle;
+//    }
 
     public String getJobDescription() {
         return jobDescription;
@@ -70,19 +76,19 @@ public class Job {
         this.jobDescription = jobDescription;
     }
 
-    public Date getJobDatePosted() {
+    public String getJobDatePosted() {
         return jobDatePosted;
     }
 
-    public void setJobDatePosted(Date jobDatePosted) {
+    public void setJobDatePosted(String jobDatePosted) {
         this.jobDatePosted = jobDatePosted;
     }
 
-    public boolean isJobClosed() {
+    public String getJobClosed() {
         return jobClosed;
     }
 
-    public void setJobClosed(boolean jobClosed) {
+    public void setJobClosed(String jobClosed) {
         this.jobClosed = jobClosed;
     }
 
@@ -100,5 +106,13 @@ public class Job {
 
     public void setKeywords(Collection<Keyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }

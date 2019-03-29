@@ -8,7 +8,7 @@
 <div class="container">
         <form th:action="@{/apply}" th:object="${resume}" method="POST">
             <input type="hidden" th:field="*{id}"/>
-            <h3>You are applying for: <span th:text="${job.jobTitle}"></span></h3>
+            <h3>You are applying for: <span th:text="${job.getJobTitle().job_title}"></span></h3>
             <input type="hidden" th:field="${job.jobId}"/>
             <input type="hidden" th:field="${job_id}"/>
 

@@ -5,8 +5,10 @@ import edu.montgomerycollege.drdoom.Models.Job;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
+import edu.montgomerycollege.drdoom.Repositories.JobTitleRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
+import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +35,8 @@ public class MainController
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JobTitleRepository jobTitleRepository;
 
 
     @RequestMapping({"/index","/"})
@@ -42,9 +46,10 @@ public class MainController
     }
 
     @RequestMapping({"/jobs"})
-    public String allJobs(Model model)
+    public String allJobs(@ModelAttribute Job job, Model model)
     {
         model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("jobTitle",jobTitleRepository.findAll());
         return "jobs";
     }
 
@@ -82,12 +87,15 @@ public class MainController
         //save user
         userRepository.save(user);
         //parse resume and see if it matches 80% of keywords
+              Boolean bool=ParseResume.parseResume(resume,jobObject);
+            model.addAttribute("bool",bool);
+            if(bool){
+                System.out.println("true");
+            }
+            else {
+                System.out.println("false");
+            }
         model.addAttribute("job", jobObject);
         return "applied";
     }
-
-
-
-
-
 }

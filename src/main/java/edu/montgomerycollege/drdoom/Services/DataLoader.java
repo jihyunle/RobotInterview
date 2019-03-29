@@ -1,13 +1,7 @@
 package edu.montgomerycollege.drdoom.Services;
 
-import edu.montgomerycollege.drdoom.Models.Job;
-import edu.montgomerycollege.drdoom.Models.Keyword;
-import edu.montgomerycollege.drdoom.Models.Role;
-import edu.montgomerycollege.drdoom.Models.User;
-import edu.montgomerycollege.drdoom.Repositories.JobRepository;
-import edu.montgomerycollege.drdoom.Repositories.KeywordRepository;
-import edu.montgomerycollege.drdoom.Repositories.RoleRepository;
-import edu.montgomerycollege.drdoom.Repositories.UserRepository;
+import edu.montgomerycollege.drdoom.Models.*;
+import edu.montgomerycollege.drdoom.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +25,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     KeywordRepository keywordRepository;
+
+    @Autowired
+    JobTitleRepository jobTitleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -64,36 +61,41 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(user);
         }
 
-
-        if(jobRepository.count() == 0)
-        {
-            Job job = new Job("Java Web Developer",
-                    "Java web development: Develop comprehensive application testing procedures\n" +
-                    "                Update existing applications to meet the security and functionality standards as outlined in the company’s website policies\n" +
-                    "                Implement testing tools that monitor the ongoing performance of the company website\n" +
-                    "                Assist in updating application development policies to ensure that all future applications meet the latest technical requirements\n" +
-                    "                Web Developer qualifications and skills\n" +
-                    "                Next, outline the required and preferred skills for your position. \n" +
-                    "            This may include education, previous job experience, certifications and technical skills. \n" +
-                    "            You may also include soft skills and personality traits that you envision for a successful hire. \n" +
-                    "            While it may be tempting to include a long list of skills and requirements, including too many could dissuade qualified candidates from applying. \n" +
-                    "            Keep your list of qualifications concise, but provide enough detail with relevant keywords and terms.",
-                    new Date(),
-                    false);
-            job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
-                                           new Keyword("Spring")));
-
-            jobRepository.save(job);
-
-            job = new Job("QA", "Quality Assurance", new Date(), false);
-            job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
-            jobRepository.save(job);
-
-            job = new Job("DBA", "Database Administrator", new Date(), false);
-            job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
-            jobRepository.save(job);
-
-
-        }
+//        if(jobRepository.count() == 0)
+//        {
+//            JobTitle jobTitle=new JobTitle();
+//            jobTitle.getJob_title();
+//            Job job = new Job(
+//                    "Java web development: Develop comprehensive application testing procedures\n" +
+//                    "                Update existing applications to meet the security and functionality standards as outlined in the company’s website policies\n" +
+//                    "                Implement testing tools that monitor the ongoing performance of the company website\n" +
+//                    "                Assist in updating application development policies to ensure that all future applications meet the latest technical requirements\n" +
+//                    "                Web Developer qualifications and skills\n" +
+//                    "                Next, outline the required and preferred skills for your position. \n" +
+//                    "            This may include education, previous job experience, certifications and technical skills. \n" +
+//                    "            You may also include soft skills and personality traits that you envision for a successful hire. \n" +
+//                    "            While it may be tempting to include a long list of skills and requirements, including too many could dissuade qualified candidates from applying. \n" +
+//                    "            Keep your list of qualifications concise, but provide enough detail with relevant keywords and terms.",
+//                    "3:27:2019",
+//                    "false");
+//
+//            job.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("JavaScript"), new Keyword("SpringBoot"),
+//                                           new Keyword("Spring")));
+//
+//            jobRepository.save(job);
+//
+//            job = new Job( "Quality Assurance",  "3:27:2019",
+//                    "false");
+//
+//            job.setKeywords(Arrays.asList(new Keyword("Selenium"), new Keyword("Quality Assurance")));
+//            jobRepository.save(job);
+//
+//            job = new Job( "Database Administrator",  "3:27:2019",
+//                    "false");
+//            job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
+//            jobRepository.save(job);
+//
+//
+//        }
         }
 }
