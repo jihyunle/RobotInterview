@@ -15,6 +15,7 @@ public class Interview {
     private String interviewTime;
 
     // make this varchar as TEXT in MySQL
+    @Lob
     private String chatHistory;
 
     @OneToMany(mappedBy = "id",

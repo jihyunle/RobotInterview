@@ -10,19 +10,14 @@ import edu.montgomerycollege.drdoom.Repositories.InterviewRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobInterviewUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.UserRepository;
-import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
 import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -63,10 +58,20 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("jobs", jobRepository.findAll());
 
-        //get userId
+        //get user
         User user = userService.getUser();
+
+        Iterable<JobInterviewUser> jIUs = jobInterviewUserRepository.findAllByUser(user);
+        Collection<Job> jobs=new ArrayList<Job>();
+        for(JobInterviewUser user1: jIUs){
+                jobs.add(user1.getJob());
+            //System.out.println(jobs.size());
+        }
+        model.addAttribute("jobs", jobs);
+
+
+        //System.out.println(temp);
         //Get JIUs associated with this user
 //        Set<User> users = jobInterviewUserRepository.findAllByUser(user);
 //        System.out.println(users.toString());
@@ -81,7 +86,7 @@ public class MainController
     public String apply(@PathVariable("id") long id, Model model)
     {
         model.addAttribute("job", jobRepository.findById(id).get());
-        model.addAttribute("job_id", id);
+//        model.addAttribute("job_id", id);
         model.addAttribute("resume", new Resume());
         return "apply";
     }
@@ -91,28 +96,22 @@ public class MainController
                           @ModelAttribute("job") Job job, BindingResult resultB,
                           Model model)
         {
-        //add Job to my jobs collection
-        User user = userService.getUser();
-        //JobInterviewUser jobInterviewUser = jobReposit
-        //JobInterviewUser user2 = user.getJobInterviewUsers();
-            System.out.println(user.getJobInterviewUsers());
-        Long userId =  user.getUserId();
-        //job.getJobId();
-        Job jobObject = jobRepository.findById(job.getJobId()).get();
-        //Set<Job> jobs = user2.getJobs();
-       // jobs.add(jobObject);
-        //user2.setJobs(jobs);
+            Iterable<JobInterviewUser> jobInterviewUsers =
+                    jobInterviewUserRepository.findAllByUser(userService.getUser());
 
-        //add Resume to user
+            Job jobObject = jobRepository.findById(job.getJobId()).get();
 
-        //user.set
-
-        //save user
-        //userRepository.save(user);
+            JobInterviewUser newUserJob = new JobInterviewUser();
+            newUserJob.setJob(jobObject);
+            newUserJob.setUser(userService.getUser());
+            jobInterviewUserRepository.save(newUserJob);
 
 
-       // model.addAttribute("job", jobObject);
-       // model.addAttribute("resume", resume);
+
+
+
+        model.addAttribute("job", jobObject);
+        model.addAttribute("resume", resume);
         return "applied";
     }
 

@@ -12,9 +12,11 @@ public class Question
 
     private String questionText;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="answer_id")
-    private Answer answer;
+    private String answerText;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="answer_id")
+//    private Answer answer;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="interview_id")
@@ -24,17 +26,24 @@ public class Question
     {
     }
 
-    public Question(String questionText, Answer answer)
-    {
-        this.questionText = questionText;
-        this.answer = answer;
-    }
+//    public Question(String questionText, Answer answer)
+//    {
+//        this.questionText = questionText;
+//        this.answer = answer;
+//    }
+//
+//    public Question(String questionText, Answer answer, Interview interview)
+//    {
+//        this.questionText = questionText;
+//        this.answer = answer;
+//        this.interview = interview;
+//    }
 
-    public Question(String questionText, Answer answer, Interview interview)
+
+    public Question(String questionText, String answerText)
     {
         this.questionText = questionText;
-        this.answer = answer;
-        this.interview = interview;
+        this.answerText = answerText;
     }
 
     public long getId()
@@ -57,15 +66,25 @@ public class Question
         this.questionText = questionText;
     }
 
-    public Answer getAnswer()
+    public String getAnswerText()
     {
-        return answer;
+        return answerText;
     }
 
-    public void setAnswer(Answer answer)
+    public void setAnswerText(String answerText)
     {
-        this.answer = answer;
+        this.answerText = answerText;
     }
+
+    //    public Answer getAnswer()
+//    {
+//        return answer;
+//    }
+//
+//    public void setAnswer(Answer answer)
+//    {
+//        this.answer = answer;
+//    }
 
     public Interview getInterview()
     {
@@ -76,4 +95,6 @@ public class Question
     {
         this.interview = interview;
     }
+
+
 }

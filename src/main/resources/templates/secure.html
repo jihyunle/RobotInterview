@@ -9,15 +9,9 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-<h2>Secure page</h2>
-    <a href="/logout">Logout</a>
-    <h4>Email</h4>
-    <p th:text="${myuser.email}"></p><br />
-    <h4>First name</h4>
-    <p th:text="${myuser.firstName}"></p><br />
-    <h4>Last name</h4>
-    <p th:text="${myuser.lastName}"></p><br />
+<h2>Success</h2>
 
+    <div th:text="${interview.interviewId}"></div>
 </div>
 
 <div th:replace="base :: footer"></div>

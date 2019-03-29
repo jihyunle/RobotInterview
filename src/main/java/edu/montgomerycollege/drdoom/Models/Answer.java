@@ -11,8 +11,8 @@ public class Answer
 
     private String answerText;
 
-    @OneToOne(mappedBy = "answer")
-    private Question question;
+//    @OneToOne(mappedBy = "answer")
+//    private Question question;
 
     public Answer(String answerText)
     {
@@ -23,11 +23,11 @@ public class Answer
     {
     }
 
-    public Answer(String answerText, Question question)
-    {
-        this.answerText = answerText;
-        this.question = question;
-    }
+//    public Answer(String answerText, Question question)
+//    {
+//        this.answerText = answerText;
+//        this.question = question;
+//    }
 
     public long getId()
     {
@@ -49,13 +49,13 @@ public class Answer
         this.answerText = answerText;
     }
 
-    public Question getQuestion()
-    {
-        return question;
-    }
-
-    public void setQuestion(Question question)
-    {
-        this.question = question;
-    }
+//    public Question getQuestion()
+//    {
+//        return question;
+//    }
+//
+//    public void setQuestion(Question question)
+//    {
+//        this.question = question;
+//    }
 }

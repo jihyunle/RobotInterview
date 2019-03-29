@@ -101,4 +101,10 @@ public class JobInterviewUser {
 //    public void setJobs(Set<Job> jobs) {
 //        this.jobs = jobs;
 //    }
+
+    @Override
+    public String toString()
+    {
+        return "";
+    }
 }
