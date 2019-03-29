@@ -8,10 +8,10 @@
 <div class="container">
         <form th:action="@{/apply}" th:object="${resume}" method="POST">
             <input type="hidden" th:field="*{id}"/>
-            <h3>You are applying for: <span th:text="${job.jobTitle}"></span></h3>
-            <input type="hidden" th:field="${job.jobId}"/>
+            <h3>You are applying for: <span th:text="${job.title}"></span></h3>
+            <input type="hidden" th:field="${job.id}"/>
             <h4>Description:</h4>
-            <div th:text="${job.jobDescription}"></div>
+            <div th:text="${job.description}"></div>
 
             <div class="form-group">
                 <label for="resume">Please paste your resume here:</label>

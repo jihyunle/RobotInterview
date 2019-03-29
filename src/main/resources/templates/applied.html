@@ -8,7 +8,7 @@
 <div th:replace="base :: nav"></div>
 <div class="container">
 
-       <span th:text="'You have applied to: ' + ${job.jobTitle} + ' with the following resume:'"> </span>
+       <span th:text="'You have applied to: ' + ${job.title} + ' with the following resume:'"> </span>
     <div th:text="${resume.resumeData}"></div>
 </div>
 
