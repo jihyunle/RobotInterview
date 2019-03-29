@@ -12,6 +12,16 @@ public class JobInterviewUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    public String getAppStatus() {
+        return AppStatus;
+    }
+
+    public void setAppStatus(String appStatus) {
+        AppStatus = appStatus;
+    }
+
+    private String AppStatus;
+
     @OneToMany(mappedBy = "jobInterviewUser",
             cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users;
