@@ -123,13 +123,12 @@ public class DataLoader implements CommandLineRunner {
             it.remove();
         }
 
-<<<<<<< HEAD
-        JobUser_Interview jui = new JobUser_Interview(jobUser, "2019-03-29 10:30", qaList);
-=======
         jobUser = jobUserRepository.findByAppStatus("pending interview");
 
-        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
->>>>>>> 1d1b19abc1c7d8479c8d308ec1007f1982201e17
+        JobUser_Interview jui = new JobUser_Interview(jobUser, "2019-03-29 10:30", qaList);
+//        jobUser = jobUserRepository.findByAppStatus("pending interview");
+
+//        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
 //        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
         jui.setJobUser(jobUser);
 
