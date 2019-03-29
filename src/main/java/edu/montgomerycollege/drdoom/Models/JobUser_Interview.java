@@ -1,5 +1,6 @@
 package edu.montgomerycollege.drdoom.Models;
 
+
 import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
@@ -89,4 +90,5 @@ public class JobUser_Interview {
     public void setChatHistory(QuestionAnswer[] chatHistory) {
         this.chatHistory = chatHistory;
     }
+
 }

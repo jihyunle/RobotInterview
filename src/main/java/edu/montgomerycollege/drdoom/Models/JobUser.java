@@ -1,5 +1,6 @@
 package edu.montgomerycollege.drdoom.Models;
 
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -90,4 +91,5 @@ public class JobUser {
     public void setJobUser_interview(Set<JobUser_Interview> jobUser_interview) {
         this.jobUser_interview = jobUser_interview;
     }
+
 }

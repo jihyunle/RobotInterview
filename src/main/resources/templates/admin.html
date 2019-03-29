@@ -4,13 +4,61 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="base :: header"></th:block>
-    <title>Admin</title>
+    <th:block th:replace="base :: admin"></th:block>
+    <title>admin</title>
 </head>
 <body>
-<div th:replace="base :: nav"></div>
-<div class="container">
-<h2>Admin Page</h2>
-</div>
+
+<th:block th:replace="base :: nav"></th:block>
+
+
+    <div class="inner contact">
+        <!-- Form Area -->
+        <div class="contact-form">
+            <!-- Form -->
+            <form id="contact-us"
+                  th:action="@{/admin}"
+                  th:object="${job}"
+                  method="post">
+                <!-- Left Inputs -->
+                <div class="col-xs-3 wow animated slideInLeft" data-wow-delay=".5s">
+                </div>
+                <div class="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
+                    <!-- id -->
+                    <input type="hidden" name="id" id="id" required="required" class="form" placeholder="id" th:field="*{id}" />
+                    <!-- job title -->
+
+                    Category:
+                    <select th:field="*{title}">
+                        <option  th:each="option:${title}" th:value="${option.id}">
+                            [[${option.title}]]
+                        </option>
+                    </select>
+
+                    <!--<input type="text" name="job title" id="name" required="required" class="form" placeholder="Job title" th:field="*{jobTitle}" />-->
+                    <!--<span th:if="${#fields.hasErrors('jobTitle')}"-->
+                          <!--th:errors="*{jobTitle}"></span>-->
+                    <!-- job description -->
+                    <input type="text" name="description" id="model" required="required" class="form" placeholder="Job Description" th:field="*{description}" />
+                    <span th:if="${#fields.hasErrors('description')}"
+                          th:errors="*{description}"></span>
+                    <!-- job Date posted -->
+                    <input type="date" name="posted date" id="subject" required="required" class="form" placeholder="Job Date Posted" th:field="*{datePosted}"/>
+                    <span th:if="${#fields.hasErrors('datePosted')}"
+                          th:errors="*{datePosted}"></span>
+                    <input type="text" name="jobClosed" id="jobClosed" required="required" class="form" placeholder="Job Closed?" th:field="*{closed}"/>
+                    <span th:if="${#fields.hasErrors('closed')}"
+                          th:errors="*{closed}"></span>
+                    <input type="submit" value="Post" id="submit" name="submit" class="form-btn semibold text-center">
+                </div><!-- End Left Inputs -->
+            </form>
+
+        </div><!-- End Contact Form Area -->
+    </div><!-- End Inner -->
+
+
+
+
 
 <div th:replace="base :: footer"></div>
 <div th:replace="base :: javascript"></div>

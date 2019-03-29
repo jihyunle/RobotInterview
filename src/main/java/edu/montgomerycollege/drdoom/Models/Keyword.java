@@ -12,9 +12,19 @@ public class Keyword {
 
     private String keyword;
 
-    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
-    private Collection<Job> jobs;
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
 
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    //    @ManyToMany(mappedBy = "keywords", fetch = FetchType.LAZY)
+//    private Collection<JobTitle>jobTitles ;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="jobTitle_id")
+    private JobTitle jobTitle;
     //Constructors
 
     public Keyword() {
@@ -44,11 +54,5 @@ public class Keyword {
         this.keyword = keyword;
     }
 
-    public Collection<Job> getJobs() {
-        return jobs;
-    }
 
-    public void setJobs(Collection<Job> jobs) {
-        this.jobs = jobs;
-    }
 }

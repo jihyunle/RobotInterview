@@ -1,10 +1,10 @@
 package edu.montgomerycollege.drdoom.Controllers;
 
 
-
-import edu.montgomerycollege.drdoom.Models.*;
 //import edu.montgomerycollege.drdoom.Models.JobInterviewUser;
 import edu.montgomerycollege.drdoom.Repositories.*;
+import edu.montgomerycollege.drdoom.Models.*;
+
 import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
 import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
@@ -32,6 +32,8 @@ public class MainController
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JobTitleRepository jobTitleRepository;
 
     @Autowired
     ParseResume parser;
@@ -53,9 +55,10 @@ public class MainController
     }
 
     @RequestMapping({"/jobs"})
-    public String allJobs(Model model)
+    public String allJobs(@ModelAttribute Job job, Model model)
     {
         model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("jobTitle",jobTitleRepository.findAll());
         return "jobs";
     }
 
@@ -84,11 +87,13 @@ public class MainController
     @PostMapping({"/apply"})
     public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
                           @ModelAttribute("job") Job job, BindingResult resultB,
+                          @ModelAttribute("jobTitle") JobTitle jobTitle, BindingResult resultC,
                           @RequestParam("jobId") long id,
                           Model model) {
         // resumeRepository.save(resume);
 
         // get user
+
         User user = userService.getUser();
         // add the resume to that user
         user.getResumes().add(resume);
@@ -97,6 +102,8 @@ public class MainController
 
         // find job by its id
         job = jobRepository.findById(id).get();
+
+
         // create a new jobUser obj
         JobUser jobUser = new JobUser();
         // save the job and user to the new obj
@@ -139,18 +146,28 @@ public class MainController
 
         //user.set
 
+
         //save user
-        //userRepository.save(user);
 
 
-        // model.addAttribute("job", jobObject);
-        // model.addAttribute("resume", resume);
+
+
+
+
+//        Job jobObject = new Job();
+
+        userRepository.save(user);
+        //parse resume and see if it matches 80% of keywords
+              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle().);
+              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle().);
+            model.addAttribute("bool",bool);
+            if(bool){
+                System.out.println("true");
+            }
+            else {
+                System.out.println("false");
+            }
+        model.addAttribute("job", job);
         return "applied";
     }
-
-
-
-
-
-
 }

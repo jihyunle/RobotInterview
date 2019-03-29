@@ -1,8 +1,9 @@
 package edu.montgomerycollege.drdoom.Services;
 
-import edu.montgomerycollege.drdoom.Models.Job;
-import edu.montgomerycollege.drdoom.Models.Keyword;
-import edu.montgomerycollege.drdoom.Models.Resume;
+
+
+import edu.montgomerycollege.drdoom.Models.*;
+
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
@@ -11,9 +12,11 @@ import java.util.Collection;
 @Service
 public class ParseResume
 {
-    public boolean parseResume(Resume resume, Job job){
+    public static boolean parseResume(Resume resume, JobTitle job){
+
         //get resume
         String resumeString = resume.getResumeData();
+        System.out.println(resumeString);
 
         //get keywords
         Collection<Keyword> keywords = job.getKeywords();
@@ -21,14 +24,19 @@ public class ParseResume
         //count number of matches
         int matches = 0;
         //search resumeString for keywords, increase COUNT when/if found
+
+        System.out.println("the size of the keyword is "+keywords.size());
         for (Keyword keywordObject : keywords) {
+            System.out.println("keyword "+keywordObject.getKeyword());
             if (resumeString.toLowerCase().contains(keywordObject.getKeyword().toLowerCase())){
                 matches ++;
+                System.out.println(matches);
             }
         }
 
         //check against total
         if(matches >= (.8*keywords.size()))
+
         {
             return true;
         }
@@ -37,4 +45,5 @@ public class ParseResume
             return false;
         }
     }
+
 }

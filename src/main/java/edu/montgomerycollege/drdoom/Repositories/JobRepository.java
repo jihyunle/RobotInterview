@@ -13,4 +13,7 @@ public interface JobRepository extends CrudRepository<Job, Long> {
   Job findByTitle(String title);
 
 
+//    Job findByKeyword(String keyword);
+
+    Job findByjobTitle(String jobTitle);
 }

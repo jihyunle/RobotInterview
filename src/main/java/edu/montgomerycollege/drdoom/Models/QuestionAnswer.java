@@ -1,5 +1,6 @@
 package edu.montgomerycollege.drdoom.Models;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -62,4 +63,5 @@ public class QuestionAnswer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
 }

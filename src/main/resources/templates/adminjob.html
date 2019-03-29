@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Jobs</title>
+</head>
+<body>
+<div th:replace="base :: nav"></div>
+
+<div class="container">
+    <div class="list-group" th:each="job : ${jobs}">
+        <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"><span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span></a>-->
+        <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
+                <small th:text="${job.jobDatePosted}"></small>
+            </div>
+            <p class="mb-1" th:text="${job.jobDescription}"></p>
+            <span><a th:href="@{/edit/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
+            <span><a th:href="@{/delete/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
+        </a>
+    </div>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+</body>
+
+</html>
