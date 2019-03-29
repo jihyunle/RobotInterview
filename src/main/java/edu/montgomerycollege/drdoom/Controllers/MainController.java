@@ -86,6 +86,13 @@ public class MainController
     public String apply(@PathVariable("id") long id, Model model)
     {
         model.addAttribute("job", jobRepository.findById(id).get());
+        JobInterviewUser jiu = jobInterviewUserRepository.findByUserAndJob(userService.getUser(),
+                                                                     jobRepository.findById(id).get());
+        if(jiu!=null )
+        {
+            model.addAttribute("error", "You've already applied to this position");
+            return "error";
+        }
 //        model.addAttribute("job_id", id);
         model.addAttribute("resume", new Resume());
         return "apply";
@@ -104,15 +111,21 @@ public class MainController
             JobInterviewUser newUserJob = new JobInterviewUser();
             newUserJob.setJob(jobObject);
             newUserJob.setUser(userService.getUser());
+
+            if(parser.parseResume(resume, jobObject))
+            {
+                jobObject.setJobStatus("interview");
+            }
+            else
+            {
+                jobObject.setJobStatus("closed");
+            }
             jobInterviewUserRepository.save(newUserJob);
 
 
-
-
-
-        model.addAttribute("job", jobObject);
-        model.addAttribute("resume", resume);
-        return "applied";
+            model.addAttribute("job", jobObject);
+            model.addAttribute("resume", resume);
+            return "applied";
     }
 
 

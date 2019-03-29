@@ -1,6 +1,7 @@
 package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -20,6 +21,11 @@ public class Job {
     private Date jobDatePosted;
 
     private boolean jobClosed;
+
+    private String jobStatus;
+
+    @Email
+    private String hiringManagerEmail;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobInterviewUser> jobInterviewUsers;
@@ -125,5 +131,25 @@ public class Job {
 
     public void setKeywords(Collection<Keyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public String getHiringManagerEmail()
+    {
+        return hiringManagerEmail;
+    }
+
+    public void setHiringManagerEmail(String hiringManagerEmail)
+    {
+        this.hiringManagerEmail = hiringManagerEmail;
+    }
+
+    public String getJobStatus()
+    {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus)
+    {
+        this.jobStatus = jobStatus;
     }
 }

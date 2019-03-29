@@ -16,7 +16,7 @@
           th:object="${user}" method="post">
         First Name: <mark><strong>
         <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</span></strong></mark>
-        <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" /><br />
+        <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" autofocus="autofocus"/><br />
 
         Last Name: <mark><strong>
         <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</span></strong></mark>

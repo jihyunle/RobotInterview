@@ -30,6 +30,7 @@ public class ParseResume
         //check against total
         if(matches >= (.8*keywords.size()))
         {
+            System.out.println("true");
             return true;
         }
         else

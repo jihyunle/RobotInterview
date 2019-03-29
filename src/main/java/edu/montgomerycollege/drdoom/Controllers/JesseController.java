@@ -12,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ws.mime.Attachment;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import javax.validation.constraints.Email;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 @Controller
 public class JesseController
@@ -74,15 +74,38 @@ public class JesseController
 //    public String interviewPost(@ModelAttribute("interview") Interview interview,
 //                                @ModelAttribute("job") Job job,
 //                                @RequestParam("answers") String[] answers)
-    public String interviewPost(@ModelAttribute("jiu")JobInterviewUser jiu, @RequestParam(
-            "questions") String[] questions, @RequestParam("answers") String[] answers)
+    public String interviewPost(@ModelAttribute("jiu")JobInterviewUser jiu,
+                                //@RequestParam("questions") String[] questions,
+                                @RequestParam("answers") String[] answers)
     {
         //because only the id field is in the form, only that is filled in when the object returns.  Everything else
         // is null
         JobInterviewUser jobInterviewUserObject = jobInterviewUserRepository.findById(jiu.getId()).get();
         Interview interviewObject = jobInterviewUserObject.getInterview();
-        System.out.println(answers);
-        System.out.println(questions);
+        Iterable<Question> iterquestion = questionRepository.findAll();
+
+        int i = 0;
+        String data = "";
+        for (Question question : iterquestion)
+        {
+            data+="Question: " + question.getQuestionText() + " Answer: " + answers[i] +"\n";
+            question.setQuestionText(question.getQuestionText());
+            question.setAnswerText(answers[i]);
+            i++;
+        }
+        //set full chat history
+        interviewObject.setChatHistory(data);
+        //save changes
+        jobInterviewUserRepository.save(jobInterviewUserObject);
+
+        Collection<Question> finishedQuestions = new ArrayList<Question>(i);
+
+        jobInterviewUserObject.getInterview().setQuestions(finishedQuestions);
+
+        //interviewObject.setQuestions(finishedQuestions);
+
+        // System.out.println(jiu.getInterview().getQuestions().size());
+
         //get list of questions
         //Collection<Question> questions = jobInterviewUserObject.getInterview().getQuestions();
         //System.out.println(questions.toString());
@@ -92,6 +115,14 @@ public class JesseController
 //            i++;
 //        }
         //interview.setQuestions(temp);
+        try
+        {
+            sendEmailWithAttachment(interviewObject.getChatHistory(), jobInterviewUserObject);
+        }catch (IOException e)
+        {
+            //don't send if there's an io exception
+            System.out.println(e);
+        }
 
 
         return "interviewComplete";
@@ -99,14 +130,29 @@ public class JesseController
 
 
     @RequestMapping("/sendemail")
-    public String sendEmailWithOutTemplating() throws UnsupportedEncodingException
+    public String sendEmailWithOutTemplating(String attach) throws UnsupportedEncodingException
     {
-        String from = userService.getUser().getEmail();
 
-
-        email.send(from, "jesseberliner@hotmail.com", "Subject", "body");
+        //email.send("whatever@whatever.com", "", "Subject", "body",);
         return "index";
     }
 
+    public void sendEmailWithAttachment(String attach, JobInterviewUser jobInterviewUserObject) throws UnsupportedEncodingException,
+                                                                                 IOException
+    {
+
+        Files.write(Paths.get("testFile.txt"),
+                    attach.getBytes());
+
+        File file = new File("testFile.txt");
+        String toEmail = jobInterviewUserObject.getJob().getHiringManagerEmail();
+        if(toEmail==null)
+        {
+            toEmail = "jesseberliner@gmail.com";
+        }
+
+
+        email.send("whatever@whatever.com", toEmail , "Subject", "body", file);
+    }
 
 }

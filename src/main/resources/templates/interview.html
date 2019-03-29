@@ -10,12 +10,13 @@
     <h2 th:text="${job.jobTitle}"></h2>
     <input type="hidden" th:field="${job.jobId}"/>
 
-    <!--<input type="hidden" th:field="${job.getJobId()}"/>-->
     <form action="#" th:action="@{/interview}" th:object="${jiu}" method="POST">
         <input type="hidden" th:field="${jiu.id}"/>
-        <input th:field="${jiu.interview.interviewId}"/>
+        <input type="hidden" th:field="${jiu.interview.interviewId}"/>
+        <input type="hidden" th:field="${jiu.interview.questions}"/>
+
         <div th:each="question : ${jiu.interview.questions}">
-                <label th:text="${question.questionText}" name="questions"></label>
+                <div th:text="${question.questionText}" name="questions"></div>
                 <input type="text" class="form-control" name="answers"/>
                 <!--<input type="text" class="form-control" th:field="${question.answerText}" />-->
 
