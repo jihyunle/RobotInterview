@@ -14,19 +14,19 @@
 <!--</div>-->
 <!--=======-->
        You have applied to: <span th:text="${jobUser.job.getJobTitle().job_title}"></span>
-        <h3> Wait we review your resume and we will announce your result</h3>
+        <h3> Please wait while we review your resume and we will announce your result!</h3>
     <div class="progress">
         <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
             <span id="current-progress"></span>
     </div>
     </div>`
-    <div th:if="${bool == false}">
+    <div th:if="${matches == false}">
         <script>
             window.location.assign("fail")
         </script>
 
     </div>
-    <div th:if="${bool==true}">
+    <div th:if="${matches==true}">
         <script>
             window.location.assign("success")
         </script>

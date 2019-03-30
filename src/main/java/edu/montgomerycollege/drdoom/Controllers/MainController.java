@@ -65,7 +65,7 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("jobs", jobUserRepository.findAllByUser(userService.getUser()));
+        model.addAttribute("jobUsers", jobUserRepository.findAllByUser(userService.getUser()));
 
         return "myjobs";
     }
@@ -82,38 +82,36 @@ public class MainController
     @PostMapping({"/apply"})
     public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
                           @ModelAttribute("job") Job job, BindingResult resultB,
-                          @ModelAttribute("jobTitle") JobTitle jobTitle, BindingResult resultC,
                           @RequestParam("jobId") long id,
                           Model model) {
-        // resumeRepository.save(resume);
+
 
         // get user
-
         User user = userService.getUser();
         // add the resume to that user
         user.getResumes().add(resume);
-        // re-save user
-        userRepository.save(user);
-
         // find job by its id
         job = jobRepository.findById(id).get();
-
-
         // create a new jobUser obj
         JobUser jobUser = new JobUser();
         // save the job and user to the new obj
         jobUser.setJob(job);
         jobUser.setUser(user);
-        jobUser.setMatched(true);
-        jobUser.setAppStatus("pending interview");
-        // save the obj to the repository
-        jobUserRepository.save(jobUser);
 
-        // if user's resume for that job matches, create a jui obj
-        if(jobUser.isMatched()){
+//Temporarily commented out to make all applications match, remove Boolean matches = true;
+        //parse resume and see if it matches 80% of keywords
+        //Boolean matches = ParseResume.parseResume(resume, job.getJobTitle());
+        Boolean matches = true;
+
+        // if user's resume for that job matches, create a jui obj and save additional info in jobUser
+        if (matches) {
             // creating obj
             JobUser_Interview jui = new JobUser_Interview();
             jui.setJobUser(jobUser);
+            //save additional info to jobUser
+            jobUser.setMatched(true); //this should only be true if matches, else it stays false
+            jobUser.setAppStatus("pending interview date"); //this should only be set if matches, else it stays blank
+
             // assigning chatHistory field
 //            QuestionAnswer[] chatHistory = new QuestionAnswer[];
 //            for (int i=0; i<chatHistory.length; i++){
@@ -122,47 +120,25 @@ public class MainController
 //            jui.setChatHistory(chatHistory);
         }
 
-        model.addAttribute("jobUser", jobUser);
 
 
 
 
-        //JobInterviewUser jobInterviewUser = jobReposit
-        //JobInterviewUser user2 = user.getJobInterviewUsers();
-//            System.out.println(user.getJobInterviewUsers());
-        Long userId =  user.getId();
-        //job.getJobId();
-//        Job jobObject = jobRepository.findById(job.getId();
-        //Set<Job> jobs = user2.getJobs();
-        // jobs.add(jobObject);
-        //user2.setJobs(jobs);
-
-        //add Resume to user
-
-        //user.set
-
-
-        //save user
-
-
-
-
-
-
-//        Job jobObject = new Job();
+        //make all needed saves
+        // re-save user
+        userRepository.save(user);
+        // save the obj to the repository
+        jobUserRepository.save(jobUser);
 
         userRepository.save(user);
-        //parse resume and see if it matches 80% of keywords
-              Boolean bool=ParseResume.parseResume(resume,job.getJobTitle());
-              bool=ParseResume.parseResume(resume,job.getJobTitle());
-            model.addAttribute("bool",bool);
-            if(bool){
-                System.out.println("true");
-            }
-            else {
-                System.out.println("false");
-            }
+
+
+        //add to model
+        model.addAttribute("jobUser", jobUser);
         model.addAttribute("job", job);
+        model.addAttribute("matches", matches);
+
+        //final return page is chosen dynamically based on pass or fail of parser
         return "applied";
     }
 }

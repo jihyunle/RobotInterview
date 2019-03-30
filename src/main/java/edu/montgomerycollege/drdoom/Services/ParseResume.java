@@ -12,14 +12,14 @@ import java.util.Collection;
 @Service
 public class ParseResume
 {
-    public static boolean parseResume(Resume resume, JobTitle job){
+    public static boolean parseResume(Resume resume, JobTitle jobTitle){
 
         //get resume
         String resumeString = resume.getResumeData();
         System.out.println(resumeString);
 
         //get keywords
-        Collection<Keyword> keywords = job.getKeywords();
+        Collection<Keyword> keywords = jobTitle.getKeywords();
 
         //count number of matches
         int matches = 0;

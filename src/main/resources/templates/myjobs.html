@@ -7,48 +7,21 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <div class="list-group" th:each="job : ${jobs}">
+    <div class="list-group" th:each="jobUser : ${jobUsers}">
         <div class="row">
             <div class="col">
-
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1" th:text="${job.job.title}"></h5>
-                    </div>
-                    <p class="mb-1" th:text="${job.job.description}"></p>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1" th:text="${jobUser.job.title}"></h5><!--This isn't displaying-->
+                </div>
+                <p class="mb-1" th:text="${jobUser.job.description}"></p>
             </div>
             <div class="col-2">
-                <span class="badge badge-primary badge-pill">Status</span>
+                <span class="badge badge-primary badge-pill" th:text="${jobUser.appStatus}">Status</span>
             </div>
-            <div th:if="${job.matched==true}" class="col-2">
+            <div th:if="${jobUser.matched==true}" class="col-2">
                 <!--<a th:href="@{/interview/{id}(id=${job.id})}" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Interview</a>-->
-                <a th:href="@{/interview/{id}(id=${job.id})}" class="btn btn-primary" th:target="_blank" type="button">Interview</a>
-
-            </div>
-
-            <!--<div class="col-2">-->
-                <!--<a th:href="@{/interview/{id}(id=${job.getJobId()})}" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Interview</a>-->
-                <!--<a th:href="@{/interview/{id}(id=${job.getJobId()})}" class="btn btn-primary" th:target="_blank" type="button">Interview</a>-->
-            <!--</div>-->
-        </div>
-
-    </div>
-    <!--Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" th:text="'Welcome to your interview for: ' "></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <a th:href="@{/interview/{id}(id=${jobUser.id})}" class="btn btn-primary" th:target="_blank"
+                   type="button">Set Interview</a>
             </div>
         </div>
     </div>

@@ -9,21 +9,21 @@
 
 <div class="container">
     <div class="list-group" th:each="job : ${jobs}">
-            <!--<a th:href="@{/apply/{id}(id=${job.getJobId()})}" class="list-group-item list-group-item-action" th:text="${job.jobTitle}"><span class="badge badge-primary badge-pill" th:text="${job.jobDatePosted}">14</span></a>-->
         <a th:href="@{/apply/{id}(id=${job.id})}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-
-                <!--<h5 class="mb-1" th:text="${job.title}"></h5>-->
 
                 <h5 class="mb-1" th:text="${job.title}"></h5>
                 <small th:text="${job.datePosted}"></small>
 
             </div>
-            <p class="mb-1" th:text="${job.description}"></p>
+            <!--<p class="mb-1" th:text="${job.description}"></p>-->
+            <p class="mb-1" th:text="${#strings.abbreviate(job.description, 100)}"></p>
+            <!--<p class="card-text" th:text="*{#strings.abbreviate(item.itemDesc,50)}"></p>-->
+
             <small>Click to apply</small>
         </a>
-        <span ><a th:href="@{/edit/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
-        <span><a th:href="@{/delete/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
+        <span><a th:href="@{/edit/{id}(id=${job.getId()})}"><button type="button" class="btn btn-primary">Edit</button></a></span>
+        <span><a th:href="@{/delete/{id}(id=${job.getId()})}"><button type="button" class="btn btn-danger">Delete</button></a></span>
 
     </div>
 </div>
