@@ -10,8 +10,6 @@
     <h1>Congrats, you have been selected for an interview!</h1>
     <h2>Choose Interview Date and Time</h2>
 
-    <a href="/setinterview">Set Interview</a>
-
     <div class="container">
         <div class="my-5"></div>
         <form action="#"
@@ -22,10 +20,13 @@
 
             <!--<label>Choose Date:</label><br>-->
             <!--<input th:field="*{interviewDate}" type="date"/>-->
-            <!--<label>Choose Time:</label><br>-->
-            <!--<input th:field="*{interviewTime}" type="time"/>-->
+            <label>Choose Time:</label><br>
+            <input th:field="*{interviewTime}" type="time"/>
 
-            <p th:text="${#temporals.formatISO(jui.getInterviewTime())}"></p>
+            <label>Choose Date & Time:</label><br>
+            <input th:field="*{interviewTime}" type="date"/>
+
+            <!--<p th:text="${#temporals.formatISO(jui.getInterviewTime())}"></p>-->
 
             <!--<span th:errors="*{chooseDate}"-->
             <!--th:if="${#fields.hasErrors('chooseDate')}"></span>-->

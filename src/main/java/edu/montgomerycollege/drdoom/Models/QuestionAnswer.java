@@ -15,12 +15,13 @@ public class QuestionAnswer {
 
     private String answer;
 
-    @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY)
-    private Collection<JobTitle> jobTitles;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobUser_interview")
     private JobUser_Interview jobUser_interview;
+
+    @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY) // might be @OneToMany
+    private Collection<JobTitle> jobTitles;
+
 
     //=================================================
     //Constructors
