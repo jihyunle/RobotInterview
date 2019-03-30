@@ -1,5 +1,8 @@
 package edu.montgomerycollege.drdoom.Models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -21,6 +24,11 @@ public class JobTitle {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name="keyword_id"), inverseJoinColumns = @JoinColumn(name="id"))
     private Collection<Keyword> keywords;
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name="jobTitle_id"),
+            inverseJoinColumns = @JoinColumn(name="questionAnswer_id"))
+    private Collection<QuestionAnswer> questions;
 
     //=================================================
     //Constructors
@@ -68,5 +76,15 @@ public class JobTitle {
 
     public void setKeywords(Collection<Keyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public Collection<QuestionAnswer> getQuestions()
+    {
+        return questions;
+    }
+
+    public void setQuestions(Collection<QuestionAnswer> questions)
+    {
+        this.questions = questions;
     }
 }

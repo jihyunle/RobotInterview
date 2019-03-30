@@ -3,6 +3,7 @@ package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 public class QuestionAnswer {
@@ -13,6 +14,9 @@ public class QuestionAnswer {
     private String question;
 
     private String answer;
+
+    @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY)
+    private Collection<JobTitle> jobTitles;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobUser_interview")
@@ -75,5 +79,15 @@ public class QuestionAnswer {
 
     public void setJobUser_interview(JobUser_Interview jobUser_interview) {
         this.jobUser_interview = jobUser_interview;
+    }
+
+    public Collection<JobTitle> getJobTitles()
+    {
+        return jobTitles;
+    }
+
+    public void setJobTitles(Collection<JobTitle> jobTitles)
+    {
+        this.jobTitles = jobTitles;
     }
 }

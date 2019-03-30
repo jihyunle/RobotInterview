@@ -7,10 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -46,42 +43,42 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 
 
-        if (jobTitleRepository.count() == 0) {
-            JobTitle jobTitle1 = new JobTitle("Java Web developer");
-
-            jobTitle1.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
-                    new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
-                    new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
-            jobTitleRepository.save(jobTitle1);
-            JobTitle jobTitle2 = new JobTitle("DBA");
-
-            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
-                    new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
-                    new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
-            jobTitleRepository.save(jobTitle2);
-            JobTitle jobTitle3 = new JobTitle("Quality Assurance");
-
-            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
-                    new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
-                    new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
-                    new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
-            jobTitleRepository.save(jobTitle3);
-            JobTitle jobTitle4 = new JobTitle("Cyber Security");
-
-            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
-                    new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
-                    new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
-                    new Keyword("linux"), new Keyword("programming")));
-            jobTitleRepository.save(jobTitle4);
-            JobTitle jobTitle5 = new JobTitle("Assembly language");
-
-            jobTitle4.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
-                    new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
-                    new Keyword("java"), new Keyword(" cybersecurity"), new Keyword("programming"),
-                    new Keyword("linux"), new Keyword("Problem-solving skills")));
-            jobTitleRepository.save(jobTitle5);
-
-        }
+//        if (jobTitleRepository.count() == 0) {
+//            JobTitle jobTitle1 = new JobTitle("Java Web developer");
+//
+//            jobTitle1.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
+//                    new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
+//                    new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
+//            jobTitleRepository.save(jobTitle1);
+//            JobTitle jobTitle2 = new JobTitle("DBA");
+//
+//            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
+//                    new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
+//                    new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
+//            jobTitleRepository.save(jobTitle2);
+//            JobTitle jobTitle3 = new JobTitle("Quality Assurance");
+//
+//            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
+//                    new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
+//                    new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
+//                    new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
+//            jobTitleRepository.save(jobTitle3);
+//            JobTitle jobTitle4 = new JobTitle("Cyber Security");
+//
+//            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
+//                    new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
+//                    new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
+//                    new Keyword("linux"), new Keyword("programming")));
+//            jobTitleRepository.save(jobTitle4);
+//            JobTitle jobTitle5 = new JobTitle("Assembly language");
+//
+//            jobTitle4.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
+//                    new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
+//                    new Keyword("java"), new Keyword(" cybersecurity"), new Keyword("programming"),
+//                    new Keyword("linux"), new Keyword("Problem-solving skills")));
+//            jobTitleRepository.save(jobTitle5);
+//
+//        }
         if (roleRepository.count() == 0) {
 
 
@@ -134,53 +131,99 @@ public class DataLoader implements CommandLineRunner {
 //            job.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("CRUD")));
 //            jobRepository.save(job);
 //
-            Job job = new Job();
-            job = jobRepository.findByjobTitle("QA");
-
-        //This does put data in the table, but job_id is null
-            JobUser jobUser = new JobUser(job, user, "pending interview date", true);
-            jobUserRepository.save(jobUser);
-
-
-            //Basic questions, asked every time
-            QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
-            qaRepository.save(qa);  //questionAnswer would be saved when JobUser_Interview or JobUser or Job or JobTitle is saved, but we use "detach" as cascade type
-            qa = new QuestionAnswer("What makes you a strong candidate for this position?");
-            qaRepository.save(qa);
-            qa = new QuestionAnswer("How did you hear about this company?");
-            qaRepository.save(qa);
-
-            QuestionAnswer[] qaList = new QuestionAnswer[3];
-
-            Iterable<QuestionAnswer> questions = qaRepository.findAll();
-            Iterator<QuestionAnswer> it = questions.iterator();
-
-            // looping thru qaRepository and saving each onto the array i created in line above
-            int i = 0;
-            while (it.hasNext()) {
-                qaList[i] = it.next();
-                i++;
-                it.remove();
-            }
-
-            jobUser = jobUserRepository.findByAppStatus("pending interview date");
-
-            JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
-//        jobUser = jobUserRepository.findByAppStatus("pending interview");
-
-//        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
-//        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
-            jui.setJobUser(jobUser);
-
-            jobUser_interviewRepository.save(jui); // to generate the id
-
-            // assigning jui-specific id to each qa entry
-            for (int j = 0; j < jui.getChatHistory().length; j++) {
-                jui.getChatHistory()[j].setJobUser_interview(jui);
-                qaRepository.save(jui.getChatHistory()[j]);
-            }
-
+//            Job job = new Job();
+//            job = jobRepository.findByTitle("QA");
+//
+//        //This does put data in the table, but job_id is null
+//            JobUser jobUser = new JobUser(job, user, "pending interview date", true);
+//            jobUserRepository.save(jobUser);
+//
+//
+//            //Basic questions, asked every time
+//            QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
+//            qaRepository.save(qa);  //questionAnswer would be saved when JobUser_Interview or JobUser or Job or JobTitle is saved, but we use "detach" as cascade type
+//            qa = new QuestionAnswer("What makes you a strong candidate for this position?");
+//            qaRepository.save(qa);
+//            qa = new QuestionAnswer("How did you hear about this company?");
+//            qaRepository.save(qa);
+//
+//            QuestionAnswer[] qaList = new QuestionAnswer[3];
+//
+//            Iterable<QuestionAnswer> questions = qaRepository.findAll();
+//            Iterator<QuestionAnswer> it = questions.iterator();
+//
+//            // looping thru qaRepository and saving each onto the array i created in line above
+//            int i = 0;
+//            while (it.hasNext()) {
+//                qaList[i] = it.next();
+//                i++;
+//                it.remove();
+//            }
+//
+//            jobUser = jobUserRepository.findByAppStatus("pending interview date");
+//
+//            JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
+////        jobUser = jobUserRepository.findByAppStatus("pending interview");
+//
+////        JobUser_Interview jui = new JobUser_Interview(jobUser, "03/22/19 10:30", qaList);
+////        jui.setJobUser(jobUser, "03/22/19 10:30", qaList);
+//            jui.setJobUser(jobUser);
+//
+//            jobUser_interviewRepository.save(jui); // to generate the id
+//
+//            // assigning jui-specific id to each qa entry
+//            for (int j = 0; j < jui.getChatHistory().length; j++) {
+//                jui.getChatHistory()[j].setJobUser_interview(jui);
+//                qaRepository.save(jui.getChatHistory()[j]);
+//            }
+//
 
         }
+
+        //new dataloader stuff
+        //create a question/answer
+        if(qaRepository.count()==0)
+        {
+            QuestionAnswer questionAnswer = new QuestionAnswer();
+            questionAnswer.setQuestion("What's your favorite color?");
+            qaRepository.save(questionAnswer);
+
+            questionAnswer = new QuestionAnswer();
+            questionAnswer.setQuestion("What's your favorite food?");
+            qaRepository.save(questionAnswer);
+
+            //create a jobTitle
+            JobTitle jobTitle = new JobTitle("Java Web developer");
+
+            jobTitle.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
+                                               new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
+                                               new Keyword("java"), new Keyword(" cybersecurity"), new Keyword("programming"),
+                                               new Keyword("linux"), new Keyword("Problem-solving skills")));
+            //iterate through iterable to make it into a collection
+            Collection<QuestionAnswer> questionAnswerCollection = new ArrayList<QuestionAnswer>();
+            Iterable<QuestionAnswer> questions = qaRepository.findAll(); //this needs to only choose a selection of
+            // the questions
+            Iterator<QuestionAnswer> iterator = questions.iterator();
+            while(iterator.hasNext())
+            {
+                questionAnswerCollection.add(iterator.next());
+                iterator.remove();
+            }
+
+            jobTitle.setQuestions(questionAnswerCollection);
+
+            Job job = new Job();
+            job.setJobTitle(jobTitle);
+            job.setDatePosted("3/30/19");
+            job.setDescription("This is a job description");
+
+            JobUser jobUser = new JobUser("interview", true);
+            jobUser.setJob(job);
+//            jobUser.setUser();
+
+            JobUser_Interview jobUser_interview = new JobUser_Interview();
+            jobTitleRepository.save(jobTitle);
+        }
+
     }
 }
