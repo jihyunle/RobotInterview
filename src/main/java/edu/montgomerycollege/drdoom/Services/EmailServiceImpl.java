@@ -18,22 +18,30 @@ public class EmailServiceImpl implements EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Autowired
+    UserService userService;
+
     @Override
-    public void send(String from, String to, String title, String body) {
+    public void send(String from, String to, String title, String body, File file) {
         MimeMessage message = this.javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
         try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
             if (from != null) {
                 mimeMessageHelper.setFrom(from);
             }
             mimeMessageHelper.setSubject(title);
             mimeMessageHelper.setText(body);
             mimeMessageHelper.setTo(to);
-//            mimeMessageHelper.addAttachment("filename", file);
+//            mimeMessageHelper.addAttachment("testFile.txt", new ClassPathResource("C:\\Users\\Jesse\\IdeaProjects\\RobotInterview\\testFile.txt"));
+            String fileName = userService.getUser().getLastName() + "." + userService.getUser().getLastName() + " " +
+                    "Interview.txt";
+            mimeMessageHelper.addAttachment("filename.txt", file);
+            //message.addAttachment("testFile.txt", new ClassPathResource("testFile.txt"));
             this.javaMailSender.send(message);
         } catch (MessagingException messageException) {
             // You could also 'throw' this exception. I am not a fan of checked exceptions.
             // If you want to go that route, then just update this method and the interface.
+            System.out.println("messageException");
             throw new RuntimeException(messageException);
         }
     }

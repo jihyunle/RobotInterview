@@ -19,6 +19,8 @@ public class Job {
 
     private boolean closed;
 
+    private String hiringManagerEmail;
+
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<JobUser> jobUsers;
 
@@ -62,6 +64,16 @@ public class Job {
 
     public void setClosed(boolean closed) {
         this.closed = closed;
+    }
+
+    public String getHiringManagerEmail()
+    {
+        return hiringManagerEmail;
+    }
+
+    public void setHiringManagerEmail(String hiringManagerEmail)
+    {
+        this.hiringManagerEmail = hiringManagerEmail;
     }
 
     public Collection<JobUser> getJobUsers() {
