@@ -41,7 +41,6 @@ public class User {
     @Column(name = "userpicture")
     private String userpicture;
 
-
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -64,12 +63,15 @@ public class User {
 
 
 
-    //constructors
-
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public User() {
 
     }
 
+    //loaded
     public User(String email, String password, String firstName,
                 String lastName, boolean enabled, String username,
                 String phoneNumber)
@@ -83,20 +85,12 @@ public class User {
         this.setPhoneNumber(phoneNumber);
     }
 
-    public User(String email, String password, String firstName,
-                String lastName, boolean enabled, String username)
-    {
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
-    }
 
 
-    //Getters and setters
 
+    //=================================================
+    //Getters and Setters
+    //=================================================
 
     public long getId() {
         return id;

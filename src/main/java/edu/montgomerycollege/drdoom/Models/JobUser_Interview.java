@@ -13,31 +13,31 @@ public class JobUser_Interview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-//    @OneToOne(cascade = CascadeType.ALL) // assuming one interview per job per user
-//    @JoinColumn(name = "jui_id")
-
-//    @OneToOne(mappedBy = "jobUser_interview")
-
-    @ManyToOne
-    private JobUser jobUser;
-
     private LocalDateTime interviewTime;
+
+    //consider join column
+    @ManyToOne
+    //@JoinColumn(name = "jobUser_id")
+    private JobUser jobUser;
 
     @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
     @OrderColumn
     private QuestionAnswer[] chatHistory;
 
-
-
-
-
-    // Constructor
-
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public JobUser_Interview(){
         setInterviewTime();
-
     }
 
+    //loaded
+    public JobUser_Interview(LocalDateTime interviewTime) {
+        this.interviewTime = interviewTime;
+    }
+
+    //other
     public JobUser_Interview(JobUser jobUser, QuestionAnswer[] chatHistory) {
         this.jobUser = jobUser;
         this.chatHistory = chatHistory;
@@ -45,8 +45,9 @@ public class JobUser_Interview {
     }
 
 
-// Getters and Setters
-
+    //=================================================
+    //Getters and Setters
+    //=================================================
     public long getId() {
         return id;
     }

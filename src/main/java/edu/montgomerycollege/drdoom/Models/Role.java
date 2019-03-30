@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name="ROLE_DATA")
 public class Role {
 
     @Id
@@ -16,6 +17,10 @@ public class Role {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
 
+
+    //=================================================
+    //Constructors
+    //=================================================
     public Role()
     {
 
@@ -26,7 +31,9 @@ public class Role {
         this.role=role;
     }
 
-    //Getters and setters
+    //=================================================
+    //Constructors
+    //=================================================
 
     public long getId() {
         return id;

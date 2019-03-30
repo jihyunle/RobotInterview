@@ -10,6 +10,11 @@ public class JobUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String appStatus;
+
+    private boolean matched;
+    // if matched returns true, instantiate JUI obj
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "job_id")
     private Job job;
@@ -18,24 +23,24 @@ public class JobUser {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String appStatus;
-
-    private boolean matched;
-    // if matched returns true, instantiate JUI obj
-
-//    @OneToOne(mappedBy = "jobUser")
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "jobUser_id")
-
     @OneToMany(mappedBy = "jobUser", cascade = CascadeType.ALL)
-    private Set<JobUser_Interview> jobUser_interview;
+    private Set<JobUser_Interview> jobUser_interviews;
 
-    // Constructor
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public JobUser(){
 
     }
 
+    //loaded
+    public JobUser(String appStatus, boolean matched) {
+        this.appStatus = appStatus;
+        this.matched = matched;
+    }
+
+    //other
     public JobUser(Job job, User user, String appStatus, boolean matched) {
         this.job = job;
         this.user = user;
@@ -43,7 +48,9 @@ public class JobUser {
         this.matched = matched;
     }
 
-    // getter n setters
+    //=================================================
+    //Getters and Setters
+    //=================================================
     public long getId() {
         return id;
     }
@@ -84,12 +91,11 @@ public class JobUser {
         this.matched = matched;
     }
 
-    public Set<JobUser_Interview> getJobUser_interview() {
-        return jobUser_interview;
+    public Set<JobUser_Interview> getJobUser_interviews() {
+        return jobUser_interviews;
     }
 
-    public void setJobUser_interview(Set<JobUser_Interview> jobUser_interview) {
-        this.jobUser_interview = jobUser_interview;
+    public void setJobUser_interviews(Set<JobUser_Interview> jobUser_interviews) {
+        this.jobUser_interviews = jobUser_interviews;
     }
-
 }

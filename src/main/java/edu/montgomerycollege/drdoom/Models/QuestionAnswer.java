@@ -10,27 +10,40 @@ public class QuestionAnswer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "jui_id")
-    private JobUser_Interview jobUser_interview;
-
     private String question;
 
     private String answer;
 
-    // constructor
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "jobUser_interview")
+    private JobUser_Interview jobUser_interviews;
 
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public QuestionAnswer(){
 
     }
 
+    //loaded
+
+    public QuestionAnswer(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+
+    //other
     public QuestionAnswer(String question) {
         this.question = question;
     }
 
 
 
-    // getters and setters
+    //=================================================
+    //Getters and Setters
+    //=================================================
+
 
     public long getId() {
         return id;
@@ -38,14 +51,6 @@ public class QuestionAnswer {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public JobUser_Interview getJobUser_interview() {
-        return jobUser_interview;
-    }
-
-    public void setJobUser_interview(JobUser_Interview jobUser_interview) {
-        this.jobUser_interview = jobUser_interview;
     }
 
     public String getQuestion() {
@@ -64,4 +69,11 @@ public class QuestionAnswer {
         this.answer = answer;
     }
 
+    public JobUser_Interview getJobUser_interviews() {
+        return jobUser_interviews;
+    }
+
+    public void setJobUser_interviews(JobUser_Interview jobUser_interviews) {
+        this.jobUser_interviews = jobUser_interviews;
+    }
 }

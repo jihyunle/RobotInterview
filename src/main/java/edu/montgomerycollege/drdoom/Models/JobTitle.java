@@ -7,27 +7,36 @@ import java.util.Set;
 
 @Entity
 public class JobTitle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotNull
     private String job_title;
 
-
     @OneToMany(mappedBy = "jobTitle",cascade = CascadeType.ALL)
     private Set<Job> jobs;
-
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name="keyword_id"), inverseJoinColumns = @JoinColumn(name="id"))
     private Collection<Keyword> keywords;
 
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public JobTitle() {
     }
 
+    //loaded
     public JobTitle(@NotNull String job_title) {
         this.job_title = job_title;
     }
+
+    //=================================================
+    //Getters and Setters
+    //=================================================
 
     public long getId() {
         return id;
@@ -52,6 +61,7 @@ public class JobTitle {
     public void setJobs(Set<Job> jobs) {
         this.jobs = jobs;
     }
+
     public Collection<Keyword> getKeywords() {
         return keywords;
     }

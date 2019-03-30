@@ -23,36 +23,32 @@ public class Job {
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<JobUser> jobUsers;
 
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "job_id"),
-            inverseJoinColumns = @JoinColumn(name = "keyword_id"))
-    private Collection<Keyword> keywords;
-
+    //consider join table
     @ManyToOne
+    //@JoinColumn(name = "jobTitle_id")
     private JobTitle jobTitle;
 
 
-    /*******************************************************/
+    //=================================================
     //Constructors
-
+    //=================================================
+    //default
 
     public Job() {
-        this.closed = false;
     }
 
-//    public Job(, String description, Date datePosted, boolean closed) {
-//        this.title = title;
-//        this.description = description;
-//        this.datePosted = datePosted;
-//        this.closed = closed;
-//
-//
-//    }
+    //loaded
+    public Job(String title, String description, Date datePosted, boolean closed, JobTitle jobTitle) {
+        this.title = title;
+        this.description = description;
+        this.datePosted = datePosted;
+        this.closed = closed;
+        this.jobTitle = jobTitle;
+    }
 
-
-    /*******************************************************/
-    //Getters and setters
+    //=================================================
+    //Getters and Setters
+    //=================================================
     public long getId() {
         return id;
     }
@@ -99,14 +95,6 @@ public class Job {
 
     public void setJobUsers(Collection<JobUser> jobUsers) {
         this.jobUsers = jobUsers;
-    }
-
-    public Collection<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Collection<Keyword> keywords) {
-        this.keywords = keywords;
     }
 
     public JobTitle getJobTitle() {

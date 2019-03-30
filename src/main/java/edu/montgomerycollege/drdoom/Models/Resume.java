@@ -18,13 +18,23 @@ public class Resume {
     @JoinColumn(name = "user_id")
     private User user;
 
-    //Constructor
-
+    //=================================================
+    //Constructors
+    //=================================================
+    //default
     public Resume() {
 
     }
 
-    //Getters and Setters
+    //loaded
+    public Resume(@NotEmpty String resumeData) {
+        this.resumeData = resumeData;
+    }
+
+
+    //=================================================
+    //Getters and setters
+    //=================================================
 
 
     public long getId() {
