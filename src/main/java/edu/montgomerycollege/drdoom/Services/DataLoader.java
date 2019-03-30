@@ -138,10 +138,11 @@ public class DataLoader implements CommandLineRunner {
             job = jobRepository.findByTitle("QA");
 
         //This does put data in the table, but job_id is null
-            JobUser jobUser = new JobUser(job, user, "pending interview", true);
+            JobUser jobUser = new JobUser(job, user, "pending interview date", true);
             jobUserRepository.save(jobUser);
 
 
+            //Basic questions, asked every time
             QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
             qaRepository.save(qa);  //questionAnswer would be saved when JobUser_Interview or JobUser or Job or JobTitle is saved, but we use "detach" as cascade type
             qa = new QuestionAnswer("What makes you a strong candidate for this position?");
@@ -162,7 +163,7 @@ public class DataLoader implements CommandLineRunner {
                 it.remove();
             }
 
-            jobUser = jobUserRepository.findByAppStatus("pending interview");
+            jobUser = jobUserRepository.findByAppStatus("pending interview date");
 
             JobUser_Interview jui = new JobUser_Interview(jobUser, qaList);
 //        jobUser = jobUserRepository.findByAppStatus("pending interview");

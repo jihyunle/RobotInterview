@@ -1,9 +1,6 @@
 package edu.montgomerycollege.drdoom.Controllers;
 
-import edu.montgomerycollege.drdoom.Models.Job;
-import edu.montgomerycollege.drdoom.Models.JobUser;
-import edu.montgomerycollege.drdoom.Models.JobUser_Interview;
-import edu.montgomerycollege.drdoom.Models.QuestionAnswer;
+import edu.montgomerycollege.drdoom.Models.*;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobUser_InterviewRepository;
@@ -16,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Controller
 public class JesseController
@@ -36,23 +35,64 @@ public class JesseController
     JobUser_InterviewRepository juiRepository;
 
     @Autowired
-    QuestionAnswerRepository qaRepository;
+    QuestionAnswerRepository questionAnswerRepository;
 
 
     @GetMapping({"/interview/{id}"})
     public String interviewGet(@PathVariable("id") long id, Model model)
     {
+
+        //get Job
+        //Job job = jobRepository.findById(id).get();
+        //get User
+        //User user = userService.getUser();
+        //get jobUser
         JobUser jobUser = jobUserRepository.findById(id).get();
-        JobUser_Interview jui = juiRepository.findByJobUser(jobUser);
 
-        model.addAttribute("jui", jui);
+        //create a new instance of JobUser_Interview
+        JobUser_Interview jobUserInterview = new JobUser_Interview();
+        //set jobUserIntervew's jobUser
+        jobUserInterview.setJobUser(jobUser);
+        //set jobUserInterview's chatHistory
+
+        QuestionAnswer[] questionAnswerArray;
+
+        //Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
+        //Iterator<QuestionAnswer> it = questions.iterator();
+        QuestionAnswer[] qaList;  //array for question/answers
 
 
-//        Job jobObject = jobRepository.findById(id).get();
-//        model.addAttribute("job", jobObject);
-//        //Get random selection of questions that match correctly
-//        Iterable<Question> questions = questionRepository.findAll();
-//        model.addAttribute("questions", questions);
+        //Get (random) selection of questions (that match correctly)//NOT WORKING-CAN RETURN ALL QUESTIONS, BUT CANNOT initialize CHAT HISTORY
+        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll(); //This initially returns a list of questions the first time, then returns answers as "questions", right?
+//        Iterator<QuestionAnswer> it = questions.iterator();
+//
+//        // looping thru qaRepository and saving each onto the array i created in line above
+//        int i = 0;
+//        while (it.hasNext()) {  //figure out length
+//            i++;
+//            it.remove();                //THIS LINE IS THROWING A NULL ERROR
+//        }
+//        qaList = new QuestionAnswer[i];     //needed length to initialize array
+//        it = questions.iterator();
+//        i = 0;
+//        while (it.hasNext()) {   //add to array
+//            qaList[i] = it.next();
+//            i++;
+//            it.remove();
+//        }
+//
+//        jobUserInterview.setChatHistory(qaList);
+
+        //saves jobUser, propagates change to jobUser_Interview
+        jobUserRepository.save(jobUser);
+
+        //add questions to model
+        model.addAttribute("questions", questions);
+//        model.addAttribute("questions", qaList);  //this line
+        model.addAttribute("jui", jobUserInterview);
+//
+
+
 
 
         return "interview";
@@ -71,8 +111,8 @@ public class JesseController
         for (int i=0; i<chatHistory.length; i++){
             chatHistory[i].setAnswer(answers[i]);
             QuestionAnswer qa =
-                    qaRepository.findById(chatHistory[i].getId()).get();
-            qaRepository.save(qa);
+                    questionAnswerRepository.findById(chatHistory[i].getId()).get();
+            questionAnswerRepository.save(qa);
         }
 
         jui.setChatHistory(chatHistory);

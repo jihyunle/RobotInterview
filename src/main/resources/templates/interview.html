@@ -12,16 +12,16 @@
 
         <input type="hidden" name="juiID" th:value="${jui.id}"/>
 
-        <div th:each="qa : ${jui.chatHistory}">
+        <div th:each="questionAnswer : ${questions}">
 
-            <div name="question" th:text="${qa.question}">
+            <div name="question" th:text="${questionAnswer.question}">
             </div>
 
-            <input type="text" name="answers" autofocus="autofocus" />
+            <input type="text" name="answers" />
 
         </div>
 
-        <input type="submit" value="submit">
+        <input type="submit" value="Submit">
     </form>
 
 </div>

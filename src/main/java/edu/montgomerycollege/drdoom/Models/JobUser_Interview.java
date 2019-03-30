@@ -22,7 +22,8 @@ public class JobUser_Interview {
 
     @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
     @OrderColumn
-    private QuestionAnswer[] chatHistory;
+    private QuestionAnswer[] chatHistory; //why did we choose to make this an array?
+//    private String chatHistory;
 
     //=================================================
     //Constructors
@@ -91,5 +92,7 @@ public class JobUser_Interview {
     public void setChatHistory(QuestionAnswer[] chatHistory) {
         this.chatHistory = chatHistory;
     }
+
+
 
 }
