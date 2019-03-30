@@ -43,7 +43,7 @@ public class SecurityController {
             userService.saveUser(user);
             model.addAttribute("message", "User Account Created");
         }
-        return "index";
+        return "redirect:/login";
     }
 
     @RequestMapping("/login")
