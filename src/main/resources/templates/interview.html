@@ -10,7 +10,7 @@
 
     <form action="#" th:action="@{/interview}" th:object="${jui}" method="post">
 
-        <input type="hidden" name="juiID" th:value="${jui.id}"/>
+        <input name="juiID" th:value="${jui.id}"/>
 
         <div th:each="questionAnswer : ${questions}">
 

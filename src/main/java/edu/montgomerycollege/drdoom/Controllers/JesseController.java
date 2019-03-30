@@ -46,10 +46,12 @@ public class JesseController
     {
         //get jobUser
         JobUser jobUser = jobUserRepository.findById(id).get();
+        System.out.println(jobUser.getId());
         //create a new instance of JobUser_Interview
         JobUser_Interview jobUserInterview = new JobUser_Interview();
         //set jobUserIntervew's jobUser
         jobUserInterview.setJobUser(jobUser);
+
         //set jobUserInterview's chatHistory--does this need to be done?
 
 
@@ -64,11 +66,10 @@ public class JesseController
         }
 
         jobUserInterview.setChatHistory(copy);
-        System.out.println("size="+jobUserInterview.getChatHistory().size());
 
         //saves jobUser, propagates change to jobUser_Interview
         jobUserRepository.save(jobUser);
-        juiRepository.save(jobUserInterview);
+        //juiRepository.save(jobUserInterview);
 
         //add questions to model
         model.addAttribute("questions", questions);
@@ -79,33 +80,34 @@ public class JesseController
     }
 
     @PostMapping("/interview")
-    public String processInterview(@ModelAttribute("jui") JobUser_Interview jui,
+    public String processInterview(@ModelAttribute("jui")JobUser_Interview jobUser_interview,
                                    @RequestParam("answers")String[] answers,
                                    Model model){
 
-        if(jui==null)
+        if(jobUser_interview==null)
         {
             System.out.println("null");
 
         }
+        System.out.println(jobUser_interview.getId());
        // jui = juiRepository.findById(id).get();
 
-        Collection<QuestionAnswer> chatHistory = jui.getChatHistory();
+        Collection<QuestionAnswer> chatHistory = jobUser_interview.getChatHistory();
 
-        jui.setChatHistory(chatHistory);
+        jobUser_interview.setChatHistory(chatHistory);
 
         // resave jui obj
-        juiRepository.save(jui);
+        juiRepository.save(jobUser_interview);
 
 //        for(QuestionAnswer qa: jui.getChatHistory()){
 //            System.out.println(qa.getQuestion());
 //        }
 //        System.out.println("question answer.....");
         // now we have ans associated with each question
-        model.addAttribute("jui", jui);
+        model.addAttribute("jui", jobUser_interview);
         try
         {
-            sendEmailWithAttachment("Testing", jui);
+            sendEmailWithAttachment("Testing", jobUser_interview);
         }catch (IOException e)
         {
             //don't send if there's an io exception
