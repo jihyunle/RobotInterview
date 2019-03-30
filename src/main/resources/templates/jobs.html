@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="list-group" th:each="job : ${jobs}">
-        <a th:href="@{/apply/{id}(id=${job.id})}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a  th:href="@{/apply/{id}(id=${job.id})}"sec:authorize="hasAuthority('USER')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
 
                 <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
@@ -22,9 +22,24 @@
 
             <small>Click to apply</small>
         </a>
+
+        <!--used for admin and if you click on it .. it is not response any thing-->
+
+        <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+
+                <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
+                <small th:text="${job.datePosted}"></small>
+
+            </div>
+            <!--<p class="mb-1" th:text="${job.description}"></p>-->
+            <p class="mb-1" th:text="${#strings.abbreviate(job.description, 100)}"></p>
+            <!--<p class="card-text" th:text="*{#strings.abbreviate(item.itemDesc,50)}"></p>-->
+        </a>
+        <th:block sec:authorize="hasAuthority('ADMIN')">
         <span><a th:href="@{/edit/{id}(id=${job.getId()})}"><button type="button" class="btn btn-primary">Edit</button></a></span>
         <span><a th:href="@{/delete/{id}(id=${job.getId()})}"><button type="button" class="btn btn-danger">Delete</button></a></span>
-
+        </th:block>
     </div>
 </div>
 
