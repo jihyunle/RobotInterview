@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1" th:text="${jobUser.job.title}"></h5><!--This isn't displaying-->
+                    <h5 class="mb-1" th:text="${jobUser.job.getJobTitle().job_title}"></h5><!--This isn't displaying-->
                 </div>
                 <p class="mb-1" th:text="${jobUser.job.description}"></p>
             </div>

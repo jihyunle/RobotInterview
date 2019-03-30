@@ -214,7 +214,7 @@ public class DataLoader implements CommandLineRunner {
 
             Job job = new Job();
             job.setJobTitle(jobTitle);
-            job.setDatePosted(new Date());
+            job.setDatePosted("3/30/19");
             job.setDescription("This is a job description");
 
             JobUser jobUser = new JobUser("interview", true);
