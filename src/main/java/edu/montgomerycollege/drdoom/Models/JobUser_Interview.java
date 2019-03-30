@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 @Entity
 public class JobUser_Interview {
@@ -20,11 +21,12 @@ public class JobUser_Interview {
     //@JoinColumn(name = "jobUser_id")
     private JobUser jobUser;
 
-    @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
-    @OrderColumn
-    private QuestionAnswer[] chatHistory; //why did we choose to make this an array?
-//    private String chatHistory;
+//    @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
+//    @OrderColumn
+//private QuestionAnswer[] chatHistory; //why did we choose to make this an array?
 
+    @OneToMany(mappedBy="jobUser_interview")
+    private Set<QuestionAnswer> chatHistory;
     //=================================================
     //Constructors
     //=================================================
@@ -39,12 +41,14 @@ public class JobUser_Interview {
     }
 
     //other
-    public JobUser_Interview(JobUser jobUser, QuestionAnswer[] chatHistory) {
+
+
+    public JobUser_Interview(JobUser jobUser, Set<QuestionAnswer> chatHistory)
+    {
         this.jobUser = jobUser;
         this.chatHistory = chatHistory;
         setInterviewTime();
     }
-
 
     //=================================================
     //Getters and Setters
@@ -85,14 +89,14 @@ public class JobUser_Interview {
 //        this.interviewTime = interviewTime;
 //    }
 
-    public QuestionAnswer[] getChatHistory() {
+
+    public Set<QuestionAnswer> getChatHistory()
+    {
         return chatHistory;
     }
 
-    public void setChatHistory(QuestionAnswer[] chatHistory) {
+    public void setChatHistory(Set<QuestionAnswer> chatHistory)
+    {
         this.chatHistory = chatHistory;
     }
-
-
-
 }

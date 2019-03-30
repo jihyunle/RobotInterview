@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 @Controller
 public class JesseController
@@ -42,10 +43,6 @@ public class JesseController
     public String interviewGet(@PathVariable("id") long id, Model model)
     {
 
-        //get Job
-        //Job job = jobRepository.findById(id).get();
-        //get User
-        //User user = userService.getUser();
         //get jobUser
         JobUser jobUser = jobUserRepository.findById(id).get();
 
@@ -55,31 +52,9 @@ public class JesseController
         jobUserInterview.setJobUser(jobUser);
         //set jobUserInterview's chatHistory
 
-        QuestionAnswer[] questionAnswerArray;
-
-        //Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
-        //Iterator<QuestionAnswer> it = questions.iterator();
-        QuestionAnswer[] qaList;  //array for question/answers
-
 
         //Get (random) selection of questions (that match correctly)//NOT WORKING-CAN RETURN ALL QUESTIONS, BUT CANNOT initialize CHAT HISTORY
-        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll(); //This initially returns a list of questions the first time, then returns answers as "questions", right?
-//        Iterator<QuestionAnswer> it = questions.iterator();
-//
-//        // looping thru qaRepository and saving each onto the array i created in line above
-//        int i = 0;
-//        while (it.hasNext()) {  //figure out length
-//            i++;
-//            it.remove();                //THIS LINE IS THROWING A NULL ERROR
-//        }
-//        qaList = new QuestionAnswer[i];     //needed length to initialize array
-//        it = questions.iterator();
-//        i = 0;
-//        while (it.hasNext()) {   //add to array
-//            qaList[i] = it.next();
-//            i++;
-//            it.remove();
-//        }
+        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
 //
 //        jobUserInterview.setChatHistory(qaList);
 
@@ -106,14 +81,9 @@ public class JesseController
 
         jui = juiRepository.findById(id).get();
 
-        QuestionAnswer[] chatHistory = jui.getChatHistory();
+        Set<QuestionAnswer> chatHistory = jui.getChatHistory();
 
-        for (int i=0; i<chatHistory.length; i++){
-            chatHistory[i].setAnswer(answers[i]);
-            QuestionAnswer qa =
-                    questionAnswerRepository.findById(chatHistory[i].getId()).get();
-            questionAnswerRepository.save(qa);
-        }
+
 
         jui.setChatHistory(chatHistory);
 

@@ -29,13 +29,17 @@ public class AyalenehController
         return "admin";
     }
     @PostMapping("/admin")
-    public String adminprocessjob(@Valid Job job, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "redirect:/admin";
-        }
-        else {
+//    public String adminprocessjob(@Valid Job job, BindingResult result, Model model){
+    public String adminprocessjob(Job job, Model model){
+//        if(result.hasErrors()){
+//            System.out.println(job.getTitle());
+//            System.out.println(job.getDatePosted());
+//            System.out.println(job.getDescription());
+//            return "redirect:/admin";
+//        }
+        //else {
             jobRepository.save(job);
-        }
+        //}
         return "redirect:/";
     }
 
@@ -53,7 +57,7 @@ public class AyalenehController
     public String adminJob(Model model){
         model.addAttribute("jobs",jobRepository.findAll());
         //This now returns jobs-with thymeleaf security it can be the same page as the regular one
-        return "jobs";
+        return "adminjobs";
     }
 
     @GetMapping("/edit/{id}")
