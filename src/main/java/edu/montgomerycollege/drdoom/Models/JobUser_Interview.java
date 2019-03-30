@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +35,8 @@ public class JobUser_Interview {
 //private QuestionAnswer[] chatHistory; //why did we choose to make this an array?
 
     @OneToMany(mappedBy="jobUser_interview")
-    private Set<QuestionAnswer> chatHistory;
+    private Collection<QuestionAnswer> chatHistory;
+
     //=================================================
     //Constructors
     //=================================================
@@ -50,7 +53,7 @@ public class JobUser_Interview {
     //other
 
 
-    public JobUser_Interview(JobUser jobUser, Set<QuestionAnswer> chatHistory)
+    public JobUser_Interview(JobUser jobUser, Collection<QuestionAnswer> chatHistory)
     {
         this.jobUser = jobUser;
         this.chatHistory = chatHistory;
@@ -96,12 +99,12 @@ public class JobUser_Interview {
 //    }
 
 
-    public Set<QuestionAnswer> getChatHistory()
+    public Collection<QuestionAnswer> getChatHistory()
     {
         return chatHistory;
     }
 
-    public void setChatHistory(Set<QuestionAnswer> chatHistory)
+    public void setChatHistory(Collection<QuestionAnswer> chatHistory)
     {
         this.chatHistory = chatHistory;
     }

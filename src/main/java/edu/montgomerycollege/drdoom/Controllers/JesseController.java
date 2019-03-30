@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 @Controller
 public class JesseController
@@ -42,32 +44,35 @@ public class JesseController
     @GetMapping({"/interview/{id}"})
     public String interviewGet(@PathVariable("id") long id, Model model)
     {
-
         //get jobUser
         JobUser jobUser = jobUserRepository.findById(id).get();
-
         //create a new instance of JobUser_Interview
         JobUser_Interview jobUserInterview = new JobUser_Interview();
         //set jobUserIntervew's jobUser
         jobUserInterview.setJobUser(jobUser);
-        //set jobUserInterview's chatHistory
+        //set jobUserInterview's chatHistory--does this need to be done?
 
 
-        //Get (random) selection of questions (that match correctly)//NOT WORKING-CAN RETURN ALL QUESTIONS, BUT CANNOT initialize CHAT HISTORY
+        //Get (random) selection of questions (that match correctly)
         Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
-//
-//        jobUserInterview.setChatHistory(qaList);
+
+        Iterator<QuestionAnswer> iter = questions.iterator();
+        Collection<QuestionAnswer> copy = new ArrayList<QuestionAnswer>();
+        while (iter.hasNext())
+        {
+            copy.add(iter.next());
+        }
+
+        jobUserInterview.setChatHistory(copy);
+        System.out.println("size="+jobUserInterview.getChatHistory().size());
 
         //saves jobUser, propagates change to jobUser_Interview
         jobUserRepository.save(jobUser);
+        juiRepository.save(jobUserInterview);
 
         //add questions to model
         model.addAttribute("questions", questions);
-//        model.addAttribute("questions", qaList);  //this line
         model.addAttribute("jui", jobUserInterview);
-//
-
-
 
 
         return "interview";
@@ -76,14 +81,16 @@ public class JesseController
     @PostMapping("/interview")
     public String processInterview(@ModelAttribute("jui") JobUser_Interview jui,
                                    @RequestParam("answers")String[] answers,
-                                   @RequestParam("juiID") long id,
                                    Model model){
 
-        jui = juiRepository.findById(id).get();
+        if(jui==null)
+        {
+            System.out.println("null");
 
-        Set<QuestionAnswer> chatHistory = jui.getChatHistory();
+        }
+       // jui = juiRepository.findById(id).get();
 
-
+        Collection<QuestionAnswer> chatHistory = jui.getChatHistory();
 
         jui.setChatHistory(chatHistory);
 
@@ -96,19 +103,36 @@ public class JesseController
 //        System.out.println("question answer.....");
         // now we have ans associated with each question
         model.addAttribute("jui", jui);
+        try
+        {
+            sendEmailWithAttachment("Testing", jui);
+        }catch (IOException e)
+        {
+            //don't send if there's an io exception
+            System.out.println(e);
+        }
         return "interviewHistory";
     }
 
 
-    @RequestMapping("/sendemail")
-    public String sendEmailWithOutTemplating() throws UnsupportedEncodingException
+
+    public void sendEmailWithAttachment(String attach, JobUser_Interview jobUser_interview) throws UnsupportedEncodingException,
+                                                                                                        IOException
     {
-        String from = userService.getUser().getEmail();
+
+        Files.write(Paths.get("testFile.txt"),
+                    attach.getBytes());
+
+        File file = new File("testFile.txt");
+        //String toEmail = jobUser_interview.getJobUser().getJob().getHiringManagerEmail();
+        String toEmail = "jesseberliner@gmail.com";
+        if(toEmail==null)
+        {
+            toEmail = "jesseberliner@gmail.com";
+        }
 
 
-        email.send(from, "jesseberliner@hotmail.com", "Subject", "body");
-        return "index";
+        //email.send("whatever@whatever.com", toEmail , "Subject", "body", file);
     }
-
 
 }
