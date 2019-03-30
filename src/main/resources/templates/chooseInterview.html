@@ -11,6 +11,7 @@
     <h2>Choose Interview Date and Time</h2>
 
     <a href="/setinterview">Set Interview</a>
+
     <div class="container">
         <div class="my-5"></div>
         <form action="#"
@@ -19,8 +20,13 @@
 
             <input th:field="*{id}" type="hidden" />
 
-            <label>Choose Date:</label><br>
-            <input th:field="*{interviewDate}" type="date"/>
+            <!--<label>Choose Date:</label><br>-->
+            <!--<input th:field="*{interviewDate}" type="date"/>-->
+            <!--<label>Choose Time:</label><br>-->
+            <!--<input th:field="*{interviewTime}" type="time"/>-->
+
+            <p th:text="${#temporals.formatISO(jui.getInterviewTime())}"></p>
+
             <!--<span th:errors="*{chooseDate}"-->
             <!--th:if="${#fields.hasErrors('chooseDate')}"></span>-->
             <br/>
@@ -28,8 +34,9 @@
             <!--<input th:field="*{jobDescription}" type="text" />-->
             <!--<input th:field="*{jobDatePosted}" type="date" />-->
             <!--<input th:field="*{jobClosed}" type="hidden" />-->
-            <label>ChooseTime:</label><br>
-            <input th:field="*{interviewTime}" type="time"/>
+
+
+
             <!--<span th:errors="*{chooseTime}"-->
             <!--th:if="${#fields.hasErrors('chooseTime')}"></span>-->
             <br/>

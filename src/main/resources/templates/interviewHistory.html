@@ -9,10 +9,18 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <div th:each="qa : ${jui.chatHistory}">
-        <div th:text="${qa.question}"></div>
-        <div th:text="${qa.answer}"></div>
-    </div>
+
+    <th:block sec:authorize="hasAuthority('ADMIN')">
+
+        <div th:each="qa : ${jui.chatHistory}">
+            <div th:text="${qa.question}"></div>
+            <div th:text="${qa.answer}"></div>
+        </div>
+        <li class="nav-item"><a class="nav-link" href="/admin">Add Job</a></li>
+        <li class="nav-item"><a class="nav-link" href="/jobs_admin">Jobs</a></li>
+    </th:block>
+
+
 </div>
 
 <div th:replace="base :: footer"></div>

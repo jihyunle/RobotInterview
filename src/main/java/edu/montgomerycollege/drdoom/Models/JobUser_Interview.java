@@ -4,9 +4,14 @@ package edu.montgomerycollege.drdoom.Models;
 import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 public class JobUser_Interview {
@@ -15,6 +20,8 @@ public class JobUser_Interview {
     private long id;
 
     private LocalDateTime interviewTime;
+
+
 
     //consider join column
     @ManyToOne
@@ -74,8 +81,7 @@ public class JobUser_Interview {
     }
 
     public void setInterviewTime() {
-
-        this.interviewTime = LocalDateTime.now();
+        this.interviewTime = LocalDateTime.now(); // allows for immediate interview
     }
 
     //    public String getInterviewTime() {
