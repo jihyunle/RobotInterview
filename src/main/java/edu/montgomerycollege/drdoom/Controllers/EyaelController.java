@@ -18,25 +18,6 @@ public class EyaelController{
     @Autowired
     JobUser_InterviewRepository juiRepository;
 
-//    @Autowired
-//    InterviewRepository interviewRepository;
-//
-////    @GetMapping("/setinterview")
-//    public String showInterview( Model model){
-//        model.addAttribute("job",new Job());
-//        return "chooseInterview";
-//    }
-//
-//
-//        @PostMapping ("/setinterview")
-//        public String setinterviewdate(@ModelAttribute Job job, Model model)
-//        {
-//            jobRepository.save(job);
-//
-//            model.addAttribute("jobs", jobRepository.findAll());
-//            return "index";
-//        }
-//
 
     @GetMapping("/setinterview")
     public String showInterview( Model model){

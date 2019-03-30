@@ -85,11 +85,15 @@ public class MainController
                           @RequestParam("jobId") long id,
                           Model model) {
 
-
         // get user
         User user = userService.getUser();
+        // set userid again
+        resume.setUser(user);
+
         // add the resume to that user
         user.getResumes().add(resume);
+        // save user
+        userRepository.save(user);
         // find job by its id
         job = jobRepository.findById(id).get();
         // create a new jobUser obj
