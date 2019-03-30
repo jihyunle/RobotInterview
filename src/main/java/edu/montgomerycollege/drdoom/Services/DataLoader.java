@@ -84,6 +84,10 @@ public class DataLoader implements CommandLineRunner {
             questionAnswer.setQuestion("What's your favorite food?");
             qaRepository.save(questionAnswer);
 
+//            questionAnswer = new QuestionAnswer();
+//            questionAnswer.setQuestion("What's your favorite flower? testing required 3rd q");
+//            qaRepository.save(questionAnswer);
+
             //create a jobTitle1
             JobTitle jobTitle = new JobTitle("Java Web developer");
 

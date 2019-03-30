@@ -38,8 +38,8 @@ public class MainController
     @Autowired
     ParseResume parser;
 
-//    @Autowired
-//    JobInterviewUserRepository jobInterviewUserRepository;
+    @Autowired
+    JobUser_InterviewRepository juiRepository;
 
     @Autowired
     JobUserRepository jobUserRepository;
@@ -87,6 +87,7 @@ public class MainController
 
         // get user
         User user = userService.getUser();
+
         // set userid again
         resume.setUser(user);
 
@@ -112,9 +113,12 @@ public class MainController
             // creating obj
             JobUser_Interview jui = new JobUser_Interview();
             jui.setJobUser(jobUser);
+
             //save additional info to jobUser
             jobUser.setMatched(true); //this should only be true if matches, else it stays false
             jobUser.setAppStatus("pending interview date"); //this should only be set if matches, else it stays blank
+
+            juiRepository.save(jui);
 
             // assigning chatHistory field
 //            QuestionAnswer[] chatHistory = new QuestionAnswer[];
