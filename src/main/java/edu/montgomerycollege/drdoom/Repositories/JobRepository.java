@@ -10,7 +10,8 @@ public interface JobRepository extends CrudRepository<Job, Long> {
 //    Job findByJobUser(String jobUser);
 
 //  Job findById(Long id);
-  Job findByTitle(String title);
+//  Job findByTitle(String title);
+  Job findByJobTitle(String jobTitle);
 
 
 //    Job findByKeyword(String keyword);

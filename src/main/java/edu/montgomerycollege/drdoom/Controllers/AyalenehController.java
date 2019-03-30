@@ -31,6 +31,7 @@ public class AyalenehController
     @PostMapping("/admin")
     public String adminprocessjob(@Valid Job job, BindingResult result, Model model){
         if(result.hasErrors()){
+            System.out.println("error occurred here");
             return "redirect:/admin";
         }
         else {

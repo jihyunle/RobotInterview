@@ -11,12 +11,11 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String title;
 
     @Lob // to set sql limit longer
     private String description;
 
-    private Date datePosted;
+    private String datePosted;
 
     private boolean closed;
 
@@ -27,24 +26,6 @@ public class Job {
     @ManyToOne
     //@JoinColumn(name = "jobTitle_id")
     private JobTitle jobTitle;
-
-
-    //=================================================
-    //Constructors
-    //=================================================
-    //default
-
-    public Job() {
-    }
-
-    //loaded
-    public Job(String title, String description, Date datePosted, boolean closed, JobTitle jobTitle) {
-        this.title = title;
-        this.description = description;
-        this.datePosted = datePosted;
-        this.closed = closed;
-        this.jobTitle = jobTitle;
-    }
 
     //=================================================
     //Getters and Setters
@@ -57,13 +38,7 @@ public class Job {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
         return description;
@@ -73,11 +48,11 @@ public class Job {
         this.description = description;
     }
 
-    public Date getDatePosted() {
+    public String getDatePosted() {
         return datePosted;
     }
 
-    public void setDatePosted(Date datePosted) {
+    public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
     }
 
