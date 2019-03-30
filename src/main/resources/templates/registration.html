@@ -15,7 +15,7 @@
           th:action="@{/register}"
           th:object="${user}" method="post">
         First Name: <mark><strong>
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</span></strong></mark>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" autofocus="autofocus">First name error</span></strong></mark>
         <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" /><br />
 
         Last Name: <mark><strong>
