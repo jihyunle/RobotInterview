@@ -135,7 +135,7 @@ public class DataLoader implements CommandLineRunner {
 //            jobRepository.save(job);
 //
             Job job = new Job();
-            job = jobRepository.findByTitle("QA");
+            job = jobRepository.findByjobTitle("QA");
 
         //This does put data in the table, but job_id is null
             JobUser jobUser = new JobUser(job, user, "pending interview date", true);
