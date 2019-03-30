@@ -58,7 +58,7 @@ public class MainController
     public String allJobs(@ModelAttribute Job job, Model model)
     {
         model.addAttribute("jobs", jobRepository.findAll());
-        model.addAttribute("jobTitle",jobTitleRepository.findAll());
+        model.addAttribute("jobTitle",jobTitleRepository.findAll()); //This should be changed to only get non-deleted ones once Job model is changed
         return "jobs";
     }
 
@@ -66,11 +66,6 @@ public class MainController
     public String myJobs(Model model)
     {
         model.addAttribute("jobs", jobUserRepository.findAllByUser(userService.getUser()));
-
-        //get userId
-        //Get JIUs associated with this user
-        //get set of jobs for this user
-
 
         return "myjobs";
     }

@@ -16,7 +16,7 @@ public class QuestionAnswer {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobUser_interview")
-    private JobUser_Interview jobUser_interviews;
+    private JobUser_Interview jobUser_interview;
 
     //=================================================
     //Constructors
@@ -69,11 +69,11 @@ public class QuestionAnswer {
         this.answer = answer;
     }
 
-    public JobUser_Interview getJobUser_interviews() {
-        return jobUser_interviews;
+    public JobUser_Interview getJobUser_interview() {
+        return jobUser_interview;
     }
 
-    public void setJobUser_interviews(JobUser_Interview jobUser_interviews) {
-        this.jobUser_interviews = jobUser_interviews;
+    public void setJobUser_interview(JobUser_Interview jobUser_interview) {
+        this.jobUser_interview = jobUser_interview;
     }
 }

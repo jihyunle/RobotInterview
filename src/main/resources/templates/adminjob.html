@@ -16,8 +16,8 @@
                 <small th:text="${job.jobDatePosted}"></small>
             </div>
             <p class="mb-1" th:text="${job.jobDescription}"></p>
-            <span><a th:href="@{/edit/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
-            <span><a th:href="@{/delete/{id}(id=${job.getJobId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
+            <span><a th:href="@{/edit/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
+            <span><a th:href="@{/delete/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
         </a>
     </div>
 </div>

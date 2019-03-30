@@ -21,14 +21,15 @@ public class AyalenehController
     private  JobRepository jobRepository;
     @Autowired
     private JobTitleRepository jobTitleRepository;
+
     @RequestMapping("/admin")
     public String adminjob(Model model){
         model.addAttribute("job",new Job());
-        model.addAttribute("jobTitle",jobTitleRepository.findAll());
+        model.addAttribute("jobTitles",jobTitleRepository.findAll());
         return "admin";
     }
     @PostMapping("/admin")
-    public String adminprocessjob(@Valid Job job, BindingResult result,Model model){
+    public String adminprocessjob(@Valid Job job, BindingResult result, Model model){
         if(result.hasErrors()){
             return "redirect:/admin";
         }
@@ -37,28 +38,32 @@ public class AyalenehController
         }
         return "redirect:/";
     }
+
     @GetMapping("/success")
     public String success(){
         return "success";
     }
+
     @GetMapping("/fail")
     public String fail(){
         return "fail";
     }
+
     @GetMapping("/jobs_admin")
     public String adminJob(Model model){
         model.addAttribute("jobs",jobRepository.findAll());
-        return "adminjob";
+        //This now returns jobs-with thymeleaf security it can be the same page as the regular one
+        return "jobs";
     }
 
     @GetMapping("/edit/{id}")
-    public String update(@PathVariable("id") long id, Model model){
-        model.addAttribute("jobTitle",jobTitleRepository.findAll());
+    public String updateJob(@PathVariable("id") long id, Model model){
+        model.addAttribute("jobTitles",jobTitleRepository.findAll());
         model.addAttribute("job",jobRepository.findById(id).get());
         return "admin";
     }
     @RequestMapping("/delete/{id}")
-    public String delete_car(@PathVariable("id") long id, Model model){
+    public String deleteJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job",jobRepository.findById(id));
         jobRepository.deleteById(id);
         return "redirect:/jobs_admin";

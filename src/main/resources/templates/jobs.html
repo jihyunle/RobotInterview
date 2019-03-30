@@ -15,13 +15,16 @@
 
                 <!--<h5 class="mb-1" th:text="${job.title}"></h5>-->
 
-                <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
+                <h5 class="mb-1" th:text="${job.title}"></h5>
                 <small th:text="${job.datePosted}"></small>
 
             </div>
             <p class="mb-1" th:text="${job.description}"></p>
             <small>Click to apply</small>
         </a>
+        <span ><a th:href="@{/edit/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-primary">Edit</button></a></span>
+        <span><a th:href="@{/delete/{id}(id=${job.getId()})}" ><button type="button" class="btn btn-danger">Delete</button></a></span>
+
     </div>
 </div>
 

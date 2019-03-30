@@ -104,7 +104,7 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(user);
 
             user = new User("admin@admin.com", "password", "Admin",
-                    "Admin", true, "admin");
+                    "Admin", true, "admin", "999-999-9999");
             user.setRoles(Arrays.asList(adminRole));
             userRepository.save(user);
 //        }
@@ -137,13 +137,13 @@ public class DataLoader implements CommandLineRunner {
             Job job = new Job();
             job = jobRepository.findByTitle("QA");
 
-
+        //This does put data in the table, but job_id is null
             JobUser jobUser = new JobUser(job, user, "pending interview", true);
             jobUserRepository.save(jobUser);
 
 
             QuestionAnswer qa = new QuestionAnswer("What is your prior experience?");
-            qaRepository.save(qa);
+            qaRepository.save(qa);  //questionAnswer would be saved when JobUser_Interview or JobUser or Job or JobTitle is saved, but we use "detach" as cascade type
             qa = new QuestionAnswer("What makes you a strong candidate for this position?");
             qaRepository.save(qa);
             qa = new QuestionAnswer("How did you hear about this company?");

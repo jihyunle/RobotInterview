@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Success</title>
 </head>
 <body>
-<h2>Congrats you selected for interview please select interview date and time</h2>
+<div th:replace="base :: nav"></div>
+<div class="container">
+<h2>Congrats you're selected for an interview! Please select interview date and time.</h2>
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
 </body>
+
 </html>
