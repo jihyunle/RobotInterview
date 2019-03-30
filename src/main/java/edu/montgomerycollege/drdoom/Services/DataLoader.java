@@ -85,70 +85,67 @@ public class DataLoader implements CommandLineRunner {
             qaRepository.save(questionAnswer);
 
             //create a jobTitle1
-            JobTitle jobTitle = new JobTitle("Java Web developer");
+            JobTitle jobTitle = new JobTitle("Java Web Developer");
 
             jobTitle.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
-                    new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
-                    new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
+                                               new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
+                                               new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
             //iterate through iterable to make it into a collection
             Collection<QuestionAnswer> questionAnswerCollection = new ArrayList<QuestionAnswer>();
             Iterable<QuestionAnswer> questions = qaRepository.findAll(); //this needs to only choose a selection of
             // the questions
             Iterator<QuestionAnswer> iterator = questions.iterator();
-            while(iterator.hasNext())
+            while (iterator.hasNext())
             {
                 questionAnswerCollection.add(iterator.next());
                 iterator.remove();
             }
 
             jobTitle.setQuestions(questionAnswerCollection);
-
-            Job job = new Job();
-            job.setJobTitle(jobTitle);
-            job.setDatePosted("3/30/19");
-            job.setDescription("This is a job description");
-
-            JobUser jobUser = new JobUser("interview", true);
-            jobUser.setJob(job);
-//            jobUser.setUser();
-
-            JobUser_Interview jobUser_interview = new JobUser_Interview();
             jobTitleRepository.save(jobTitle);
+
 
             //second title
             JobTitle jobTitle2 = new JobTitle("DBA");
-
             jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
-                    new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
-                    new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
+                                                new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
+                                                new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
             jobTitle2.setQuestions(questionAnswerCollection);
             jobTitleRepository.save(jobTitle2);
+
             //third title
-            JobTitle jobTitle3=new JobTitle("Quality Assurance");
+            JobTitle jobTitle3 = new JobTitle("Quality Assurance");
             jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
-                    new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
-                    new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
-                    new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
+                                                new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
+                                                new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
+                                                new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
             jobTitle3.setQuestions(questionAnswerCollection);
             jobTitleRepository.save(jobTitle3);
+
             //fourth title
             JobTitle jobTitle4 = new JobTitle("Cyber Security");
-
             jobTitle4.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
-                    new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
-                    new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
-                    new Keyword("linux"), new Keyword("programming")));
+                                                new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
+                                                new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
+                                                new Keyword("linux"), new Keyword("programming")));
             jobTitle4.setQuestions(questionAnswerCollection);
             jobTitleRepository.save(jobTitle4);
-            JobTitle jobTitle5 = new JobTitle("Assembly language");
 
+            //fifth title
+            JobTitle jobTitle5 = new JobTitle("Assembly Coder");
             jobTitle5.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
-                    new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
-                    new Keyword("java"), new Keyword(" cybersecurity"), new Keyword("programming"),
-                    new Keyword("linux"), new Keyword("Problem-solving skills")));
+                                                new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
+                                                new Keyword("java"), new Keyword("cybersecurity"), new Keyword("programming"),
+                                                new Keyword("linux"), new Keyword("Problem-solving skills")));
             jobTitle5.setQuestions(questionAnswerCollection);
             jobTitleRepository.save(jobTitle5);
-        }
 
+
+            //create some job listings-they are not associated with users yet
+            Job job = new Job("This is the job1 description", "3/31/19", false, "jesseberliner@hotmail.com", jobTitle);
+            jobRepository.save(job);
+            job = new Job("This is the job2 description", "3/31/19", false, "jesseberliner@hotmail.com", jobTitle2);
+            jobRepository.save(job);
+        }
     }
 }

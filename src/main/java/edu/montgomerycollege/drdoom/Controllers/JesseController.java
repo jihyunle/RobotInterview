@@ -42,39 +42,33 @@ public class JesseController
 
 
     @GetMapping({"/interview/{id}"})
-    public String interviewGet(@PathVariable("id") long id, Model model)
+    public String interviewGet(@PathVariable("id") long jobUserId, Model model)
     {
         //get jobUser
-        JobUser jobUser = jobUserRepository.findById(id).get();
-        System.out.println(jobUser.getId());
+        JobUser jobUser = jobUserRepository.findById(jobUserId).get();
         //create a new instance of JobUser_Interview
-        JobUser_Interview jobUserInterview = new JobUser_Interview();
+        JobUser_Interview jobUser_interview = new JobUser_Interview();
+
         //set jobUserIntervew's jobUser
-        jobUserInterview.setJobUser(jobUser);
-
-        //set jobUserInterview's chatHistory--does this need to be done?
-
+        jobUser_interview.setJobUser(jobUser);
 
         //Get (random) selection of questions (that match correctly)
         Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
-
         Iterator<QuestionAnswer> iter = questions.iterator();
         Collection<QuestionAnswer> copy = new ArrayList<QuestionAnswer>();
         while (iter.hasNext())
         {
             copy.add(iter.next());
         }
+        jobUser_interview.setChatHistory(copy);
 
-        jobUserInterview.setChatHistory(copy);
-
-        //saves jobUser, propagates change to jobUser_Interview
-        jobUserRepository.save(jobUser);
-        //juiRepository.save(jobUserInterview);
-
+        //saves jobUser, should propagate change to jobUser_Interview
+//        jobUserRepository.save(jobUser);
+        juiRepository.save(jobUser_interview);//has to be explicitly saved to guarantee id has been generated?
+        //add jobUser_interview to model
+        model.addAttribute("jui", jobUser_interview);
         //add questions to model
         model.addAttribute("questions", questions);
-        model.addAttribute("jui", jobUserInterview);
-
 
         return "interview";
     }
@@ -84,20 +78,13 @@ public class JesseController
                                    @RequestParam("answers")String[] answers,
                                    Model model){
 
-        if(jobUser_interview==null)
-        {
-            System.out.println("null");
-
-        }
-        System.out.println(jobUser_interview.getId());
-       // jui = juiRepository.findById(id).get();
 
         Collection<QuestionAnswer> chatHistory = jobUser_interview.getChatHistory();
 
         jobUser_interview.setChatHistory(chatHistory);
-
-        // resave jui obj
-        juiRepository.save(jobUser_interview);
+        //System.out.println(chatHistory.toString());
+        // resave jui obj-doing this causes a null job_user_id
+        //juiRepository.save(jobUser_interview);
 
 //        for(QuestionAnswer qa: jui.getChatHistory()){
 //            System.out.println(qa.getQuestion());
@@ -127,14 +114,15 @@ public class JesseController
 
         File file = new File("testFile.txt");
         //String toEmail = jobUser_interview.getJobUser().getJob().getHiringManagerEmail();
-        String toEmail = "jesseberliner@gmail.com";
+        Job job = jobUser_interview.getJobUser().getJob();
+        String toEmail = "jesseberliner@hotmail.com";
         if(toEmail==null)
         {
             toEmail = "jesseberliner@gmail.com";
         }
 
 
-        //email.send("whatever@whatever.com", toEmail , "Subject", "body", file);
+        email.send("whatever@whatever.com", toEmail , "Subject", "body", file);
     }
 
 }

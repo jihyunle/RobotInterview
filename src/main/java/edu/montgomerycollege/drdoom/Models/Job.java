@@ -28,6 +28,31 @@ public class Job {
     @ManyToOne
     //@JoinColumn(name = "jobTitle_id")
     private JobTitle jobTitle;
+    //=================================================
+    //Constructors
+    //=================================================
+    //empty
+    public Job()
+    {
+    }
+    //loaded
+    public Job(String description, String datePosted, boolean closed, String hiringManagerEmail)
+    {
+        this.description = description;
+        this.datePosted = datePosted;
+        this.closed = closed;
+        this.hiringManagerEmail = hiringManagerEmail;
+    }
+
+    //other
+    public Job(String description, String datePosted, boolean closed, String hiringManagerEmail, JobTitle jobTitle)
+    {
+        this.description = description;
+        this.datePosted = datePosted;
+        this.closed = closed;
+        this.hiringManagerEmail = hiringManagerEmail;
+        this.jobTitle = jobTitle;
+    }
 
     //=================================================
     //Getters and Setters
