@@ -12,7 +12,7 @@ public class QuestionAnswer {
     private long id;
 
     private String question;
-
+    @Lob
     private String answer;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -22,6 +22,8 @@ public class QuestionAnswer {
     @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY) // might be @OneToMany
     private Collection<JobTitle> jobTitles;
 
+    @OneToOne(mappedBy = "QuestionAnswer")
+    private Answer answer_2;
 
     //=================================================
     //Constructors
@@ -91,4 +93,18 @@ public class QuestionAnswer {
     {
         this.jobTitles = jobTitles;
     }
+
+    public Answer getAnswer_2() {
+        return answer_2;
+    }
+
+    public void setAnswer_2(Answer answer_2) {
+        this.answer_2 = answer_2;
+    }
 }
+// my thought
+//accept answer from user and save it in the database by creating table i already create a table
+//then compare user or applicant answer with the real answer .real answer found in questionAnswer table
+// so we will do like what we do for resume compare user answr with real answer if it
+// contain some percent like 50% or any other percent the application status of the applicant will change to hired
+//or other words else the application status change to rejected.

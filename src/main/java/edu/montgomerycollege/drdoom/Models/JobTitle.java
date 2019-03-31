@@ -25,10 +25,23 @@ public class JobTitle {
     @JoinTable(joinColumns = @JoinColumn(name="keyword_id"), inverseJoinColumns = @JoinColumn(name="id"))
     private Collection<Keyword> keywords;
 
-    @ManyToMany
+//    @ManyToOne
+//    @JoinColumn(name = "Question_id")
+//    private QuestionAnswer questionAnswer;
+//
+//    public QuestionAnswer getQuestionAnswer() {
+//        return questionAnswer;
+//    }
+//
+//    public void setQuestionAnswer(QuestionAnswer questionAnswer) {
+//        this.questionAnswer = questionAnswer;
+//    }
+
+        @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name="jobTitle_id"),
             inverseJoinColumns = @JoinColumn(name="questionAnswer_id"))
     private Collection<QuestionAnswer> questions;
+
 
     //=================================================
     //Constructors
