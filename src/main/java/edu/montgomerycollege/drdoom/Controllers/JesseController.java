@@ -71,7 +71,6 @@ public class JesseController
         model.addAttribute("jui", jobUser_interview);
         //add questions to model
         model.addAttribute("questions", questions);
-
         return "interview";
     }
 
@@ -97,6 +96,10 @@ public class JesseController
             copy.add(tempqa);
         }
         jobUser_interview.setChatHistory(copy);
+        JobUser jobUser = jobUser_interview.getJobUser();
+        jobUser.setAppStatus("Pending hiring manager");
+        jobUser_interview.setJobUser(jobUser);
+        jobUserRepository.save(jobUser);
         juiRepository.save(jobUser_interview);
 
 
@@ -111,7 +114,7 @@ public class JesseController
             //don't send if there's an io exception
             System.out.println(e);
         }
-        return "interviewHistory";
+        return "interviewOver";
     }
 
 
@@ -119,10 +122,10 @@ public class JesseController
                                                                                                    IOException
     {
 
-        Files.write(Paths.get("testFile.txt"),
+        Files.write(Paths.get("textFile.txt"),
                     attach.getBytes());
 
-        File file = new File("testFile.txt");
+        File file = new File("textFile.txt");
         //String toEmail = jobUser_interview.getJobUser().getJob().getHiringManagerEmail();
         //Job job = jobUser_interview.getJobUser().getJob();
         String toEmail = "jesseberliner@hotmail.com";
@@ -132,7 +135,7 @@ public class JesseController
         }
 
 
-        email.send("whatever@whatever.com", toEmail, "Subject", "body", file);
+        email.send("whatever@whatever.com", toEmail, "Interview Text", "See attached file", file);
     }
 
     public String getStringVal(Collection<QuestionAnswer> collection)

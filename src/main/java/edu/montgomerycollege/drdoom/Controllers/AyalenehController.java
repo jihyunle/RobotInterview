@@ -52,8 +52,7 @@ public class AyalenehController
     @GetMapping("/jobs_admin")
     public String adminJob(Model model){
         model.addAttribute("jobs",jobRepository.findAll());
-        //This now returns jobs-with thymeleaf security it can be the same page as the regular one
-        return "jobs";
+        return "adminjob";
     }
 
     @GetMapping("/edit/{id}")

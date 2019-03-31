@@ -65,8 +65,11 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("jobUsers", jobUserRepository.findAllByUser(userService.getUser()));
+        model.addAttribute("now", new Date());
+        User current_user = userService.getUser();
 
+        //model.addAttribute("jui", juiRepository.findByJobUser(userService.getUser()));
+        model.addAttribute("jobUsers", jobUserRepository.findAllByUser(userService.getUser()));
         return "myjobs";
     }
 
@@ -99,7 +102,7 @@ public class MainController
         userRepository.save(user);
 
         // find job by its id
-        job = jobRepository.findById(id).get();
+        job = jobRepository.findById(id).get(); //This might be causing an issue-same name as param above
         // create a new jobUser obj
         JobUser jobUser = new JobUser();
         // save the job and user to the new obj
@@ -118,12 +121,13 @@ public class MainController
 
             //save additional info to jobUser
             jobUser.setMatched(true); //this should only be true if matches, else it stays false
-            jobUser.setAppStatus("pending interview date"); //
+            jobUser.setAppStatus("pending interview date");
+            // in th:if expression
         }
         else
         {
             jobUser.setMatched(false); //this is the default value
-            jobUser.setAppStatus("rejected"); //this should only be set if matches, else it stays blank
+            jobUser.setAppStatus("rejected");
         }
         //save jobUser
         jobUserRepository.save(jobUser);
@@ -137,11 +141,20 @@ public class MainController
         juiRepository.save(jui);
 
         //add to model
-        model.addAttribute("jobUser", jobUser);
         model.addAttribute("job", job);
-        model.addAttribute("matches", matches);
+        model.addAttribute("jobUser", jobUser);
+        model.addAttribute("jui", jui);
+        model.addAttribute("matches", matches); //only matches is needed for applied
 
+        if(matches)
+        {
+            return "success";
+        }
+        else
+        {
+            return "fail";
+        }
         //final return page is chosen dynamically based on pass or fail of parser
-        return "applied";
+        //return "applied";
     }
 }

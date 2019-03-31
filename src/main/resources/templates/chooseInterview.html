@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Choose Interview Time</title>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
@@ -11,42 +11,24 @@
     <h2>Choose Interview Date and Time</h2>
 
     <div class="container">
-        <div class="my-5"></div>
-        <form action="#"
-              method="post"
-              th:action="@{/setinterview}" th:object="${jui}">
+        <div class="my-5">
+            <form method="post" th:action="@{/setinterview}" th:object="${jui}">
+                <h2>Please select interview date and time.</h2>
+                <input type=hidden th:field="*{id}"/>
 
-            <input th:field="*{id}" type="hidden" />
+                <label>Choose Time:</label>
+                <input th:field="*{stringInterviewTime}" type="datetime-local" name="time"
+                       th:value="${now}"
+                       min="${now}"
+                       max="2018-06-14T00:00"/><br/>
 
-            <!--<label>Choose Date:</label><br>-->
-            <!--<input th:field="*{interviewDate}" type="date"/>-->
-            <label>Choose Time:</label><br>
-            <input th:field="*{interviewTime}" type="time"/>
-
-            <label>Choose Date & Time:</label><br>
-            <input th:field="*{interviewTime}" type="date"/>
-
-            <!--<p th:text="${#temporals.formatISO(jui.getInterviewTime())}"></p>-->
-
-            <!--<span th:errors="*{chooseDate}"-->
-            <!--th:if="${#fields.hasErrors('chooseDate')}"></span>-->
-            <br/>
-            <!--<input th:field="*{jobTitle}" type="text" />-->
-            <!--<input th:field="*{jobDescription}" type="text" />-->
-            <!--<input th:field="*{jobDatePosted}" type="date" />-->
-            <!--<input th:field="*{jobClosed}" type="hidden" />-->
+                <div th:text="${#dates.formatISO(standardDate)}"></div>
 
 
-
-            <!--<span th:errors="*{chooseTime}"-->
-            <!--th:if="${#fields.hasErrors('chooseTime')}"></span>-->
-            <br/>
-
-
-            <input type="submit" value="Post"/>
-
-        </form>
-
+                <!--<input type="date" min="2019-4-1" max="2019-4-15" name="time"/><br/>-->
+                <input type="submit" value="Post"/>
+            </form>
+        </div>
     </div>
 </div>
 <div th:replace="base :: footer"></div>
