@@ -47,7 +47,7 @@ public class EyaelController{
         //get jui object
         jui=juiRepository.findById(jui.getId()).get();
         //set string interview time
-        jui.setStringInterviewTime(thisShouldntBeNecessary);
+        jui.setStringInterviewTime(thisShouldntBeNecessary); // haha
         //set interview time
 
         //change appStatus
