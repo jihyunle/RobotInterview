@@ -23,8 +23,6 @@ public class JobUser_Interview {
 
     private LocalDateTime interviewTime;
 
-
-
     //consider join column
     @ManyToOne
     //@JoinColumn(name = "jobUser_id")

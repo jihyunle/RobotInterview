@@ -38,8 +38,8 @@ public class MainController
     @Autowired
     ParseResume parser;
 
-//    @Autowired
-//    JobInterviewUserRepository jobInterviewUserRepository;
+    @Autowired
+    JobUser_InterviewRepository juiRepository;
 
     @Autowired
     JobUserRepository jobUserRepository;
@@ -85,11 +85,16 @@ public class MainController
                           @RequestParam("jobId") long id,
                           Model model) {
 
-
         // get user
         User user = userService.getUser();
+
+        // set userid again
+        resume.setUser(user);
+
         // add the resume to that user
         user.getResumes().add(resume);
+        // save user
+        userRepository.save(user);
         // find job by its id
         job = jobRepository.findById(id).get();
         // create a new jobUser obj
@@ -108,9 +113,12 @@ public class MainController
             // creating obj
             JobUser_Interview jui = new JobUser_Interview();
             jui.setJobUser(jobUser);
+
             //save additional info to jobUser
             jobUser.setMatched(true); //this should only be true if matches, else it stays false
             jobUser.setAppStatus("pending interview date"); //this should only be set if matches, else it stays blank
+
+            juiRepository.save(jui);
 
             // assigning chatHistory field
 //            QuestionAnswer[] chatHistory = new QuestionAnswer[];
