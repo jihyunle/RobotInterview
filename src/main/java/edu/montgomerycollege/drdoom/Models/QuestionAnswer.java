@@ -22,9 +22,13 @@ public class QuestionAnswer {
     @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY) // might be @OneToMany
     private Collection<JobTitle> jobTitles;
 
-    @OneToOne(mappedBy = "QuestionAnswer")
-    private Answer answer_2;
 
+
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name="question_id"),
+            inverseJoinColumns = @JoinColumn(name="Answer_id"))
+    private Collection<Answer> answers;
     //=================================================
     //Constructors
     //=================================================
@@ -94,12 +98,12 @@ public class QuestionAnswer {
         this.jobTitles = jobTitles;
     }
 
-    public Answer getAnswer_2() {
-        return answer_2;
+    public Collection<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setAnswer_2(Answer answer_2) {
-        this.answer_2 = answer_2;
+    public void setAnswers(Collection<Answer> answers) {
+        this.answers = answers;
     }
 }
 // my thought

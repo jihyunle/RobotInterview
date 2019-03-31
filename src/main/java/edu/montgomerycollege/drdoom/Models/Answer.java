@@ -11,17 +11,20 @@ public class Answer {
     @Lob
     private String answer;
 
-    public Collection<QuestionAnswer> getQuestionAnswers() {
-        return questionAnswers;
+
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name="answer_id"),
+            inverseJoinColumns = @JoinColumn(name="questionAnswer_id"))
+    private Collection<QuestionAnswer> questions;
+
+    public Collection<QuestionAnswer> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionAnswers(Collection<QuestionAnswer> questionAnswers) {
-        this.questionAnswers = questionAnswers;
+    public void setQuestions(Collection<QuestionAnswer> questions) {
+        this.questions = questions;
     }
-
-    @OneToMany(mappedBy = "answer")
-    private Collection<QuestionAnswer> questionAnswers;
-
 
     public long getId() {
         return id;
