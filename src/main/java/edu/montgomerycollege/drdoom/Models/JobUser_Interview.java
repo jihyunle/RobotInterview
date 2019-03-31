@@ -23,6 +23,8 @@ public class JobUser_Interview {
 
     private LocalDateTime interviewTime;
 
+    private String stringInterviewTime;
+
     //consider join column
     @ManyToOne
     //@JoinColumn(name = "jobUser_id")
@@ -40,7 +42,7 @@ public class JobUser_Interview {
     //=================================================
     //default
     public JobUser_Interview(){
-        setInterviewTime();
+        //setInterviewTime();
     }
 
     //loaded
@@ -55,7 +57,8 @@ public class JobUser_Interview {
     {
         this.jobUser = jobUser;
         this.chatHistory = chatHistory;
-        setInterviewTime();
+        //setInterviewTime();
+
     }
 
     //=================================================
@@ -81,9 +84,15 @@ public class JobUser_Interview {
         return interviewTime;
     }
 
-    public void setInterviewTime() {
-        this.interviewTime = LocalDateTime.now(); // allows for immediate interview
+//    public void setInterviewTime() {
+//        this.interviewTime = LocalDateTime.now(); // allows for immediate interview
+//    }
+
+    public void setInterviewTime(LocalDateTime interviewTime)
+    {
+        this.interviewTime = interviewTime;
     }
+
 
     //    public String getInterviewTime() {
 //        return interviewTime;
@@ -96,6 +105,16 @@ public class JobUser_Interview {
 //        this.interviewTime = interviewTime;
 //    }
 
+
+    public String getStringInterviewTime()
+    {
+        return stringInterviewTime;
+    }
+
+    public void setStringInterviewTime(String stringInterviewTime)
+    {
+        this.stringInterviewTime = stringInterviewTime;
+    }
 
     public Collection<QuestionAnswer> getChatHistory()
     {

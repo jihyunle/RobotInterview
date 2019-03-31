@@ -33,9 +33,9 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setText(body);
             mimeMessageHelper.setTo(to);
 //            mimeMessageHelper.addAttachment("testFile.txt", new ClassPathResource("C:\\Users\\Jesse\\IdeaProjects\\RobotInterview\\testFile.txt"));
-            String fileName = userService.getUser().getLastName() + "." + userService.getUser().getLastName() + " " +
+            String fileName = userService.getUser().getLastName() + "." + userService.getUser().getFirstName() + " " +
                     "Interview.txt";
-            mimeMessageHelper.addAttachment("filename.txt", file);
+            mimeMessageHelper.addAttachment(fileName, file);
             //message.addAttachment("testFile.txt", new ClassPathResource("testFile.txt"));
             this.javaMailSender.send(message);
         } catch (MessagingException messageException) {

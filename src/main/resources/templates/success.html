@@ -9,11 +9,22 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
+    <th:block th:object="${jui}">
 
-    <h2>Congrats you're selected for an interview! Please select interview date and time.</h2>
+        <!--<form method="post" th:action="@{/setinterview}" th:object="${jui}">-->
+            <h2>Congrats, you're selected for an interview!</h2>
+            <!--<input type=hidden th:field="*{id}"/>-->
 
-    <a href="/setinterview">Choose Interview Date</a>
+            <!--<label>Choose Time:</label>-->
+            <!--<input th:field="*{interviewTime}" type="time"/><br/>-->
 
+            <!--<label>Choose Date:</label>-->
+            <!--<input th:field="*{interviewTime}" type="date" min="2019-4-1" max="2019-4-15"/><br/>-->
+            <!--<input type="submit" value="Post"/>-->
+        <!--</form>-->
+
+        <a th:href="@{/setinterview/{id}(id=${jui.getJobUser().getId()})}">Choose your Interview Date and Time</a>
+    </th:block>
 </div>
 
 <div th:replace="base :: footer"></div>

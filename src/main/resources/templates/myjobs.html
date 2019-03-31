@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="base :: header"></th:block>
     <title>My Jobs</title>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
-<div class="container">
+<div class="container" th:object="${jui}">
+    <p>
+        Today is: <span th:text="${#calendars.format(now,'dd MMMM yyyy HH:mm')}">13 May 2011</span>
+    </p>
     <div class="list-group" th:each="jobUser : ${jobUsers}">
         <div class="row">
-            <div class="col">
+            <div class="col list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1" th:text="${jobUser.job.getJobTitle().job_title}"></h5><!--This isn't displaying-->
+                    <h5 class="mb-1" th:text="${jobUser.job.getJobTitle().job_title}"></h5>
                 </div>
-                <p class="mb-1" th:text="${jobUser.job.description}"></p>
+                <p class="mb-1" th:text="${#strings.abbreviate(jobUser.job.description, 100)}"></p>
+
             </div>
             <div class="col-2">
                 <span class="badge badge-primary badge-pill" th:text="${jobUser.appStatus}">Status</span>
+                <a th:if="${jobUser.appStatus=='pending interview date'}" th:href="@{/setinterview/{id}(id=${jobUser.id})}" class="btn btn-primary" th:target="_blank"
+                   type="button">Set interview time</a>
+                <span th:if="${jobUser.appStatus=='pending interview'}" class="badge badge-primary badge-pill" >Interview date</span>
+
+
             </div>
-            <div th:if="${jobUser.matched==true}" class="col-2">
+            <div class="col-2">
                 <!--<a th:href="@{/interview/{id}(id=${job.id})}" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Interview</a>-->
-                <a th:href="@{/interview/{id}(id=${jobUser.id})}" class="btn btn-primary" th:target="_blank"
+                <a th:if="${jobUser.appStatus=='pending interview'}" th:href="@{/interview/{id}(id=${jobUser.id})}" class="btn btn-primary" th:target="_blank"
                    type="button">Start Interview</a>
             </div>
         </div>
     </div>
+
 </div>
 
 <div th:replace="base :: footer"></div>

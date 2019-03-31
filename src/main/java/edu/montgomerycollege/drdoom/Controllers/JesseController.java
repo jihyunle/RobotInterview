@@ -42,20 +42,19 @@ public class JesseController
 
 
     @GetMapping({"/interview/{id}"})
-    public String interviewGet(@PathVariable("id") long id, Model model)
+    public String interviewGet(@PathVariable("id") long jobUserId, Model model)
     {
         //get jobUser
-        JobUser jobUser = jobUserRepository.findById(id).get();
+        JobUser jobUser = jobUserRepository.findById(jobUserId).get();
         //create a new instance of JobUser_Interview
-        JobUser_Interview jobUserInterview = new JobUser_Interview();
+        JobUser_Interview jobUser_interview = juiRepository.findByJobUser(jobUser);
+
         //set jobUserIntervew's jobUser
-        jobUserInterview.setJobUser(jobUser);
-        //set jobUserInterview's chatHistory--does this need to be done?
+        //jobUser_interview.setJobUser(jobUser);
 
 
         //Get (random) selection of questions (that match correctly)
         Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
-
         Iterator<QuestionAnswer> iter = questions.iterator();
         Collection<QuestionAnswer> copy = new ArrayList<QuestionAnswer>();
         while (iter.hasNext())
@@ -63,76 +62,91 @@ public class JesseController
             copy.add(iter.next());
         }
 
-        jobUserInterview.setChatHistory(copy);
-        System.out.println("size="+jobUserInterview.getChatHistory().size());
+        jobUser_interview.setChatHistory(copy); //This saves it, but can't get the object on the other side
 
-        //saves jobUser, propagates change to jobUser_Interview
-        jobUserRepository.save(jobUser);
-        juiRepository.save(jobUserInterview);
+        //save jui
+        juiRepository.save(jobUser_interview);
 
+        //add jobUser_interview to model
+        model.addAttribute("jui", jobUser_interview);
         //add questions to model
         model.addAttribute("questions", questions);
-        model.addAttribute("jui", jobUserInterview);
-
-
         return "interview";
     }
 
     @PostMapping("/interview")
-    public String processInterview(@ModelAttribute("jui") JobUser_Interview jui,
-                                   @RequestParam("answers")String[] answers,
-                                   Model model){
+    public String processInterview(@ModelAttribute("jui") JobUser_Interview jobUser_interview,
+                                   @RequestParam("answers") String[] answers,
+                                   Model model)
+    {
 
-        if(jui==null)
+        JobUser_Interview temp = juiRepository.findById(jobUser_interview.getId()).get();
+        //chatHistory is currently Null
+        //iterate through questions and answers, saving the answer to the object
+        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
+        Iterator<QuestionAnswer> iter = questions.iterator();
+        Collection<QuestionAnswer> copy = new ArrayList<QuestionAnswer>();
+        int i = 0;
+        while (iter.hasNext())
         {
-            System.out.println("null");
-
+            QuestionAnswer tempqa = iter.next();
+            tempqa.setAnswer(answers[i]);
+            i++;
+            questionAnswerRepository.save(tempqa);
+            copy.add(tempqa);
         }
-       // jui = juiRepository.findById(id).get();
+        jobUser_interview.setChatHistory(copy);
+        JobUser jobUser = jobUser_interview.getJobUser();
+        jobUser.setAppStatus("Pending hiring manager");
+        jobUser_interview.setJobUser(jobUser);
+        jobUserRepository.save(jobUser);
+        juiRepository.save(jobUser_interview);
 
-        Collection<QuestionAnswer> chatHistory = jui.getChatHistory();
 
-        jui.setChatHistory(chatHistory);
-
-        // resave jui obj
-        juiRepository.save(jui);
-
-//        for(QuestionAnswer qa: jui.getChatHistory()){
-//            System.out.println(qa.getQuestion());
-//        }
-//        System.out.println("question answer.....");
-        // now we have ans associated with each question
-        model.addAttribute("jui", jui);
+        model.addAttribute("jui", jobUser_interview);
         try
         {
-            sendEmailWithAttachment("Testing", jui);
-        }catch (IOException e)
+            String qaText = getStringVal(jobUser_interview.getChatHistory());
+            sendEmailWithAttachment(qaText, jobUser_interview);
+        }
+        catch (IOException e)
         {
             //don't send if there's an io exception
             System.out.println(e);
         }
-        return "interviewHistory";
+        return "interviewOver";
     }
 
 
-
     public void sendEmailWithAttachment(String attach, JobUser_Interview jobUser_interview) throws UnsupportedEncodingException,
-                                                                                                        IOException
+                                                                                                   IOException
     {
 
-        Files.write(Paths.get("testFile.txt"),
+        Files.write(Paths.get("textFile.txt"),
                     attach.getBytes());
 
-        File file = new File("testFile.txt");
+        File file = new File("textFile.txt");
         //String toEmail = jobUser_interview.getJobUser().getJob().getHiringManagerEmail();
-        String toEmail = "jesseberliner@gmail.com";
-        if(toEmail==null)
+        //Job job = jobUser_interview.getJobUser().getJob();
+        String toEmail = "jesseberliner@hotmail.com";
+        if (toEmail == null)
         {
             toEmail = "jesseberliner@gmail.com";
         }
 
 
-        //email.send("whatever@whatever.com", toEmail , "Subject", "body", file);
+        email.send("whatever@whatever.com", toEmail, "Interview Text", "See attached file", file);
     }
 
+    public String getStringVal(Collection<QuestionAnswer> collection)
+    {
+        String fullText = "";
+        for (QuestionAnswer qa : collection)
+        {
+            fullText+=qa.getQuestion() + "\n" + qa.getAnswer() +"\n";
+        }
+        return fullText;
+    }
 }
+
+
