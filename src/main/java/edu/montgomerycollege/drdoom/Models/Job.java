@@ -21,7 +21,7 @@ public class Job {
 
     private String hiringManagerEmail;
 
-    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER) //removed cascadeType=ALL
     private Collection<JobUser> jobUsers;
 
     //consider join table

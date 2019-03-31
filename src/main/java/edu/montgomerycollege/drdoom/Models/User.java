@@ -52,7 +52,7 @@ public class User {
     private Collection<Role> roles;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // removed fetch type intentionally
+    @OneToMany(mappedBy = "user") // removed fetch type intentionally //removed cascadeType=ALL
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<JobUser> jobUsers;
 

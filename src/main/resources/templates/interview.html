@@ -9,21 +9,13 @@
 <div class="container">
 
     <form action="#" th:action="@{/interview}" th:object="${jui}" method="post">
-
-        <input name="juiID" th:value="${jui.id}"/>
-
+        <input type="hidden" name="jui" th:value="${jui.id}"/>
         <div th:each="questionAnswer : ${questions}">
-
-            <div name="question" th:text="${questionAnswer.question}">
-            </div>
-
+            <div name="questions" th:text="${questionAnswer.question}"></div>
             <input type="text" name="answers" />
-
         </div>
-
         <input type="submit" value="Submit">
     </form>
-
 </div>
 
 <div th:replace="base :: footer"></div>

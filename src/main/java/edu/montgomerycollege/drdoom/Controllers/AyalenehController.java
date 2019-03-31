@@ -24,20 +24,19 @@ public class AyalenehController
 
     @RequestMapping("/admin")
     public String adminjob(Model model){
-        model.addAttribute("job",new Job());
+        model.addAttribute("job", new Job());
         model.addAttribute("jobTitles",jobTitleRepository.findAll());
         return "admin";
     }
     @PostMapping("/admin")
     public String adminprocessjob(@Valid Job job, BindingResult result, Model model){
         if(result.hasErrors()){
-            System.out.println("error occurred here");
             return "redirect:/admin";
         }
         else {
             jobRepository.save(job);
         }
-        return "redirect:/";
+        return "redirect:/jobs";
     }
 
     @GetMapping("/success")

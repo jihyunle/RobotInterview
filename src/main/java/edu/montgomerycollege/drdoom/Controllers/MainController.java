@@ -90,11 +90,14 @@ public class MainController
 
         // set userid again
         resume.setUser(user);
+        //save resume
+        resumeRepository.save(resume);
 
         // add the resume to that user
         user.getResumes().add(resume);
         // save user
         userRepository.save(user);
+
         // find job by its id
         job = jobRepository.findById(id).get();
         // create a new jobUser obj
@@ -102,44 +105,36 @@ public class MainController
         // save the job and user to the new obj
         jobUser.setJob(job);
         jobUser.setUser(user);
+        //save jobUser-must be saved here so that ID is created
+        jobUserRepository.save(jobUser);
 
 //Temporarily commented out to make all applications match, remove Boolean matches = true;
         //parse resume and see if it matches 80% of keywords
         //Boolean matches = ParseResume.parseResume(resume, job.getJobTitle());
         Boolean matches = true;
 
-        // if user's resume for that job matches, create a jui obj and save additional info in jobUser
+        // if user's resume for that job matches setMatch=true and set appstatus
         if (matches) {
-            // creating obj
-            JobUser_Interview jui = new JobUser_Interview();
-            jui.setJobUser(jobUser);
 
             //save additional info to jobUser
             jobUser.setMatched(true); //this should only be true if matches, else it stays false
-            jobUser.setAppStatus("pending interview date"); //this should only be set if matches, else it stays blank
-
-            juiRepository.save(jui);
-
-            // assigning chatHistory field
-//            QuestionAnswer[] chatHistory = new QuestionAnswer[];
-//            for (int i=0; i<chatHistory.length; i++){
-//
-//            }
-//            jui.setChatHistory(chatHistory);
+            jobUser.setAppStatus("pending interview date"); //
         }
-
-
-
-
-
-        //make all needed saves
-        // re-save user
-        userRepository.save(user);
-        // save the obj to the repository
+        else
+        {
+            jobUser.setMatched(false); //this is the default value
+            jobUser.setAppStatus("rejected"); //this should only be set if matches, else it stays blank
+        }
+        //save jobUser
         jobUserRepository.save(jobUser);
 
-        userRepository.save(user);
+        // create jobUser_interview object
+        JobUser_Interview jui = new JobUser_Interview();
+        //set jui jobUser
+        jui.setJobUser(jobUser);
 
+        //save jui
+        juiRepository.save(jui);
 
         //add to model
         model.addAttribute("jobUser", jobUser);

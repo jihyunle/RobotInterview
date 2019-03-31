@@ -18,10 +18,10 @@ public class JobTitle {
     @NotNull
     private String job_title;
 
-    @OneToMany(mappedBy = "jobTitle",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobTitle") //removed cascadeType=ALL
     private Set<Job> jobs;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY) //removed cascadeType=ALL
     @JoinTable(joinColumns = @JoinColumn(name="keyword_id"), inverseJoinColumns = @JoinColumn(name="id"))
     private Collection<Keyword> keywords;
 
