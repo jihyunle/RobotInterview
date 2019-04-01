@@ -109,7 +109,7 @@ public class MainController
         model.addAttribute("jobUser", jobUser);
         // added this line to retrieve all resumes saved-
         //TODO change this to a query that only returns the user's resumes
-        model.addAttribute("resumes", resumeRepository.findAll());
+        model.addAttribute("resumes", resumeRepository.findAllByUser(jobUser.getUser()));
         return "apply";
     }
 
