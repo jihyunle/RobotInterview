@@ -23,6 +23,18 @@ public class JobUser {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
+
     @OneToMany(mappedBy = "jobUser")//removed cascadeType=ALL
     private Set<JobUser_Interview> jobUser_interviews;
 

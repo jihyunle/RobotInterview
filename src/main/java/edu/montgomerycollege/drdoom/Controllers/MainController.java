@@ -124,7 +124,7 @@ public class MainController
 
                           Model model) {
 
-            JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();
+        JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();
         // get user
         User user = userService.getUser();
 

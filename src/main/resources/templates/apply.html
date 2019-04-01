@@ -11,69 +11,26 @@
           th:object="${jobUser}"
           method="POST">
         <input type="hidden" th:field="${jobUser.id}"/>
-<!--=======-->
-    <!--<form action="#"-->
-          <!--th:action="@{/apply}"-->
-          <!--th:object="${resume}"-->
-          <!--method="POST">-->
-        <!--<input type="hidden" th:field="*{id}"/>-->
-<!--&gt;>>>>>> questionAnswer-->
+
 
         <h3>You are applying for: <span th:text="${jobUser.getJob().getJobTitle().job_title}"></span></h3>
 
-<!--<<<<<<< HEAD-->
         <h4>Description:</h4>
         <div th:text="${jobUser.getJob().description}"></div>
 
 
         <div class="form-group">
             Category
-            <select name="resume" class="form-control input-md">
+            <select name="resume" class="form-control input-md" th:field="*{resume}">
+                <option value="">Select Resume</option>
                 <!-- above name field holds the value of the selected category ie) compact -->
-                <th:block th:each="option:${resumes}">
-                    <option th:value="${option.id}" th:text="${option.resumeVersionName}">Select Resume Version</option>
-                </th:block>
+                <option th:each="option:${resumes}" th:value="${option.id}" th:text="${option.resumeVersionName}">
+                    Select Resume Version
+                </option>
 
-<!--=======-->
-        <!--<h4>Description:</h4>3-->
-
-
-        <!--<div th:text="${job.description}"></div>-->
-
-        <!--&lt;!&ndash;<div class="dropdown">&ndash;&gt;-->
-            <!--&lt;!&ndash;<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;-->
-                <!--&lt;!&ndash;Please select your resume here:&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">&ndash;&gt;-->
-                <!--&lt;!&ndash;<th:each></th:each>&ndash;&gt;-->
-                <!--&lt;!&ndash;<a class="dropdown-item" href="#">Action</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;<a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
-                <!--&lt;!&ndash;<a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--<div class="form-group">-->
-            <!--Resume-->
-            <!--<select name="user" id="user" class="form-control input-md">-->
-                <!--<option th:selected>Select Resume</option>-->
-<!--&gt;>>>>>> questionAnswer-->
-
-
-
-                <option th:each="user : ${users}"
-                        th:value="${user.id}"
-                        th:text="${user.getResume().resumeVersionName}"></option>
-                        <!-- th:value attributes in the nested <option> tags will be very important because
-                        they will provide the means of knowing which is the currently selected option-->
             </select><br />
-            <!--<span th:if="${#fields.hasErrors('resume')}"-->
-                  <!--th:errors="*{resume}"></span><br />-->
+
         </div>
-
-
-        <!--<div class="form-group">-->
-            <!--<label for="resume" autofocus="autofocus">Please paste your resume here:</label>-->
-            <!--<textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>-->
-        <!--</div>-->
 
         <button type="submit" class="btn btn-primary">Apply</button>
         <button type="reset" class="btn btn-primary">Reset</button>
