@@ -29,11 +29,6 @@ public class Resume {
 
     }
 
-    //loaded
-
-//    public Resume(@Null String resumeData) {
-//        this.resumeData = resumeData;
-//    }
 
 
     public Resume(String resumeData){
@@ -62,12 +57,13 @@ public class Resume {
         this.resumeData = resumeData;
     }
 
-
-    public String getResumeVersionName() {
+    public String getResumeVersionName()
+    {
         return resumeVersionName;
     }
 
-    public void setResumeVersionName(String resumeVersionName) {
+    public void setResumeVersionName(String resumeVersionName)
+    {
         this.resumeVersionName = resumeVersionName;
     }
 
