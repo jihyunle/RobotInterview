@@ -2,7 +2,6 @@ package edu.montgomerycollege.drdoom.Models;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
@@ -16,8 +15,8 @@ public class QuestionAnswer {
     private String answer;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "jobUser_interview")
-    private JobUser_Interview jobUser_interview;
+    @JoinColumn(name = "jobUserInterview")
+    private JobUserInterview jobUserInterview;
 
     @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY) // might be @OneToMany
     private Collection<JobTitle> jobTitles;
@@ -26,7 +25,7 @@ public class QuestionAnswer {
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name="question_id"),
-            inverseJoinColumns = @JoinColumn(name="Answer_id"))
+            inverseJoinColumns = @JoinColumn(name="answer_id"))
     private Collection<Answer> answers;
     //=================================================
     //Constructors
@@ -79,12 +78,14 @@ public class QuestionAnswer {
         this.answer = answer;
     }
 
-    public JobUser_Interview getJobUser_interview() {
-        return jobUser_interview;
+    public JobUserInterview getJobUserInterview()
+    {
+        return jobUserInterview;
     }
 
-    public void setJobUser_interview(JobUser_Interview jobUser_interview) {
-        this.jobUser_interview = jobUser_interview;
+    public void setJobUserInterview(JobUserInterview jobUserInterview)
+    {
+        this.jobUserInterview = jobUserInterview;
     }
 
     public Collection<JobTitle> getJobTitles()

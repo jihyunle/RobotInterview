@@ -24,22 +24,16 @@ public class Resume {
     @OneToMany(mappedBy = "resume")
     private Set<JobUser> jobUsers;
 
-    public Set<JobUser> getJobUsers() {
-        return jobUsers;
-    }
 
-    public void setJobUsers(Set<JobUser> jobUsers) {
-        this.jobUsers = jobUsers;
-    }
 
     //=================================================
     //Constructors
     //=================================================
     //default
+
     public Resume() {
 
     }
-
 
 
     public Resume(String resumeData){
@@ -47,10 +41,10 @@ public class Resume {
     }
 
 
+
     //=================================================
     //Getters and setters
     //=================================================
-
 
     public long getId() {
         return id;
@@ -84,6 +78,14 @@ public class Resume {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<JobUser> getJobUsers() {
+        return jobUsers;
+    }
+
+    public void setJobUsers(Set<JobUser> jobUsers) {
+        this.jobUsers = jobUsers;
     }
 
 

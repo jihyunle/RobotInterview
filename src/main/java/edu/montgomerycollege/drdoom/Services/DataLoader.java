@@ -19,7 +19,7 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     JobUserRepository jobUserRepository;
     @Autowired
-    JobUser_InterviewRepository jobUser_interviewRepository;
+    JobUserInterviewRepository jobUserInterviewRepository;
     @Autowired
     KeywordRepository keywordRepository;
     @Autowired
@@ -69,8 +69,8 @@ public class DataLoader implements CommandLineRunner {
         //new dataloader stuff
 
         if (jobRepository.count() == 0) {
-            //create QuestionAnswer->JobUser_Interview->JobUser
-            QuestionAnswer questionAnswer = new QuestionAnswer("What is a programming languages?", "A programming " +
+            //create QuestionAnswer->jobUserInterview->JobUser
+            QuestionAnswer questionAnswer = new QuestionAnswer("What is a programming language?", "A programming " +
                     "language is a formal language that specifies a set of instructions that can be used to produce various kinds of output. Programming languages generally consist of instructions for a computer. Programming languages can be used to create programs that implement specific algorithms.");
             questionAnswerRepository.save(questionAnswer);
             questionAnswer = new QuestionAnswer("What are the high level programming languages?", "C++ C# " +
@@ -89,9 +89,9 @@ public class DataLoader implements CommandLineRunner {
             for (QuestionAnswer qa : questionAnswers) {
                 collection.add(qa);
             }
-            //create JobUser_Interview objects--don't think this is necessary, these are created when a jobUser
+            //create jobUserInterview objects--don't think this is necessary, these are created when a jobUser
             // applies for a job
-//            JobUser_Interview jobUser_interview = new JobUser_Interview();
+//            jobUserInterview jobUser_interview = new jobUserInterview();
 //            jobUser_interview.setChatHistory(collection);
 //            jobUser_interviewRepository.save(jobUser_interview);
 

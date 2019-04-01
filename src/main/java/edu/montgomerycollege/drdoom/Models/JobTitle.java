@@ -16,7 +16,7 @@ public class JobTitle {
     private long id;
 
     @NotNull
-    private String job_title;
+    private String jobtitle;
 
     @OneToMany(mappedBy = "jobTitle") //removed cascadeType=ALL
     private Set<Job> jobs;
@@ -51,8 +51,8 @@ public class JobTitle {
     }
 
     //loaded
-    public JobTitle(@NotNull String job_title) {
-        this.job_title = job_title;
+    public JobTitle(@NotNull String jobtitle) {
+        this.jobtitle = jobtitle;
     }
 
     //=================================================
@@ -67,12 +67,14 @@ public class JobTitle {
         this.id = id;
     }
 
-    public String getJob_title() {
-        return job_title;
+    public String getJobtitle()
+    {
+        return jobtitle;
     }
 
-    public void setJob_title(String job_title) {
-        this.job_title = job_title;
+    public void setJobtitle(String jobtitle)
+    {
+        this.jobtitle = jobtitle;
     }
 
     public Set<Job> getJobs() {

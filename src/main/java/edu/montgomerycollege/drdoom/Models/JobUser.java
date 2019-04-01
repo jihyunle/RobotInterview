@@ -23,12 +23,13 @@ public class JobUser {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
     @OneToMany(mappedBy = "jobUser")//removed cascadeType=ALL
-    private Set<JobUser_Interview> jobUser_interviews;
+    private Set<JobUserInterview> jobUserInterviews;
 
     //=================================================
     //Constructors
@@ -79,13 +80,6 @@ public class JobUser {
         this.user = user;
     }
 
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
-    }
 
     public String getAppStatus() {
         return appStatus;
@@ -103,11 +97,23 @@ public class JobUser {
         this.matched = matched;
     }
 
-    public Set<JobUser_Interview> getJobUser_interviews() {
-        return jobUser_interviews;
+    public Resume getResume()
+    {
+        return resume;
     }
 
-    public void setJobUser_interviews(Set<JobUser_Interview> jobUser_interviews) {
-        this.jobUser_interviews = jobUser_interviews;
+    public void setResume(Resume resume)
+    {
+        this.resume = resume;
+    }
+
+    public Set<JobUserInterview> getJobUserInterviews()
+    {
+        return jobUserInterviews;
+    }
+
+    public void setJobUserInterviews(Set<JobUserInterview> jobUserInterviews)
+    {
+        this.jobUserInterviews = jobUserInterviews;
     }
 }
