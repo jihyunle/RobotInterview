@@ -70,13 +70,13 @@ public class JenniferController {
 
     @GetMapping("/appeal")
     public String appealForm(Model model){
-        model.addAttribute("jui", new JobUser_Interview());
+        model.addAttribute("jui", new JobUserInterview());
         return "appeal";
     }
 
     @PostMapping("/appeal")
-    public String processAppeal(@ModelAttribute("jui") JobUser_Interview jobUser_interview){
-        juiRepository.save(jobUser_interview);
+    public String processAppeal(@ModelAttribute("jui") JobUserInterview jobUserInterview){
+        juiRepository.save(jobUserInterview);
         return "redirect:/";
     }
 
