@@ -22,10 +22,10 @@
             <!--<input type="text" th:field="*{resumeVersionName}" placeholder="Resume Version"/>-->
         <!--</div>-->
         <div class="form-group">
-            <input type="text" id="resumeVersionName" placeholder="Resume Version Name" th:field="*{resumeVersionName}" name="resumeID"><br />
+            <input type="text" id="resumeVersionName" placeholder="Resume Version Name" th:field="*{resumeVersionName}" name="resumeID" autofocus="autofocus"><br />
         </div>
         <div class="form-group">
-            <label for="resume" autofocus="autofocus">Please paste your resume here:</label>
+            <label for="resume" >Please paste your resume here:</label>
             <textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>
         </div>
 

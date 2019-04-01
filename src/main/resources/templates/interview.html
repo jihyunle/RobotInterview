@@ -3,23 +3,50 @@
 <head>
     <th:block th:replace="base :: header"></th:block>
     <title>Interview</title>
+
 </head>
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-
-    <form action="#" th:action="@{/interview}" th:object="${jui}" method="post">
+    <div class="progress">
+        <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span id="current-progress"></span>
+        </div>
+    </div>
+    <form action="#" th:action="@{/interview}" th:object="${jui}" method="post" >
         <input type="hidden" name="jui" th:value="${jui.id}"/>
         <div th:each="questionAnswer : ${questions}">
             <div name="questions" th:text="${questionAnswer.question}"></div>
             <input type="text" name="answers" />
         </div>
-        <input type="submit" value="Submit">
+        <input id="submit" type="submit" value="Submit" >
+
     </form>
 </div>
 
+<div th:replace="base :: jquery"></div>
 <div th:replace="base :: footer"></div>
 <div th:replace="base :: javascript"></div>
+<script>
+    $(document).ready(function(){
+        $("submit").click(function(){
+            $(function  () {
+                var current_progress = 0;
+                var interval = setInterval(function () {
+                    current_progress += 5;
+                    $("#dynamic")
+                        .css("width", current_progress + "%")
+                        .attr("aria-valuenow", current_progress)
+                        .text(current_progress + "% Complete");
+                    if (current_progress >= 100) {
+                        clearInterval(interval);
+                        window.location.assign("interviewOver")
+                    }
+                }, 1000);
+            })})});
+
+</script>
 </body>
 
 </html>

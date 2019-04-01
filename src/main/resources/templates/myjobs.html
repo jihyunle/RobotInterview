@@ -10,26 +10,29 @@
     <p>
         Today is: <span th:text="${now}">13 May 2011</span>
     </p>
-    <div class="list-group" th:each="jobUserInter : ${juis}">
+    <div class="list-group" th:each="jui : ${juis}">
+
         <div class="row">
             <div class="col list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1" th:text="${jobUserInter.jobUser.job.getJobTitle().job_title}"></h5>
+                    <!--<h5 class="mb-1" th:text="${jui.id}"></h5>-->
+                    <h5 class="mb-1" th:text="${jui!=null}?${jui.getJobUser().getJob().getJobTitle().job_title}:'Title'"></h5>
+                    <!--<h5 class="mb-1" th:text="${jobUserInter.getJobUser().appStatus}"></h5>-->
                 </div>
-                <p class="mb-1" th:text="${#strings.abbreviate(jobUserInter.jobUser.job.description, 100)}"></p>
+                <p class="mb-1" th:text="${jui!=null}?${#strings.abbreviate(jui.jobUser.job.description, 100)}:'Descriptiion'"></p>
 
             </div>
             <div class="col-2">
-                <span class="badge badge-primary badge-pill" th:text="${jobUserInter.jobUser.appStatus}">Status</span>
-                <a th:if="${jobUserInter.jobUser.appStatus=='pending interview date'}" th:href="@{/setinterview/{id}(id=${jobUserInter.jobUser.id})}" class="btn btn-primary" th:target="_blank"
+                <span class="badge badge-primary badge-pill" th:text="${jui!=null}?${jui.getJobUser().appStatus}:'Status'"></span>
+                <a th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview date'}:'A'" th:href="@{/setinterview/{id}(id=${jui!=null}?${jui.jobUser.id}:'B')}" class="btn btn-primary" th:target="_blank"
                    type="button">Set interview time</a>
-                <span th:if="${jobUserInter.jobUser.appStatus=='pending interview'}" class="badge badge-primary badge-pill" th:text="${jobUserInter.getStringInterviewTime()}" >Interview date</span>
+                <span th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview'}:'C'" class="badge badge-primary badge-pill" th:text="${jui!=null}?${jui.getStringInterviewTime()}:'D'" >Interview date</span>
 
 
             </div>
             <div class="col-2">
                 <!--<a th:href="@{/interview/{id}(id=${job.id})}" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Interview</a>-->
-                <a th:if="${jobUserInter.jobUser.appStatus=='pending interview'}" th:href="@{/interview/{id}(id=${jobUserInter.jobUser.id})}" class="btn btn-primary" th:target="_blank"
+                <a th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview'}:'E'" th:href="@{/interview/{id}(id=${jui!=null}?${jui.jobUser.id}:'F')}" class="btn btn-primary" th:target="_blank"
                    type="button">Start Interview</a>
             </div>
         </div>

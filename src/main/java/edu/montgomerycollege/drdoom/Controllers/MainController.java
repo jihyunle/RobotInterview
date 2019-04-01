@@ -33,6 +33,7 @@ public class MainController
 
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     JobTitleRepository jobTitleRepository;
 
@@ -50,9 +51,27 @@ public class MainController
 
 
     @RequestMapping({"/index","/"})
-    public String welcomePage()
+    public String upcomingInterviews(Model model)
     {
-        return "index";
+        //get all user's jobs
+        List<JobUser_Interview> jobUser_interviews = createCollection();
+        //create list for final list of jobs being interviewed for
+        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
+
+        if(!jobUser_interviews.isEmpty())
+        {
+            for (JobUser_Interview jobUser_interview : jobUser_interviews)
+            {
+                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
+                {
+                    finalJuIs.add(jobUser_interview);
+                }
+            }
+            model.addAttribute("juis", jobUser_interviews);
+        }
+        model.addAttribute("now", new Date());
+        return "myjobs";
+
     }
 
     @RequestMapping({"/jobs"})
@@ -67,18 +86,11 @@ public class MainController
     public String myJobs(Model model)
     {
         //get current user
-        User current_user = userService.getUser();
+        //User current_user = userService.getUser();
 
         //initialize collection of JobUser_Interview objects
-        Collection<JobUser_Interview> jobUser_interviews = new ArrayList<JobUser_Interview>();
-        //iterate through all jobUsers, adding their jui to jobUser_interviews
-        Iterable<JobUser> jobUsers = jobUserRepository.findAllByUser(userService.getUser());
-        Iterator<JobUser> iterator = jobUsers.iterator();
-        while(iterator.hasNext())
-        {
-            jobUser_interviews.add(juiRepository.findByJobUser(iterator.next()));
-        }
-
+        List<JobUser_Interview> jobUser_interviews = createCollection();
+        //model.addAttribute("jobs", userService.getUser().getJobUsers());
         model.addAttribute("now", new Date());
         model.addAttribute("juis", jobUser_interviews);
         return "myjobs";
@@ -87,74 +99,68 @@ public class MainController
     @GetMapping({"/apply/{id}"})
     public String apply(@PathVariable("id") long id, Model model)
     {
-        model.addAttribute("job", jobRepository.findById(id).get());
-        model.addAttribute("id", id);
-        model.addAttribute("resume", new Resume());
-        // added this line to retrieve all resumes saved
+        Job job = jobRepository.findById(id).get();
+
+        JobUser jobUser = new JobUser(job, userService.getUser(), "", false);
+
+        jobUserRepository.save(jobUser);  //not sure if this is needed
+
+        model.addAttribute("jobUser", jobUser);
+        // added this line to retrieve all resumes saved-
+        //TODO change this to a query that only returns the user's resumes
         model.addAttribute("resumes", resumeRepository.findAll());
         return "apply";
     }
 
     @PostMapping({"/apply"})
-    public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
-                          @ModelAttribute("job") Job job, BindingResult resultB,
-                          @RequestParam("jobId") long id,
+    public String applied(@ModelAttribute("jobUser") JobUser jobUser,
+                          @ModelAttribute("resumes")Resume resume,
                           Model model) {
 
+            JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();
         // get user
         User user = userService.getUser();
 
-        // set userid again
-        resume.setUser(user);
-        //save resume
-        resumeRepository.save(resume);
+//hardcoding because I can't get this to work yet
+        //get resume object
+        Long tempFix = new Long(69);
+        Resume resumeObject = resumeRepository.findById(tempFix).get();
 
-        // add the resume to that user
-        user.getResumes().add(resume);
-        // save user
-        userRepository.save(user);
 
-        // find job by its id
-        job = jobRepository.findById(id).get(); //This might be causing an issue-same name as param above
-        // create a new jobUser obj
-        JobUser jobUser = new JobUser();
-        // save the job and user to the new obj
-        jobUser.setJob(job);
-        jobUser.setUser(user);
-        //save jobUser-must be saved here so that ID is created
-        jobUserRepository.save(jobUser);
 
 //Temporarily commented out to make all applications match, remove Boolean matches = true;
         //parse resume and see if it matches 80% of keywords
-        //Boolean matches = ParseResume.parseResume(resume, job.getJobTitle());
+        //Boolean matches = ParseResume.parseResume(resume, jobUserObject.getJob().getJobTitle());
         Boolean matches = true;
 
         // if user's resume for that job matches setMatch=true and set appstatus
-        if (matches) {
-
+        if (matches)
+        {
             //save additional info to jobUser
-            jobUser.setMatched(true); //this should only be true if matches, else it stays false
-            jobUser.setAppStatus("pending interview date");
+            jobUserObject.setMatched(true); //this should only be true if matches, else it stays false
+            jobUserObject.setAppStatus("pending interview date");
             // in th:if expression
         }
         else
         {
-            jobUser.setMatched(false); //this is the default value
-            jobUser.setAppStatus("rejected");
+            //save additional info to jobUser
+            jobUserObject.setMatched(false); //this is the default value
+            jobUserObject.setAppStatus("rejected");
         }
         //save jobUser
-        jobUserRepository.save(jobUser);
+        jobUserRepository.save(jobUserObject);
 
         // create jobUser_interview object
         JobUser_Interview jui = new JobUser_Interview();
         //set jui jobUser
-        jui.setJobUser(jobUser);
+        jui.setJobUser(jobUserObject);
 
         //save jui
         juiRepository.save(jui);
 
+
         //add to model
-        model.addAttribute("job", job);
+        model.addAttribute("job", jobUser.getJob());
         model.addAttribute("jobUser", jobUser);
         model.addAttribute("jui", jui);
         model.addAttribute("matches", matches); //only matches is needed for applied
@@ -170,4 +176,56 @@ public class MainController
         //final return page is chosen dynamically based on pass or fail of parser
         //return "applied";
     }
+    @GetMapping("/setinterview/{id}")
+    public String showInterview(@PathVariable("id") long id, Model model){
+
+        JobUser jobUser = jobUserRepository.findById(id).get();
+        model.addAttribute("jui", juiRepository.findByJobUser(jobUser));
+       // model.addAttribute("now", new Date());
+        return "chooseInterview";
+    }
+
+
+    @PostMapping ("/setinterview")
+    public String setInterviewDate(@ModelAttribute JobUser_Interview jui, Model model)
+    {
+        //get jui object
+        jui=juiRepository.findById(jui.getId()).get();
+        //change appStatus
+        jui.getJobUser().setAppStatus("pending interview");
+        //save jobUser-appStatus changed
+        jobUserRepository.save(jui.getJobUser());
+        //set LocalDateTime interview object
+        //TODO
+            //set interviewTime
+        //initialize collection of JobUser_Interview objects
+        List<JobUser_Interview> jobUser_interviews = createCollection();
+
+        model.addAttribute("now", new Date());
+        model.addAttribute("juis", jobUser_interviews);
+
+
+
+        return "myjobs";
+    }
+//Helper methods
+
+    public LocalDateTime convertStringToDate(String sDate)
+    {
+        return LocalDateTime.parse(sDate);
+    }
+
+    private List<JobUser_Interview> createCollection()
+    {
+        List<JobUser_Interview> jobUser_interviews = new ArrayList<JobUser_Interview>();
+        //iterate through all jobUsers, adding their jui to jobUser_interviews
+        Collection<JobUser> jobUsers = jobUserRepository.findAllByUser(userService.getUser());
+        for(JobUser ju: jobUsers) {
+            // do stuff
+            jobUser_interviews.add(juiRepository.findByJobUser(ju));
+        }
+
+        return jobUser_interviews;
+    }
+
 }
