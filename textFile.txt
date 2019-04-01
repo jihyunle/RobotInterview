@@ -1,8 +1,8 @@
 what is programming languages?
-asdf
+
 write the type of high level programming languages?
-asd
+
 write  basic object-oriented programming languages(OOP)concept?
-adg
+
 What is data type?
-asg
+

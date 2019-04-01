@@ -141,8 +141,7 @@ public class MainController
 
 //Temporarily commented out to make all applications match, remove Boolean matches = true;
         //parse resume and see if it matches 80% of keywords
-        //Boolean matches = ParseResume.parseResume(resume, jobUserObject.getJob().getJobTitle());
-        Boolean matches = true;
+        Boolean matches = ParseResume.parseResume(resumeObject, jobUserObject.getJob().getJobTitle());
 
         // if user's resume for that job matches setMatch=true and set appstatus
         if (matches)
