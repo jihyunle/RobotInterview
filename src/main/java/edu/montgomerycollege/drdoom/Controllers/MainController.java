@@ -90,6 +90,8 @@ public class MainController
         model.addAttribute("job", jobRepository.findById(id).get());
         model.addAttribute("id", id);
         model.addAttribute("resume", new Resume());
+        // added this line to retrieve all resumes saved
+        model.addAttribute("resumes", resumeRepository.findAll());
         return "apply";
     }
 

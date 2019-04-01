@@ -3,6 +3,8 @@ package edu.montgomerycollege.drdoom.Controllers;
 import edu.montgomerycollege.drdoom.Models.*;
 import edu.montgomerycollege.drdoom.Repositories.JobUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.QuestionAnswerRepository;
+import edu.montgomerycollege.drdoom.Repositories.ResumeRepository;
+import edu.montgomerycollege.drdoom.Repositories.UserRepository;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,48 @@ public class JenniferController {
     @Autowired
     QuestionAnswerRepository qaRepository;
 
-    @Autowired
-    UserService userService;
-
     private User user;
+
+    @Autowired
+    ResumeRepository resumeRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+
+    @GetMapping("/resumeupload")
+    public String resumeUpload(Model model){
+//        model.addAttribute("id", id);
+        model.addAttribute("resume", new Resume());
+        model.addAttribute("resumes", resumeRepository.findAll());
+        return "resumeForm";
+    }
+
+    @PostMapping("/resumeupload")
+    public String processResume(@ModelAttribute("resume") Resume resume,
+                                BindingResult result
+//                                @PathVariable("resumeID") long id
+    )
+    {
+
+        if (result.hasErrors()){
+            return "resumeForm";
+        }
+        // get user
+        user = userService.getUser();
+        // set user of that resume obj
+        resume.setUser(user);
+
+//        resume.setUser(userRepository.findById(id).get());
+        resumeRepository.save(resume);
+
+        return "confirmResume";
+
+
+    }
 
 
     @RequestMapping("/appeal")
@@ -39,8 +79,6 @@ public class JenniferController {
         return "myinterviews";
 
     }
-
-
 
 
 }

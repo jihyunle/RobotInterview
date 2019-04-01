@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<section class="container">
+    <h4>Upload a version of your resume here</h4>
+
+    <form action="#"
+          th:action="@{/resumeupload}"
+          th:object="${resume}"
+          method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+        <h5>Give this version a name:</h5>
+        <!--<div class="form-group">-->
+            <!--<input type="text" th:field="*{resumeVersionName}" placeholder="Resume Version"/>-->
+        <!--</div>-->
+        <div class="form-group">
+            <input type="text" id="resumeVersionName" placeholder="Resume Version Name" th:field="*{resumeVersionName}" name="resumeID"><br />
+        </div>
+        <div class="form-group">
+            <label for="resume" autofocus="autofocus">Please paste your resume here:</label>
+            <textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <!--<button type="reset" class="btn btn-primary">Reset</button>-->
+    </form>
+
+</section>
+
+</body>
+</html>

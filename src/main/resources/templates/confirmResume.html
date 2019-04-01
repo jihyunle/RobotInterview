@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    // timeout and moves to designated page, jobs.html, after 3 seconds
+    <meta http-equiv="refresh" content="3; url=http://www.localhost:8080/jobs.html">
+<head>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Confirm Resume Upload</title>
+</head>
+<body>
+    <div th:replace="base :: nav"></div>
+
+    <div class="container">
+        <th:block th:object="${resume}">
+            <h2 th:inline="text">Your resume [[${resume.resumeVersionName}]] has been successfully saved. </h2>
+
+            <div th:text="${resume.resumeVersionName}"></div>
+
+        </th:block>
+    </div>
+
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
+</body>
+
+</html>

@@ -17,10 +17,41 @@
 
         <div th:text="${job.description}"></div>
 
+        <!--<div class="dropdown">-->
+            <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--Please select your resume here:-->
+            <!--</button>-->
+            <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                <!--<th:each></th:each>-->
+                <!--<a class="dropdown-item" href="#">Action</a>-->
+                <!--<a class="dropdown-item" href="#">Another action</a>-->
+                <!--<a class="dropdown-item" href="#">Something else here</a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
         <div class="form-group">
-            <label for="resume" autofocus="autofocus">Please paste your resume here:</label>
-            <textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>
+            Category
+            <select name="resume" th:field="*{resumeVersionName}" class="form-control input-md">
+                <!-- above name field holds the value of the selected category ie) compact -->
+                <option value="">Select Resume Version</option> <!-- th:selected not needed -->
+
+                <option th:each="resume : ${resumes}"
+                        th:value="${resume.id}"
+                        th:text="${resume.resumeVersionName}"></option>
+                        <!-- th:value attributes in the nested <option> tags will be very important because
+                        they will provide the means of knowing which is the currently selected option-->
+            </select><br />
+            <!--<span th:if="${#fields.hasErrors('resume')}"-->
+                  <!--th:errors="*{resume}"></span><br />-->
         </div>
+
+
+        <!--<div class="form-group">-->
+            <!--<label for="resume" autofocus="autofocus">Please paste your resume here:</label>-->
+            <!--<textarea class="form-control" id="resume" th:field="*{resumeData}" rows="30"></textarea>-->
+        <!--</div>-->
+
         <button type="submit" class="btn btn-primary">Apply</button>
         <button type="reset" class="btn btn-primary">Reset</button>
     </form>

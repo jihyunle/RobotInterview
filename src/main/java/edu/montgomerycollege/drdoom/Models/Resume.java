@@ -14,6 +14,8 @@ public class Resume {
     @Lob
     private String resumeData;
 
+    private String resumeVersionName; // this is essentially ID, but with name for faster search
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -53,6 +55,14 @@ public class Resume {
         this.resumeData = resumeData;
     }
 
+    public String getResumeVersionName() {
+        return resumeVersionName;
+    }
+
+    public void setResumeVersionName(String resumeVersionName) {
+        this.resumeVersionName = resumeVersionName;
+    }
+
     public User getUser() {
         return user;
     }
@@ -60,5 +70,7 @@ public class Resume {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 
 }
