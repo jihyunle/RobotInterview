@@ -71,7 +71,7 @@ public class MainController
             model.addAttribute("juis", jobUser_interviews);
         }
         model.addAttribute("now", new Date());
-        return "myjobs";
+        return "index";
 
     }
 
@@ -130,8 +130,12 @@ public class MainController
 
 //hardcoding because I can't get this to work yet
         //get resume object
-        Long tempFix = new Long(69);
-        Resume resumeObject = resumeRepository.findById(tempFix).get();
+        //get all resumes
+        List<Resume> resumes = resumeRepository.findAllByUser(user);
+        //get the first one, because we'd better have one in by now
+        Resume randResume = resumes.get(0);
+
+        Resume resumeObject = resumeRepository.findById(randResume.getId()).get();
 
 
 
