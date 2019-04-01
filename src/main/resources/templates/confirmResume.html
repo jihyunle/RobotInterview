@@ -3,8 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    // timeout and moves to designated page, jobs.html, after 3 seconds
-    <meta http-equiv="refresh" content="3; url=http://www.localhost:8080/jobs.html">
+    <!-- timeout and moves to designated page, jobs.html, after 3 seconds -->
+    <meta http-equiv="refresh" content="3; url=http://localhost:8080/">
 <head>
     <th:block th:replace="base :: header"></th:block>
     <title>Confirm Resume Upload</title>
@@ -14,9 +14,10 @@
 
     <div class="container">
         <th:block th:object="${resume}">
-            <h2 th:inline="text">Your resume [[{resume.resumeVersionName}]] has been successfully saved. </h2>
 
-            <div th:text="${resume.resumeVersionName}"></div>
+            <h2 th:inline="text">Your resume [[${resume.resumeVersionName}]] has been successfully saved. </h2>
+
+            <!--<div th:text="${resume.resumeVersionName}"></div>-->
 
         </th:block>
     </div>

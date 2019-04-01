@@ -29,7 +29,8 @@ public class JenniferController {
     @Autowired
     UserRepository userRepository;
 
-    private UserService userService;
+    @Autowired
+    UserService userService;
 
 
     @GetMapping("/resumeupload")
@@ -58,7 +59,6 @@ public class JenniferController {
 //        resume.setUser(userRepository.findById(id).get());
         resumeRepository.save(resume);
         return "confirmResume";
-
 
     }
 
