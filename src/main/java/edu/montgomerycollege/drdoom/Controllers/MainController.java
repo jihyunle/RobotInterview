@@ -54,23 +54,24 @@ public class MainController
     @RequestMapping({"/index","/"})
     public String upcomingInterviews(Model model)
     {
-        //get all user's jobs
-        List<JobUser_Interview> jobUser_interviews = createCollection();
-        //create list for final list of jobs being interviewed for
-        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
 
-        if(!jobUser_interviews.isEmpty())
-        {
-            for (JobUser_Interview jobUser_interview : jobUser_interviews)
-            {
-                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
-                {
-                    finalJuIs.add(jobUser_interview);
-                }
-            }
-            model.addAttribute("juis", jobUser_interviews);
-        }
-        model.addAttribute("now", new Date());
+//        //get all user's jobs
+//        List<JobUser_Interview> jobUser_interviews = createCollection();
+//        //create list for final list of jobs being interviewed for
+//        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
+//
+//        if(!jobUser_interviews.isEmpty())
+//        {
+//            for (JobUser_Interview jobUser_interview : jobUser_interviews)
+//            {
+//                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
+//                {
+//                    finalJuIs.add(jobUser_interview);
+//                }
+//            }
+//            model.addAttribute("juis", jobUser_interviews);
+//        }
+//        model.addAttribute("now", new Date());
         return "index";
 
     }
