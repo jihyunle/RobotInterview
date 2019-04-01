@@ -23,6 +23,16 @@ public class JobUser_Interview {
 
     private LocalDateTime interviewTime;
 
+//    private String stringinterviewDate;
+//
+//    public String getStringinterviewDate() {
+//        return stringinterviewDate;
+//    }
+//
+//    public void setStringinterviewDate(String stringinterviewDate) {
+//        this.stringinterviewDate = stringinterviewDate;
+//    }
+
     private String stringInterviewTime;
 
     //consider join column
