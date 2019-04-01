@@ -128,16 +128,15 @@ public class MainController
         User user = userService.getUser();
 
         // save resume to jobUser
-        jobUser.setResume(jobUser.getResume());
 
 //hardcoding because I can't get this to work yet
         //get resume object
         //get all resumes
-//        List<Resume> resumes = resumeRepository.findAllByUser(user);
+        List<Resume> resumes = resumeRepository.findAllByUser(user);
         //get the first one, because we'd better have one in by now
-//        Resume randResume = resumes.get(0);
+        Resume randResume = resumes.get(0);
 
-//        Resume resumeObject = resumeRepository.findById(randResume.getId()).get();
+        Resume resumeObject = resumeRepository.findById(randResume.getId()).get();
 
 
 

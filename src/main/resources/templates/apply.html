@@ -11,7 +11,7 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-<!--<<<<<<< HEAD-->
+
     <form th:action="@{/apply}"
           th:object="${jobUser}"
           method="POST">
@@ -28,6 +28,7 @@
             <select name="resume" class="form-control input-md" th:field="*{resume}">
                 <!-- above name field holds the value of the selected category ie) compact -->
                 <option value="">Select Resume</option>
+
                 <option th:each="option:${resumes}" th:value="${option.id}" th:text="${option.resumeVersionName}">
                 </option>
 
