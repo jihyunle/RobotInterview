@@ -15,6 +15,7 @@
         <link th:href="@{/css/custom.css}" rel="stylesheet"/>
         <link th:href="@{/css/login_reg.css}" rel="stylesheet" type="text/css" media="all"/>
     </th:block>
+
     <th:block th:fragment="bootstrap">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -31,14 +32,17 @@
 
     </th:block>
 
+    <th:block th:fragment="bootstrap31">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </th:block>
+
     <th:block th:fragment="login_reg"><!--css for login and registration template-->
         <style>
-            /*--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
---*/
+
             /*-- reset --*/
             html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, nav ul, nav li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
                 margin: 0;
@@ -550,7 +554,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         </style>
     </th:block>
+
     <th:block th:fragment="admin"><!--css for admin  template-->
+
         <style>
 
 
@@ -670,65 +676,223 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         </style>
     </th:block>
+
+    <th:block th:fragment="index">
+        <style>
+            body {
+                font: 400 15px/1.8 Lato, sans-serif;
+                color: #777;
+            }
+            h3, h4 {
+                margin: 10px 0 30px 0;
+                letter-spacing: 10px;
+                font-size: 20px;
+                color: #111;
+            }
+            .container {
+                padding: 80px 120px;
+            }
+            .person {
+                border: 10px solid transparent;
+                margin-bottom: 25px;
+                width: 80%;
+                height: 80%;
+                opacity: 0.7;
+            }
+            .person:hover {
+                border-color: #f1f1f1;
+            }
+            .carousel-inner img {
+                -webkit-filter: grayscale(90%);
+                filter: grayscale(90%); /* make all photos black and white */
+                width: 100%; /* Set width to 100% */
+                margin: auto;
+            }
+            .carousel-caption h3 {
+                color: #fff !important;
+            }
+            @media (max-width: 600px) {
+                .carousel-caption {
+                    display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+                }
+            }
+            .bg-1 {
+                background: #2d2d30;
+                color: #bdbdbd;
+            }
+            .bg-1 h3 {color: #fff;}
+            .bg-1 p {font-style: italic;}
+            .list-group-item:first-child {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+            .list-group-item:last-child {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .thumbnail {
+                padding: 0 0 15px 0;
+                border: none;
+                border-radius: 0;
+            }
+            .thumbnail p {
+                margin-top: 15px;
+                color: #555;
+            }
+            .btn {
+                padding: 10px 20px;
+                background-color: #333;
+                color: #f1f1f1;
+                border-radius: 0;
+                transition: .2s;
+            }
+            .btn:hover, .btn:focus {
+                border: 1px solid #333;
+                background-color: #fff;
+                color: #000;
+            }
+            .modal-header, h4, .close {
+                background-color: #333;
+                color: #fff !important;
+                text-align: center;
+                font-size: 30px;
+            }
+            .modal-header, .modal-body {
+                padding: 40px 50px;
+            }
+            .nav-tabs li a {
+                color: #777;
+            }
+            #googleMap {
+                width: 100%;
+                height: 400px;
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+            }
+            .navbar {
+                font-family: Montserrat, sans-serif;
+                margin-bottom: 0;
+                background-color: #2d2d30;
+                border: 0;
+                font-size: 11px !important;
+                letter-spacing: 4px;
+                opacity: 0.9;
+            }
+            .navbar li a, .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
+            .navbar-nav li a:hover {
+                color: #fff !important;
+            }
+            .navbar-nav li.active a {
+                color: #fff !important;
+                background-color: #29292c !important;
+            }
+            .navbar-default .navbar-toggle {
+                border-color: transparent;
+            }
+            .open .dropdown-toggle {
+                color: #fff;
+                background-color: #555 !important;
+            }
+            .dropdown-menu li a {
+                color: #000 !important;
+            }
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+            footer {
+                background-color: #2d2d30;
+                color: #f5f5f5;
+                padding: 32px;
+            }
+            footer a {
+                color: #f5f5f5;
+            }
+            footer a:hover {
+                color: #777;
+                text-decoration: none;
+            }
+            .form-control {
+                border-radius: 0;
+            }
+            textarea {
+                resize: none;
+            }
+        </style>
+    </th:block>
+
     <title>You shouldn't be here</title>
-</head>
-<body>
-<div th:fragment="nav">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/">Home</a>
-            <div sec:authorize="isAuthenticated()" class="nav-item nav-link text-light" th:inline="text">
-                Welcome [[${#authentication.name}]]!
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
 
-                    <th:block sec:authorize="isAuthenticated()">
-                        <th:block sec:authorize="hasAuthority('ADMIN')">
-                            <li class="nav-item"><a class="nav-link" href="/admin">Add Job</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/jobs_admin">Jobs</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">View Applicant History</a></li>
-                        </th:block>
-
-                        <th:block sec:authorize="hasAuthority('USER')">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/jobs">Jobs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/myjobs">My jobs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/resumeupload">Upload Resume</a>
-                            </li>
-                            <!--<li class="nav-item">-->
-                                <!--<a class="nav-link" href="#">Upcoming Interviews</a>-->
-                            <!--</li>-->
-                        </th:block>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
-
-                        </li>
+    <div th:fragment="nav">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <a class="navbar-brand" href="/jobs_admin">Home</a>
+                    </th:block>
+                    <th:block sec:authorize="hasAuthority('USER')">
+                        <a class="navbar-brand" href="/jobs">Home</a>
                     </th:block>
                     <th:block sec:authorize="!isAuthenticated()">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
+                        <a class="navbar-brand" href="/">Home</a>
                     </th:block>
-                </ul>
+
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                                <li><a href="#contact">CONTACT</a></li>
+                                <li><a href="#band">About</a></li>
+                            </li>
+                        </th:block>
+
+                        <th:block sec:authorize="isAuthenticated()">
+                            <th:block sec:authorize="hasAuthority('ADMIN')">
+                                <li class="nav-item"><a class="nav-link" href="/admin">Add Job</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/jobs_admin">Jobs</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">View Applicant History</a></li>
+                            </th:block>
+
+                            <th:block sec:authorize="hasAuthority('USER')">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/jobs">Jobs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/myjobs">My jobs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/resumeupload">Upload Resume</a>
+                                </li>
+
+                            </th:block>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about">About</a>
+
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
+</head>
+<body>
+
 
 
 <div th:fragment="footer">
