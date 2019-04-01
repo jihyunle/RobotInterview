@@ -1,11 +1,9 @@
 package edu.montgomerycollege.drdoom.Controllers;
 
-import edu.montgomerycollege.drdoom.Models.JobUser;
-import edu.montgomerycollege.drdoom.Models.JobUser_Interview;
-import edu.montgomerycollege.drdoom.Models.QuestionAnswer;
-import edu.montgomerycollege.drdoom.Models.User;
+import edu.montgomerycollege.drdoom.Models.*;
 import edu.montgomerycollege.drdoom.Repositories.JobUserRepository;
 import edu.montgomerycollege.drdoom.Repositories.QuestionAnswerRepository;
+import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +18,9 @@ public class JenniferController {
 
     @Autowired
     QuestionAnswerRepository qaRepository;
+
+    @Autowired
+    UserService userService;
 
     private User user;
 
@@ -38,6 +39,8 @@ public class JenniferController {
         return "myinterviews";
 
     }
+
+
 
 
 }
