@@ -28,9 +28,12 @@
 
         <div class="form-group">
             Category
-            <select name="resume" th:field="${resumes}" class="form-control input-md">
+            <select name="resume"  class="form-control input-md">
                 <!-- above name field holds the value of the selected category ie) compact -->
-                <option value="">Select Resume Version</option> <!-- th:selected not needed -->
+                <th:block th:each="option:${resumes}">
+                    <option th:value="${option.id}" th:text="${option.resume_Name}">Select Resume Version</option>
+                </th:block>
+
 <!--=======-->
         <!--<h4>Description:</h4>3-->
 
@@ -58,7 +61,7 @@
 
                 <option th:each="user : ${users}"
                         th:value="${user.id}"
-                        th:text="${user.resume.resumeVersionName}"></option>
+                        th:text="${user.getresume().resume_Name}"></option>
                         <!-- th:value attributes in the nested <option> tags will be very important because
                         they will provide the means of knowing which is the currently selected option-->
             </select><br />
