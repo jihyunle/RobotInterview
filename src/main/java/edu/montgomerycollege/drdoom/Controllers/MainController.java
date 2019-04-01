@@ -5,20 +5,13 @@ package edu.montgomerycollege.drdoom.Controllers;
 import edu.montgomerycollege.drdoom.Repositories.*;
 import edu.montgomerycollege.drdoom.Models.*;
 
-import edu.montgomerycollege.drdoom.Services.CustomUserDetails;
 import edu.montgomerycollege.drdoom.Services.ParseResume;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import java.io.IOException;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -42,7 +35,7 @@ public class MainController
     ParseResume parser;
 
     @Autowired
-    JobUser_InterviewRepository juiRepository;
+    JobUserInterviewRepository juiRepository;
 
     @Autowired
     JobUserRepository jobUserRepository;
@@ -54,23 +47,7 @@ public class MainController
     @RequestMapping({"/index","/"})
     public String upcomingInterviews(Model model)
     {
-//        //get all user's jobs
-//        List<JobUser_Interview> jobUser_interviews = createCollection();
-//        //create list for final list of jobs being interviewed for
-//        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
 //
-//        if(!jobUser_interviews.isEmpty())
-//        {
-//            for (JobUser_Interview jobUser_interview : jobUser_interviews)
-//            {
-//                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
-//                {
-//                    finalJuIs.add(jobUser_interview);
-//                }
-//            }
-//            model.addAttribute("juis", jobUser_interviews);
-//        }
-//        model.addAttribute("now", new Date());
         return "index";
 
     }
@@ -87,13 +64,12 @@ public class MainController
     public String myJobs(Model model)
     {
         //get current user
-        //User current_user = userService.getUser();
 
-        //initialize collection of JobUser_Interview objects
-        List<JobUser_Interview> jobUser_interviews = createCollection();
+        //initialize collection of jobUserInterview objects
+        List<JobUserInterview> jobUserInterviews = createCollection();
         //model.addAttribute("jobs", userService.getUser().getJobUsers());
         model.addAttribute("now", new Date());
-        model.addAttribute("juis", jobUser_interviews);
+        model.addAttribute("juis", jobUserInterviews);
         return "myjobs";
     }
 
@@ -161,8 +137,8 @@ public class MainController
         //save jobUser
         jobUserRepository.save(jobUserObject);
 
-        // create jobUser_interview object
-        JobUser_Interview jui = new JobUser_Interview();
+        // create jobUserInterview object
+        JobUserInterview jui = new JobUserInterview();
         //set jui jobUser
         jui.setJobUser(jobUserObject);
 
@@ -198,7 +174,7 @@ public class MainController
 
 
     @PostMapping ("/setinterview")
-    public String setInterviewDate(@ModelAttribute JobUser_Interview jui, Model model)
+    public String setInterviewDate(@ModelAttribute JobUserInterview jui, Model model)
     {
         //get jui object
         jui=juiRepository.findById(jui.getId()).get();
@@ -209,11 +185,11 @@ public class MainController
         //set LocalDateTime interview object
         //TODO
             //set interviewTime
-        //initialize collection of JobUser_Interview objects
-        List<JobUser_Interview> jobUser_interviews = createCollection();
+        //initialize collection of jobUserInterview objects
+        List<JobUserInterview> jobUserInterviews = createCollection();
 
         model.addAttribute("now", new Date());
-        model.addAttribute("juis", jobUser_interviews);
+        model.addAttribute("juis", jobUserInterviews);
 
 
 
@@ -226,17 +202,17 @@ public class MainController
         return LocalDateTime.parse(sDate);
     }
 
-    private List<JobUser_Interview> createCollection()
+    private List<JobUserInterview> createCollection()
     {
-        List<JobUser_Interview> jobUser_interviews = new ArrayList<JobUser_Interview>();
-        //iterate through all jobUsers, adding their jui to jobUser_interviews
+        List<JobUserInterview> jobUserInterviews = new ArrayList<JobUserInterview>();
+        //iterate through all jobUsers, adding their jui to jobUserInterviews
         Collection<JobUser> jobUsers = jobUserRepository.findAllByUser(userService.getUser());
         for(JobUser ju: jobUsers) {
             // do stuff
-            jobUser_interviews.add(juiRepository.findByJobUser(ju));
+            jobUserInterviews.add(juiRepository.findByJobUser(ju));
         }
 
-        return jobUser_interviews;
+        return jobUserInterviews;
     }
 
 }

@@ -3,7 +3,7 @@ package edu.montgomerycollege.drdoom.Controllers;
 import edu.montgomerycollege.drdoom.Models.*;
 import edu.montgomerycollege.drdoom.Repositories.JobRepository;
 import edu.montgomerycollege.drdoom.Repositories.JobUserRepository;
-import edu.montgomerycollege.drdoom.Repositories.JobUser_InterviewRepository;
+import edu.montgomerycollege.drdoom.Repositories.JobUserInterviewRepository;
 import edu.montgomerycollege.drdoom.Repositories.QuestionAnswerRepository;
 import edu.montgomerycollege.drdoom.Services.EmailServiceImpl;
 import edu.montgomerycollege.drdoom.Services.UserService;
@@ -35,7 +35,7 @@ public class JesseController
     JobUserRepository jobUserRepository;
 
     @Autowired
-    JobUser_InterviewRepository juiRepository;
+    JobUserInterviewRepository juiRepository;
 
     @Autowired
     QuestionAnswerRepository questionAnswerRepository;
@@ -46,11 +46,11 @@ public class JesseController
     {
         //get jobUser
         JobUser jobUser = jobUserRepository.findById(jobUserId).get();
-        //create a new instance of JobUser_Interview
-        JobUser_Interview jobUser_interview = juiRepository.findByJobUser(jobUser);
+        //create a new instance of jobUserInterview
+        JobUserInterview jobUserInterview = juiRepository.findByJobUser(jobUser);
 
         //set jobUserIntervew's jobUser
-        jobUser_interview.setJobUser(jobUser);
+        jobUserInterview.setJobUser(jobUser);
 
 
         //get jobTitle to get specific questions
@@ -69,25 +69,25 @@ public class JesseController
         //add to collection
 
 
-        jobUser_interview.setChatHistory(copy); //This saves it, but can't get the object on the other side-it's null
+        jobUserInterview.setChatHistory(copy); //This saves it, but can't get the object on the other side-it's null
 
         //save jui
-        juiRepository.save(jobUser_interview);
+        juiRepository.save(jobUserInterview);
 
-        //add jobUser_interview to model
-        model.addAttribute("jui", jobUser_interview);
+        //add jobUserInterview to model
+        model.addAttribute("jui", jobUserInterview);
         //add questions to model
         model.addAttribute("questions", questions);
         return "interview";
     }
 
     @PostMapping("/interview")
-    public String processInterview(@ModelAttribute("jui") JobUser_Interview jobUser_interview,
+    public String processInterview(@ModelAttribute("jui") JobUserInterview jobUserInterview,
                                    @RequestParam("answers") String[] answers,
                                    Model model)
     {
 
-        JobUser_Interview temp = juiRepository.findById(jobUser_interview.getId()).get();
+        JobUserInterview temp = juiRepository.findById(jobUserInterview.getId()).get();
         //chatHistory is currently Null
         //iterate through questions and answers, saving the answer to the object
         Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
@@ -102,40 +102,41 @@ public class JesseController
             questionAnswerRepository.save(tempqa);
             copy.add(tempqa);
         }
-        jobUser_interview.setChatHistory(copy);
+        jobUserInterview.setChatHistory(copy);
 
-        JobUser jobUser = jobUser_interview.getJobUser();
+        JobUser jobUser = jobUserInterview.getJobUser();
         jobUser.setAppStatus("Pending offer");
-        jobUser_interview.setJobUser(jobUser);
+        jobUserInterview.setJobUser(jobUser);
         jobUserRepository.save(jobUser);
-        juiRepository.save(jobUser_interview);
+        juiRepository.save(jobUserInterview);
 
 
-        model.addAttribute("jui", jobUser_interview);
+        model.addAttribute("jui", jobUserInterview);
         try
         {
-            String qaText = getStringVal(jobUser_interview.getChatHistory());
-            sendEmailWithAttachment(qaText, jobUser_interview);
+            String qaText = getStringVal(jobUserInterview.getChatHistory());
+            sendEmailWithAttachment(qaText, jobUserInterview);
         }
         catch (IOException e)
         {
             //don't send if there's an io exception
+
             System.out.println(e);
         }
         return "interviewOver";
     }
 
 
-    public void sendEmailWithAttachment(String attach, JobUser_Interview jobUser_interview) throws UnsupportedEncodingException,
-                                                                                                   IOException
+    public void sendEmailWithAttachment(String attach, JobUserInterview jobUserInterview) throws UnsupportedEncodingException,
+                                                                                                  IOException
     {
 
         Files.write(Paths.get("textFile.txt"),
                     attach.getBytes());
 
         File file = new File("textFile.txt");
-        //String toEmail = jobUser_interview.getJobUser().getJob().getHiringManagerEmail();
-        //Job job = jobUser_interview.getJobUser().getJob();
+        //String toEmail = jobUserInterview.getJobUser().getJob().getHiringManagerEmail();
+        //Job job = jobUserInterview.getJobUser().getJob();
         String toEmail = "jesseberliner@hotmail.com";
         if (toEmail == null)
         {

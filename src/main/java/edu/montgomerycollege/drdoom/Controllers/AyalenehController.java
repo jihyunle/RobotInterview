@@ -49,7 +49,7 @@ public class AyalenehController
         return "fail";
     }
 
-    @GetMapping("/jobs_admin")
+    @GetMapping("/jobsadmin")
     public String adminJob(Model model){
         model.addAttribute("jobs",jobRepository.findAll());
         return "adminjob";
@@ -65,6 +65,6 @@ public class AyalenehController
     public String deleteJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job",jobRepository.findById(id));
         jobRepository.deleteById(id);
-        return "redirect:/jobs_admin";
+        return "redirect:/jobsadmin";
     }
 }

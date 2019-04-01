@@ -12,7 +12,7 @@
         <a  th:href="@{/apply/{id}(id=${job.id})}"sec:authorize="hasAuthority('USER')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
 
-                <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
+                <h5 class="mb-1" th:text="${job.getJobTitle().jobtitle}"></h5>
                 <small th:text="${job.datePosted}"></small>
 
             </div>
@@ -28,7 +28,7 @@
         <a sec:authorize="hasAuthority('ADMIN')" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
 
-                <h5 class="mb-1" th:text="${job.getJobTitle().job_title}"></h5>
+                <h5 class="mb-1" th:text="${job.getJobTitle().jobtitle}"></h5>
                 <small th:text="${job.datePosted}"></small>
 
             </div>

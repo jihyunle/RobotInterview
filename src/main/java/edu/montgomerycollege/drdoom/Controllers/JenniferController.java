@@ -30,7 +30,7 @@ public class JenniferController {
     UserService userService;
 
     @Autowired
-    JobUser_InterviewRepository juiRepository;
+    JobUserInterviewRepository juiRepository;
 
     @GetMapping("/resumeupload")
     public String resumeUpload(Model model){

@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Entity
-public class JobUser_Interview {
+public class JobUserInterview
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -52,26 +53,26 @@ public class JobUser_Interview {
 
 
 
-    @OneToMany(mappedBy="jobUser_interview")
+    @OneToMany(mappedBy="jobUserInterview")
     private Collection<QuestionAnswer> chatHistory;
 
     //=================================================
     //Constructors
     //=================================================
     //default
-    public JobUser_Interview(){
+    public JobUserInterview(){
         //setInterviewTime();
     }
 
     //loaded
-    public JobUser_Interview(LocalDateTime interviewTime) {
+    public JobUserInterview(LocalDateTime interviewTime) {
         this.interviewTime = interviewTime;
     }
 
     //other
 
 
-    public JobUser_Interview(JobUser jobUser, Collection<QuestionAnswer> chatHistory)
+    public JobUserInterview(JobUser jobUser, Collection<QuestionAnswer> chatHistory)
     {
         this.jobUser = jobUser;
         this.chatHistory = chatHistory;
