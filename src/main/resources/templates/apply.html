@@ -6,13 +6,16 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <form th:action="@{/apply}" th:object="${resume}" method="POST">
+    <form action="#"
+          th:action="@{/apply}"
+          th:object="${resume}"
+          method="POST">
         <input type="hidden" th:field="*{id}"/>
 
         <h3>You are applying for: <span th:text="${job.getJobTitle().job_title}"></span></h3>
         <input type="hidden" th:value="${job.id}" name="jobId"/>
 
-        <h4>Description:</h4>
+        <h4>Description:</h4>3
 
 
         <div th:text="${job.description}"></div>
@@ -31,14 +34,16 @@
 
 
         <div class="form-group">
-            Category
-            <select name="resume" th:field="*{resumeVersionName}" class="form-control input-md">
-                <!-- above name field holds the value of the selected category ie) compact -->
-                <option value="">Select Resume Version</option> <!-- th:selected not needed -->
+            Resume
+            <select name="user" id="user" class="form-control input-md">
+                <option th:selected>Select Resume</option>
 
-                <option th:each="resume : ${resumes}"
-                        th:value="${resume.id}"
-                        th:text="${resume.resumeVersionName}"></option>
+                <!--&lt;!&ndash; above name field holds the value of the selected category ie) compact &ndash;&gt;-->
+                <!--<option value="">Select Resume Version</option> &lt;!&ndash; th:selected not needed &ndash;&gt;-->
+
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.resume.resumeVersionName}"></option>
                         <!-- th:value attributes in the nested <option> tags will be very important because
                         they will provide the means of knowing which is the currently selected option-->
             </select><br />

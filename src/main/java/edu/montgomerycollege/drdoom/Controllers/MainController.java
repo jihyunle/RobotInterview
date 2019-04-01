@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
@@ -85,7 +86,7 @@ public class MainController
     }
 
     @PostMapping({"/apply"})
-    public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
+    public String applied(@Valid @ModelAttribute("resume")Resume resume, BindingResult resultA,
                           @ModelAttribute("job") Job job, BindingResult resultB,
                           @RequestParam("jobId") long id,
                           Model model) {
