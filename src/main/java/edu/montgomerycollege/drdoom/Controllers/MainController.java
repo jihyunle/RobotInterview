@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -113,8 +114,14 @@ public class MainController
     }
 
     @PostMapping({"/apply"})
+
     public String applied(@ModelAttribute("jobUser") JobUser jobUser,
                           @ModelAttribute("resumes")Resume resume,
+
+//    public String applied(@Valid @ModelAttribute("resume")Resume resume, BindingResult resultA,
+//                          @ModelAttribute("job") Job job, BindingResult resultB,
+//                          @RequestParam("jobId") long id,
+
                           Model model) {
 
             JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();

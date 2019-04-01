@@ -30,9 +30,6 @@ public class JobUser_Interview {
     //@JoinColumn(name = "jobUser_id")
     private JobUser jobUser;
 
-//    @OneToMany(mappedBy = "jobUser_interview", cascade = CascadeType.DETACH)
-//    @OrderColumn
-//private QuestionAnswer[] chatHistory; //why did we choose to make this an array?
 
     @OneToMany(mappedBy="jobUser_interview")
     private Collection<QuestionAnswer> chatHistory;

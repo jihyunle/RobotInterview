@@ -47,6 +47,7 @@
                 .text(current_progress + "% Complete");
             if (current_progress >= 100) {
                 clearInterval(interval);
+                location.href="success"
               //  window.location.assign("success")
             }
         }, 1000);

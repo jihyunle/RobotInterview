@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
     KeywordRepository keywordRepository;
     @Autowired
     QuestionAnswerRepository questionAnswerRepository;
-//    @Autowired
+    //    @Autowired
 //    ResumeRepository resumeRepository;
     @Autowired
     RoleRepository roleRepository;
@@ -68,21 +68,20 @@ public class DataLoader implements CommandLineRunner {
 
         //new dataloader stuff
 
-        if(jobUserRepository.count()==0)
-        {
+        if (jobUserRepository.count() == 0) {
             //create QuestionAnswer->JobUser_Interview->JobUser
-            QuestionAnswer questionAnswer = new QuestionAnswer("What are your greatest strengths?", "");
+            QuestionAnswer questionAnswer = new QuestionAnswer("what is programming languages?", "A programming language is a formal language that specifies a set of instructions that can be used to produce various kinds of output. Programming languages generally consist of instructions for a computer. Programming languages can be used to create programs that implement specific algorithms.");
             questionAnswerRepository.save(questionAnswer);
-            questionAnswer = new QuestionAnswer("Where do you see yourself in 5 years?", "");
+            questionAnswer = new QuestionAnswer("write the type of high level programming languages?", "C++ C# Cobol Fortran Java JavaScript Objective C Pascal Perl PHP Python Swift");
             questionAnswerRepository.save(questionAnswer);
-            questionAnswer = new QuestionAnswer("Why do you think you're a good fit for the job?", "");
+            questionAnswer = new QuestionAnswer("write  basic object-oriented programming languages(OOP)concept?", "Abstraction Encapsulation inheritance polymorphism interface procedure");
             questionAnswerRepository.save(questionAnswer);
-
+            questionAnswer = new QuestionAnswer("What is data type?", "a data type or simply type is an attribute of data which tells the compiler or interpreter how the programmer intends to use the data. Most programming languages support common data types of real, integer and boolean");
+            questionAnswerRepository.save(questionAnswer);
             //turn iterable into collection
-            Iterable <QuestionAnswer> questionAnswers = questionAnswerRepository.findAll();
+            Iterable<QuestionAnswer> questionAnswers = questionAnswerRepository.findAll();
             Collection<QuestionAnswer> collection = new ArrayList<QuestionAnswer>();
-            for(QuestionAnswer qa : questionAnswers)
-            {
+            for (QuestionAnswer qa : questionAnswers) {
                 collection.add(qa);
             }
             //create JobUser_Interview objects--don't think this is necessary, these are created when a jobUser
@@ -96,16 +95,17 @@ public class DataLoader implements CommandLineRunner {
             //JobUser is created when a user applies to a job
             JobTitle jobTitle = new JobTitle("Java Web Developer");
             jobTitle.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
-                                               new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
-                                               new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
-            keywordRepository.saveAll(jobTitle.getKeywords());
+                    new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
+                    new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
             jobTitle.setQuestions(collection);
+            keywordRepository.saveAll(jobTitle.getKeywords());
+            // jobTitle.setQuestionAnswer(jobTitle);
             jobTitleRepository.save(jobTitle);
 
             jobTitle = new JobTitle("DBA");
             jobTitle.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
-                                                new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
-                                                new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
+                    new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
+                    new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
             keywordRepository.saveAll(jobTitle.getKeywords());
             jobTitle.setQuestions(collection);
             jobTitleRepository.save(jobTitle);
@@ -113,9 +113,9 @@ public class DataLoader implements CommandLineRunner {
             //third title
             jobTitle = new JobTitle("Quality Assurance");
             jobTitle.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
-                                                new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
-                                                new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
-                                                new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
+                    new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
+                    new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
+                    new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
             keywordRepository.saveAll(jobTitle.getKeywords());
             jobTitle.setQuestions(collection);
             jobTitleRepository.save(jobTitle);
@@ -123,9 +123,9 @@ public class DataLoader implements CommandLineRunner {
             //fourth title
             jobTitle = new JobTitle("Cyber Security");
             jobTitle.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
-                                                new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
-                                                new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
-                                                new Keyword("linux"), new Keyword("programming")));
+                    new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
+                    new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
+                    new Keyword("linux"), new Keyword("programming")));
             keywordRepository.saveAll(jobTitle.getKeywords());
             jobTitle.setQuestions(collection);
             jobTitleRepository.save(jobTitle);
@@ -133,100 +133,19 @@ public class DataLoader implements CommandLineRunner {
             //fifth title
             jobTitle = new JobTitle("Assembly Coder");
             jobTitle.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
-                                                new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
-                                                new Keyword("java"), new Keyword("cybersecurity"), new Keyword("programming"),
-                                                new Keyword("linux"), new Keyword("Problem-solving skills")));
+                    new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
+                    new Keyword("java"), new Keyword("cybersecurity"), new Keyword("programming"),
+                    new Keyword("linux"), new Keyword("Problem-solving skills")));
             keywordRepository.saveAll(jobTitle.getKeywords());
             jobTitle.setQuestions(collection);
             jobTitleRepository.save(jobTitle);
 
             Job job;
-            for(JobTitle title : jobTitleRepository.findAll())
-            {
+            for (JobTitle title : jobTitleRepository.findAll()) {
                 job = new Job("This is a job description", "3/30/2019", false, "jesseberliner@gmail.com", title);
                 jobRepository.save(job);
             }
         }
-
-        /*
-        if(qaRepository.count()==0)
-        {
-            QuestionAnswer questionAnswer = new QuestionAnswer();
-            questionAnswer.setQuestion("What's your favorite color?");
-            qaRepository.save(questionAnswer);
-
-            questionAnswer = new QuestionAnswer();
-            questionAnswer.setQuestion("What's your favorite food?");
-            qaRepository.save(questionAnswer);
-
-//            questionAnswer = new QuestionAnswer();
-//            questionAnswer.setQuestion("What's your favorite flower? testing required 3rd q");
-//            qaRepository.save(questionAnswer);
-
-            //create a jobTitle1
-            JobTitle jobTitle = new JobTitle("Java Web Developer");
-
-            jobTitle.setKeywords(Arrays.asList(new Keyword("Java"), new Keyword("J2EE"),
-                                               new Keyword("Spring boot"), new Keyword("javascript"), new Keyword("hibernate"),
-                                               new Keyword("Core Java"), new Keyword("Spring"), new Keyword("Jquery"), new Keyword("Struct"), new Keyword("mysql")));
-            //iterate through iterable to make it into a collection
-            Collection<QuestionAnswer> questionAnswerCollection = new ArrayList<QuestionAnswer>();
-            Iterable<QuestionAnswer> questions = qaRepository.findAll(); //this needs to only choose a selection of
-            // the questions
-            Iterator<QuestionAnswer> iterator = questions.iterator();
-            while (iterator.hasNext())
-            {
-                questionAnswerCollection.add(iterator.next());
-                iterator.remove();
-            }
-
-            jobTitle.setQuestions(questionAnswerCollection);
-            jobTitleRepository.save(jobTitle);
-
-
-            //second title
-            JobTitle jobTitle2 = new JobTitle("DBA");
-            jobTitle2.setKeywords(Arrays.asList(new Keyword("Database"), new Keyword("Designer"),
-                                                new Keyword("SQL"), new Keyword("Business analyst"), new Keyword("Software"),
-                                                new Keyword("PHP"), new Keyword("mysql"), new Keyword("C++"), new Keyword("C"), new Keyword("mysql")));
-            jobTitle2.setQuestions(questionAnswerCollection);
-            jobTitleRepository.save(jobTitle2);
-
-            //third title
-            JobTitle jobTitle3 = new JobTitle("Quality Assurance");
-            jobTitle3.setKeywords(Arrays.asList(new Keyword("Confidence"), new Keyword("technical skills"),
-                                                new Keyword("numerical skills"), new Keyword("Business analyst"), new Keyword("statistics"),
-                                                new Keyword("Leadership skills"), new Keyword("Planning"), new Keyword("Communication"),
-                                                new Keyword("Teamworking"), new Keyword("Problem-solving skills")));
-            jobTitle3.setQuestions(questionAnswerCollection);
-            jobTitleRepository.save(jobTitle3);
-
-            //fourth title
-            JobTitle jobTitle4 = new JobTitle("Cyber Security");
-            jobTitle4.setKeywords(Arrays.asList(new Keyword("security"), new Keyword("detection"),
-                                                new Keyword("Malware"), new Keyword("analysis"), new Keyword("mitigation"),
-                                                new Keyword("Cloud security"), new Keyword("Planning"), new Keyword("cybersecurity"),
-                                                new Keyword("linux"), new Keyword("programming")));
-            jobTitle4.setQuestions(questionAnswerCollection);
-            jobTitleRepository.save(jobTitle4);
-
-            //fifth title
-            JobTitle jobTitle5 = new JobTitle("Assembly Coder");
-            jobTitle5.setKeywords(Arrays.asList(new Keyword("low level"), new Keyword("C"),
-                                                new Keyword("C++"), new Keyword("analysis"), new Keyword("machine"),
-                                                new Keyword("java"), new Keyword("cybersecurity"), new Keyword("programming"),
-                                                new Keyword("linux"), new Keyword("Problem-solving skills")));
-            jobTitle5.setQuestions(questionAnswerCollection);
-            jobTitleRepository.save(jobTitle5);
-
-
-            //create some job listings-they are not associated with users yet
-            Job job = new Job("This is the job1 description", "3/31/19", false, "jesseberliner@hotmail.com", jobTitle);
-            jobRepository.save(job);
-            job = new Job("This is the job2 description", "3/31/19", false, "jesseberliner@hotmail.com", jobTitle2);
-            jobRepository.save(job);
-        }*/
-
 
     }
 }

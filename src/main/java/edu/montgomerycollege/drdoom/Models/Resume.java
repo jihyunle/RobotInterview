@@ -2,6 +2,7 @@ package edu.montgomerycollege.drdoom.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 import java.util.Set;
 
 @Entity
@@ -10,7 +11,7 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotEmpty
+//    @Null
     @Lob
     private String resumeData;
 
@@ -29,7 +30,13 @@ public class Resume {
     }
 
     //loaded
-    public Resume(@NotEmpty String resumeData) {
+
+//    public Resume(@Null String resumeData) {
+//        this.resumeData = resumeData;
+//    }
+
+
+    public Resume(String resumeData){
         this.resumeData = resumeData;
     }
 
@@ -54,6 +61,7 @@ public class Resume {
     public void setResumeData(String resumeData) {
         this.resumeData = resumeData;
     }
+
 
     public String getResumeVersionName() {
         return resumeVersionName;

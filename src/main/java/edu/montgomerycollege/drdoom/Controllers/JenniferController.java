@@ -42,10 +42,14 @@ public class JenniferController {
 
     @PostMapping("/resumeupload")
     public String processResume(@ModelAttribute("resume") Resume resume,
+                                @ModelAttribute("user")User user,
                                 BindingResult result
 //                                @PathVariable("resumeID") long id
     )
     {
+
+//        System.out.println(resume.getId());
+
 
         if (result.hasErrors()){
             return "resumeForm";
@@ -59,6 +63,7 @@ public class JenniferController {
         resumeRepository.save(resume);
 
         return "confirmResume";
+
 
     }
 

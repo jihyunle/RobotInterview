@@ -691,7 +691,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <th:block sec:authorize="hasAuthority('ADMIN')">
                             <li class="nav-item"><a class="nav-link" href="/admin">Add Job</a></li>
                             <li class="nav-item"><a class="nav-link" href="/jobs_admin">Jobs</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">View Interview History</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">View Applicant History</a></li>
                         </th:block>
 
                         <th:block sec:authorize="hasAuthority('USER')">
@@ -701,9 +701,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <li class="nav-item">
                                 <a class="nav-link" href="/myjobs">My jobs</a>
                             </li>
-                            <!--<li class="nav-item">-->
-                                <!--<a class="nav-link" href="#">Application Status</a>-->
-                            <!--</li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/resumeupload">Upload Resume</a>
+                            </li>
                             <!--<li class="nav-item">-->
                                 <!--<a class="nav-link" href="#">Upcoming Interviews</a>-->
                             <!--</li>-->
@@ -712,7 +712,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="/about">About</a>
 
                         </li>
                     </th:block>
