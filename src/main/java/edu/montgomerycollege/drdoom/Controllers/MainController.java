@@ -54,23 +54,23 @@ public class MainController
     @RequestMapping({"/index","/"})
     public String upcomingInterviews(Model model)
     {
-        //get all user's jobs
-        List<JobUser_Interview> jobUser_interviews = createCollection();
-        //create list for final list of jobs being interviewed for
-        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
-
-        if(!jobUser_interviews.isEmpty())
-        {
-            for (JobUser_Interview jobUser_interview : jobUser_interviews)
-            {
-                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
-                {
-                    finalJuIs.add(jobUser_interview);
-                }
-            }
-            model.addAttribute("juis", jobUser_interviews);
-        }
-        model.addAttribute("now", new Date());
+//        //get all user's jobs
+//        List<JobUser_Interview> jobUser_interviews = createCollection();
+//        //create list for final list of jobs being interviewed for
+//        List<JobUser_Interview> finalJuIs = new ArrayList<JobUser_Interview>();
+//
+//        if(!jobUser_interviews.isEmpty())
+//        {
+//            for (JobUser_Interview jobUser_interview : jobUser_interviews)
+//            {
+//                if (jobUser_interview.getJobUser().getAppStatus().equalsIgnoreCase("pending interview"))
+//                {
+//                    finalJuIs.add(jobUser_interview);
+//                }
+//            }
+//            model.addAttribute("juis", jobUser_interviews);
+//        }
+//        model.addAttribute("now", new Date());
         return "index";
 
     }
@@ -109,7 +109,7 @@ public class MainController
         model.addAttribute("jobUser", jobUser);
         // added this line to retrieve all resumes saved-
         //TODO change this to a query that only returns the user's resumes
-        model.addAttribute("resumes", resumeRepository.findAll());
+        model.addAttribute("resumes", resumeRepository.findAllByUser(jobUser.getUser()));
         return "apply";
     }
 
@@ -141,8 +141,7 @@ public class MainController
 
 //Temporarily commented out to make all applications match, remove Boolean matches = true;
         //parse resume and see if it matches 80% of keywords
-        //Boolean matches = ParseResume.parseResume(resume, jobUserObject.getJob().getJobTitle());
-        Boolean matches = true;
+        Boolean matches = ParseResume.parseResume(resumeObject, jobUserObject.getJob().getJobTitle());
 
         // if user's resume for that job matches setMatch=true and set appstatus
         if (matches)

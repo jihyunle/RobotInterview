@@ -21,7 +21,6 @@
 <div th:replace="base :: nav"></div>
 <div class="container">
     <h1>Congrats, you have been selected for an interview!</h1>
-    <h2>Choose Interview Date and Time</h2>
 
     <div class="container">
         <div class="my-5">
@@ -30,8 +29,11 @@
                 <input type="hidden" th:field="*{id}"/>
 
                 <label for="stringInterviewTime">Choose Date and Time: </label>
-                <p><input type="text" id="stringInterviewTime" th:field="*{stringInterviewTime}"></p>
-d
+                <p><input type="datetime-local" name="interview time" id="stringInterviewTime" required="required" class="form" placeholder="Choose Interview Date" th:field="*{stringInterviewTime}"></p>
+
+
+
+
                 <!--<input class="form-control"-->
                        <!--type="datetime-local"-->
                        <!--id="datepicker"-->

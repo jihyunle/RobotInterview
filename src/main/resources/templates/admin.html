@@ -57,6 +57,11 @@
                     <input type="text" name="jobClosed" id="jobClosed" required="required" class="form" placeholder="Job Closed?" th:field="*{closed}"/>
                     <span th:if="${#fields.hasErrors('closed')}"
                           th:errors="*{closed}"></span>
+
+                    <label for="jobClosed">Hiring Manager Email:</label>
+                    <input type="text" name="hiringManagerEmail" id="hiringManagerEmail" required="required" class="form" placeholder="name@something.com" th:field="*{hiringManagerEmail}"/>
+                    <span th:if="${#fields.hasErrors('hiringManagerEmail')}"
+                          th:errors="*{hiringManagerEmail}"></span>
                     <input type="submit" value="Post" id="submit" name="submit" class="form-btn semibold text-center">
                     <a href=""></a>
                 </div><!-- End Left Inputs -->

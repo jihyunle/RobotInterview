@@ -68,15 +68,20 @@ public class DataLoader implements CommandLineRunner {
 
         //new dataloader stuff
 
-        if (jobUserRepository.count() == 0) {
+        if (jobRepository.count() == 0) {
             //create QuestionAnswer->JobUser_Interview->JobUser
-            QuestionAnswer questionAnswer = new QuestionAnswer("what is programming languages?", "A programming language is a formal language that specifies a set of instructions that can be used to produce various kinds of output. Programming languages generally consist of instructions for a computer. Programming languages can be used to create programs that implement specific algorithms.");
+            QuestionAnswer questionAnswer = new QuestionAnswer("What is a programming languages?", "A programming " +
+                    "language is a formal language that specifies a set of instructions that can be used to produce various kinds of output. Programming languages generally consist of instructions for a computer. Programming languages can be used to create programs that implement specific algorithms.");
             questionAnswerRepository.save(questionAnswer);
-            questionAnswer = new QuestionAnswer("write the type of high level programming languages?", "C++ C# Cobol Fortran Java JavaScript Objective C Pascal Perl PHP Python Swift");
+            questionAnswer = new QuestionAnswer("What are the high level programming languages?", "C++ C# " +
+                    "Cobol Fortran Java JavaScript Objective C Pascal Perl PHP Python Swift");
             questionAnswerRepository.save(questionAnswer);
-            questionAnswer = new QuestionAnswer("write  basic object-oriented programming languages(OOP)concept?", "Abstraction Encapsulation inheritance polymorphism interface procedure");
+            questionAnswer = new QuestionAnswer("What are the basic object-oriented programming languages(OOP)" +
+                                                        "concepts?",
+                                                "Abstraction Encapsulation inheritance polymorphism interface procedure");
             questionAnswerRepository.save(questionAnswer);
-            questionAnswer = new QuestionAnswer("What is data type?", "a data type or simply type is an attribute of data which tells the compiler or interpreter how the programmer intends to use the data. Most programming languages support common data types of real, integer and boolean");
+            questionAnswer = new QuestionAnswer("What is a data type?", "A data type or simply type is an attribute " +
+                    "of data which tells the compiler or interpreter how the programmer intends to use the data. Most programming languages support common data types of real, integer and boolean");
             questionAnswerRepository.save(questionAnswer);
             //turn iterable into collection
             Iterable<QuestionAnswer> questionAnswers = questionAnswerRepository.findAll();
@@ -140,6 +145,7 @@ public class DataLoader implements CommandLineRunner {
             jobTitle.setQuestions(collection);
             jobTitleRepository.save(jobTitle);
 
+            //creates one instance of each job
             Job job;
             for (JobTitle title : jobTitleRepository.findAll()) {
                 job = new Job("This is a job description", "3/30/2019", false, "jesseberliner@gmail.com", title);

@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $( function() {
-            $( "#datepicker" ).datepicker({ minDate: -0, maxDate: "+14D" }); // choose until 14 days later
+            $( "#datepicker" ).datepicker({ maxDate: "+14D" }); // choose until 14 days later
         } );
     </script>
 
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<p>Date: <input type="text" id="datepicker"></p>
+<p>Date: <input type="date" id="datepicker"></p>
 
 
 </body>

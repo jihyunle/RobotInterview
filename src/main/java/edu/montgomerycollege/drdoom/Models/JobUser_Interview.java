@@ -23,12 +23,33 @@ public class JobUser_Interview {
 
     private LocalDateTime interviewTime;
 
+//    private String stringinterviewDate;
+//
+//    public String getStringinterviewDate() {
+//        return stringinterviewDate;
+//    }
+//
+//    public void setStringinterviewDate(String stringinterviewDate) {
+//        this.stringinterviewDate = stringinterviewDate;
+//    }
+
     private String stringInterviewTime;
+
+    private String appealReason;
+
+    public String getAppealReason() {
+        return appealReason;
+    }
+
+    public void setAppealReason(String appealReason) {
+        this.appealReason = appealReason;
+    }
 
     //consider join column
     @ManyToOne
     //@JoinColumn(name = "jobUser_id")
     private JobUser jobUser;
+
 
 
     @OneToMany(mappedBy="jobUser_interview")

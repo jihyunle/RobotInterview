@@ -16,7 +16,7 @@ public class ParseResume
 
         //get resume
         String resumeString = resume.getResumeData();
-        System.out.println(resumeString);
+        System.out.println("resume data is "+resumeString);
 
         //get keywords
         Collection<Keyword> keywords = jobTitle.getKeywords();
@@ -28,6 +28,7 @@ public class ParseResume
         System.out.println("the size of the keyword is "+keywords.size());
         for (Keyword keywordObject : keywords) {
             System.out.println("keyword "+keywordObject.getKeyword());
+            System.out.println(resumeString);
             if (resumeString.toLowerCase().contains(keywordObject.getKeyword().toLowerCase())){
                 matches ++;
                 System.out.println(matches);

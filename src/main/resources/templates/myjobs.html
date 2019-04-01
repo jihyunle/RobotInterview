@@ -29,7 +29,7 @@
                 <span class="badge badge-primary badge-pill" th:text="${jui!=null}?${jui.getJobUser().appStatus}:'Status'"></span>
                 <a th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview date'}:'A'" th:href="@{/setinterview/{id}(id=${jui!=null}?${jui.jobUser.id}:'B')}" class="btn btn-primary" th:target="_blank"
                    type="button">Set interview time</a>
-                <span th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview'}:'C'" class="badge badge-primary badge-pill" th:text="${jui!=null}?${jui.getStringInterviewTime()}:'D'" >Interview date</span>
+                <span th:if="${jui!=null}?${jui.jobUser.appStatus=='pending interview'}:'C'" class="badge badge-primary badge-pill" th:text="${jui!=null}?${jui.getStringInterviewTime()}:'Interview Date'" >Interview date</span>
 
 
             </div>
