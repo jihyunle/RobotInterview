@@ -29,7 +29,8 @@ public class JenniferController {
     @Autowired
     UserRepository userRepository;
 
-    private UserService userService;
+    @Autowired
+    UserService userService;
 
 
     @GetMapping("/resumeupload")
@@ -42,10 +43,14 @@ public class JenniferController {
 
     @PostMapping("/resumeupload")
     public String processResume(@ModelAttribute("resume") Resume resume,
+                                @ModelAttribute("user")User user,
                                 BindingResult result
 //                                @PathVariable("resumeID") long id
     )
     {
+
+//        System.out.println(resume.getId());
+
 
         if (result.hasErrors()){
             return "resumeForm";
@@ -58,6 +63,7 @@ public class JenniferController {
 //        resume.setUser(userRepository.findById(id).get());
         resumeRepository.save(resume);
         return "confirmResume";
+
 
 
     }
