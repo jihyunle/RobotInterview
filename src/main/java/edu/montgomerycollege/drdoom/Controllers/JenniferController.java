@@ -1,10 +1,7 @@
 package edu.montgomerycollege.drdoom.Controllers;
 
 import edu.montgomerycollege.drdoom.Models.*;
-import edu.montgomerycollege.drdoom.Repositories.JobUserRepository;
-import edu.montgomerycollege.drdoom.Repositories.QuestionAnswerRepository;
-import edu.montgomerycollege.drdoom.Repositories.ResumeRepository;
-import edu.montgomerycollege.drdoom.Repositories.UserRepository;
+import edu.montgomerycollege.drdoom.Repositories.*;
 import edu.montgomerycollege.drdoom.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +28,9 @@ public class JenniferController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JobUser_InterviewRepository juiRepository;
 
     @GetMapping("/resumeupload")
     public String resumeUpload(Model model){
@@ -69,7 +69,8 @@ public class JenniferController {
 
 
     @RequestMapping("/appeal")
-    public String appeal(@PathVariable("id") long id, Model model){
+    public String appeal(Model model){
+//        model.addAttribute("jui", juiRepository.findByJobUser(userService.getUser()).getJobUser());
         return "appeal";
     }
 

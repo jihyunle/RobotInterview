@@ -35,10 +35,21 @@ public class JobUser_Interview {
 
     private String stringInterviewTime;
 
+    private String appealReason;
+
+    public String getAppealReason() {
+        return appealReason;
+    }
+
+    public void setAppealReason(String appealReason) {
+        this.appealReason = appealReason;
+    }
+
     //consider join column
     @ManyToOne
     //@JoinColumn(name = "jobUser_id")
     private JobUser jobUser;
+
 
 
     @OneToMany(mappedBy="jobUser_interview")

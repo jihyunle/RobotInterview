@@ -7,12 +7,15 @@
 <body>
 <h2>It looks like you missed your interview timeslot.</h2>
 
-<form th:action="@{/appeal}" th:object="${}" method="POST">
+<form th:action="@{/appeal}" th:object="${jui}" method="POST">
+    <input type="hidden" th:field="*{id}">
 
     <h3>Please fill in your appeal form below.</h3>
         <h4>Reason for missing the interview: </h4>
         <h4>Further description: </h4>
-        <textarea cols="30" rows="10"></textarea>
+        <textarea cols="30" rows="10">
+            <input type="text" th:field="*{appealReason}">
+        </textarea>
 
         <button type="submit">Submit</button>
     </h4>
