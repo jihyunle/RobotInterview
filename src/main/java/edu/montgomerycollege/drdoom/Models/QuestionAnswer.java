@@ -24,7 +24,6 @@ public class QuestionAnswer {
 
 
 
-
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name="question_id"),
             inverseJoinColumns = @JoinColumn(name="Answer_id"))

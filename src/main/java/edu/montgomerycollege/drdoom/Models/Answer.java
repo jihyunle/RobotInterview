@@ -8,22 +8,17 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @Lob
     private String answer;
-
-
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name="answer_id"),
             inverseJoinColumns = @JoinColumn(name="questionAnswer_id"))
     private Collection<QuestionAnswer> questions;
 
-    public Collection<QuestionAnswer> getQuestions() {
-        return questions;
-    }
 
-    public void setQuestions(Collection<QuestionAnswer> questions) {
-        this.questions = questions;
+    public Answer() {
     }
 
     public long getId() {
@@ -42,5 +37,11 @@ public class Answer {
         this.answer = answer;
     }
 
+    public Collection<QuestionAnswer> getQuestions() {
+        return questions;
+    }
 
+    public void setQuestions(Collection<QuestionAnswer> questions) {
+        this.questions = questions;
+    }
 }

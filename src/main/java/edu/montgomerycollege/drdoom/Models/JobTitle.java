@@ -37,7 +37,7 @@ public class JobTitle {
 //        this.questionAnswer = questionAnswer;
 //    }
 
-        @ManyToMany
+    @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name="jobTitle_id"),
             inverseJoinColumns = @JoinColumn(name="questionAnswer_id"))
     private Collection<QuestionAnswer> questions;
