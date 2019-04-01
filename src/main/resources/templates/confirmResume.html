@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <!-- timeout and moves to designated page, jobs.html, after 3 seconds -->
-    <meta http-equiv="refresh" content="3; url=http://localhost:8080/">
+    <meta http-equiv="refresh" content="5; url=http://localhost:8080/">
 <head>
     <th:block th:replace="base :: header"></th:block>
     <title>Confirm Resume Upload</title>
@@ -17,7 +17,7 @@
 
             <h2 th:inline="text">Your resume [[${resume.resumeVersionName}]] has been successfully saved. </h2>
 
-            <!--<div th:text="${resume.resumeVersionName}"></div>-->
+            <h3>You are now being redirected to the Home Page.</h3>
 
         </th:block>
     </div>

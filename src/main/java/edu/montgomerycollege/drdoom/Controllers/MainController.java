@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -65,11 +66,21 @@ public class MainController
     @RequestMapping({"/myjobs"})
     public String myJobs(Model model)
     {
-        model.addAttribute("now", new Date());
+        //get current user
         User current_user = userService.getUser();
 
-        //model.addAttribute("jui", juiRepository.findByJobUser(userService.getUser()));
-        model.addAttribute("jobUsers", jobUserRepository.findAllByUser(userService.getUser()));
+        //initialize collection of JobUser_Interview objects
+        Collection<JobUser_Interview> jobUser_interviews = new ArrayList<JobUser_Interview>();
+        //iterate through all jobUsers, adding their jui to jobUser_interviews
+        Iterable<JobUser> jobUsers = jobUserRepository.findAllByUser(userService.getUser());
+        Iterator<JobUser> iterator = jobUsers.iterator();
+        while(iterator.hasNext())
+        {
+            jobUser_interviews.add(juiRepository.findByJobUser(iterator.next()));
+        }
+
+        model.addAttribute("now", new Date());
+        model.addAttribute("juis", jobUser_interviews);
         return "myjobs";
     }
 
