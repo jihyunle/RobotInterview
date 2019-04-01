@@ -1,5 +1,6 @@
 package edu.montgomerycollege.drdoom.Repositories;
 
+import edu.montgomerycollege.drdoom.Models.JobUser;
 import edu.montgomerycollege.drdoom.Models.Resume;
 import edu.montgomerycollege.drdoom.Models.User;
 import org.springframework.data.repository.CrudRepository;
@@ -11,4 +12,6 @@ public interface ResumeRepository extends CrudRepository<Resume, Long>
     Resume findByResumeVersionName(String resumeVersionName);
 
     List<Resume> findAllByUser(User user);
+
+//    List<Resume> findByJobUser(JobUser jobUser);
 }

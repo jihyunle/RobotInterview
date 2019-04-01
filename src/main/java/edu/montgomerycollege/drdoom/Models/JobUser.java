@@ -23,6 +23,10 @@ public class JobUser {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
     @OneToMany(mappedBy = "jobUser")//removed cascadeType=ALL
     private Set<JobUser_Interview> jobUser_interviews;
 
@@ -73,6 +77,14 @@ public class JobUser {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 
     public String getAppStatus() {

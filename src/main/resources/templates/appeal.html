@@ -11,14 +11,12 @@
     <input type="hidden" th:field="*{id}">
 
     <h3>Please fill in your appeal form below.</h3>
-        <h4>Reason for missing the interview: </h4>
-        <h4>Further description: </h4>
-        <textarea cols="30" rows="10">
-            <input type="text" th:field="*{appealReason}">
-        </textarea>
+    <br/>
+    <h4>Reason for missing the interview: </h4>
+    <input type="text" th:field="*{appealReason}" />
+    <textarea cols="30" rows="10"></textarea>
+    <button type="submit">Submit</button>
 
-        <button type="submit">Submit</button>
-    </h4>
 </form>
 
 

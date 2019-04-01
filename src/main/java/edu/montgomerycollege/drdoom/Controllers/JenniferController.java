@@ -68,10 +68,16 @@ public class JenniferController {
     }
 
 
-    @RequestMapping("/appeal")
-    public String appeal(Model model){
-//        model.addAttribute("jui", juiRepository.findByJobUser(userService.getUser()).getJobUser());
+    @GetMapping("/appeal")
+    public String appealForm(Model model){
+        model.addAttribute("jui", new JobUser_Interview());
         return "appeal";
+    }
+
+    @PostMapping("/appeal")
+    public String processAppeal(@ModelAttribute("jui") JobUser_Interview jobUser_interview){
+        juiRepository.save(jobUser_interview);
+        return "redirect:/";
     }
 
     @RequestMapping("/myinterviews")

@@ -116,7 +116,6 @@ public class MainController
     @PostMapping({"/apply"})
 
     public String applied(@ModelAttribute("jobUser") JobUser jobUser,
-                          @ModelAttribute("resumes")Resume resume,
 
 //    public String applied(@Valid @ModelAttribute("resume")Resume resume, BindingResult resultA,
 //                          @ModelAttribute("job") Job job, BindingResult resultB,
@@ -124,18 +123,21 @@ public class MainController
 
                           Model model) {
 
-            JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();
+        JobUser jobUserObject = jobUserRepository.findById(jobUser.getId()).get();
         // get user
         User user = userService.getUser();
+
+        // save resume to jobUser
+        jobUser.setResume(jobUser.getResume());
 
 //hardcoding because I can't get this to work yet
         //get resume object
         //get all resumes
-        List<Resume> resumes = resumeRepository.findAllByUser(user);
+//        List<Resume> resumes = resumeRepository.findAllByUser(user);
         //get the first one, because we'd better have one in by now
-        Resume randResume = resumes.get(0);
+//        Resume randResume = resumes.get(0);
 
-        Resume resumeObject = resumeRepository.findById(randResume.getId()).get();
+//        Resume resumeObject = resumeRepository.findById(randResume.getId()).get();
 
 
 
@@ -198,12 +200,18 @@ public class MainController
 
 
     @PostMapping ("/setinterview")
-    public String setInterviewDate(@ModelAttribute JobUser_Interview jui, Model model)
+    public String setInterviewDate(@ModelAttribute JobUser_Interview jui,
+                                   Model model)
     {
         //get jui object
         jui=juiRepository.findById(jui.getId()).get();
         //change appStatus
         jui.getJobUser().setAppStatus("pending interview");
+
+        // set other var of jui
+
+
+
         //save jobUser-appStatus changed
         jobUserRepository.save(jui.getJobUser());
         //set LocalDateTime interview object
