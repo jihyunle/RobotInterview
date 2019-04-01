@@ -47,13 +47,14 @@ public class EyaelController{
     @PostMapping ("/setinterview")
     public String setinterviewdate(@ModelAttribute JobUser_Interview jui, Model model)
     {
-        //String thisShouldntBeNecessary = jui.getStringInterviewTime();
+        String thisShouldntBeNecessary = jui.getStringInterviewTime();
         //get jui object
         jui=juiRepository.findById(jui.getId()).get();
         //change appStatus
         jui.getJobUser().setAppStatus("pending interview");
         //set LocalDateTime interview object
-        jui.setInterviewTime(convertStringToDate(""));
+        jui.setInterviewTime(convertStringToDate(thisShouldntBeNecessary));
+        System.out.println("String: "+thisShouldntBeNecessary);
         //save jobUser
         jobUserRepository.save(jui.getJobUser());
 

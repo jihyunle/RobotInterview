@@ -33,6 +33,7 @@ public class MainController
 
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     JobTitleRepository jobTitleRepository;
 
@@ -88,27 +89,32 @@ public class MainController
     public String apply(@PathVariable("id") long id, Model model)
     {
         model.addAttribute("job", jobRepository.findById(id).get());
-        model.addAttribute("id", id);
-        model.addAttribute("resume", new Resume());
-        // added this line to retrieve all resumes saved
+        //model.addAttribute("resume", new Resume());
+        // added this line to retrieve all resumes saved-
+        //TODO change this to a query that only returns the user's resumes
         model.addAttribute("resumes", resumeRepository.findAll());
         return "apply";
     }
 
     @PostMapping({"/apply"})
-    public String applied(@ModelAttribute("resume")Resume resume, BindingResult resultA,
+    public String applied(@ModelAttribute("resumes")Resume resume, BindingResult resultA,
                           @ModelAttribute("job") Job job, BindingResult resultB,
                           @RequestParam("jobId") long id,
                           Model model) {
+
+        System.out.println(id);
+//Resume object is null-why?  Need to get the resume object based on the drop down
+        Resume resumeObject = resumeRepository.findByResumeVersionName(resume.getResumeVersionName());
+        System.out.println(resumeObject.getResumeData());
 
         // get user
         User user = userService.getUser();
 
         // set userid again
-        resume.setUser(user);
+        resumeObject.setUser(user);
+
         //save resume
         resumeRepository.save(resume);
-
         // add the resume to that user
         user.getResumes().add(resume);
         // save user
