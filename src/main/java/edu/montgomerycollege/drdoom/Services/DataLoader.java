@@ -85,7 +85,8 @@ public class DataLoader implements CommandLineRunner {
             {
                 collection.add(qa);
             }
-            //create JobUser_Interview objects--don't think this is necessary
+            //create JobUser_Interview objects--don't think this is necessary, these are created when a jobUser
+            // applies for a job
 //            JobUser_Interview jobUser_interview = new JobUser_Interview();
 //            jobUser_interview.setChatHistory(collection);
 //            jobUser_interviewRepository.save(jobUser_interview);

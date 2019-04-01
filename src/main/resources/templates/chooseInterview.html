@@ -3,6 +3,14 @@
 <head>
     <th:block th:replace="base :: header"></th:block>
     <title>Choose Interview Time</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({ minDate: -0, maxDate: "+14D" }); // choose until 14 days later
+        } );
+    </script>
 </head>
 <body>
 <div th:replace="base :: nav"></div>
@@ -16,13 +24,14 @@
                 <h2>Please select interview date and time.</h2>
                 <input type="hidden" th:field="*{id}"/>
 
-                <label for="date">Choose Time: </label>
-
-                <input class="form-control"
-                       type="datetime-local"
-                       id="date"
-                       th:name="*{stringInterviewTime}"
-                        th:min="${now}"/>
+                <label for="stringInterviewTime">Choose Date and Time: </label>
+                <p><input type="text" id="stringInterviewTime" th:field="*{stringInterviewTime}"></p>
+d
+                <!--<input class="form-control"-->
+                       <!--type="datetime-local"-->
+                       <!--id="datepicker"-->
+                       <!--th:name="*{stringInterviewTime}"-->
+                        <!--th:min="${now}"/>-->
 
                 <!--<input th:field="${stringInterviewTime}" type="datetime-local" name="time"-->
                        <!--th:value="${now}"-->
@@ -32,7 +41,7 @@
 
 
 
-                <input type="submit" value="Post"/>
+                <input type="submit" value="POST"/>
             </form>
         </div>
     </div>

@@ -50,19 +50,26 @@ public class JesseController
         JobUser_Interview jobUser_interview = juiRepository.findByJobUser(jobUser);
 
         //set jobUserIntervew's jobUser
-        //jobUser_interview.setJobUser(jobUser);
+        jobUser_interview.setJobUser(jobUser);
 
 
-        //Get (random) selection of questions (that match correctly)
-        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAll();
+        //get jobTitle to get specific questions
+        JobTitle title = jobUser.getJob().getJobTitle();
+
+        //Get selection of questions (that match correctly)
+        Iterable<QuestionAnswer> questions = questionAnswerRepository.findAllByJobTitles(title);
         Iterator<QuestionAnswer> iter = questions.iterator();
         Collection<QuestionAnswer> copy = new ArrayList<QuestionAnswer>();
         while (iter.hasNext())
         {
             copy.add(iter.next());
         }
+        //TODO
+        //add behavioral questions
+        //add to collection
 
-        jobUser_interview.setChatHistory(copy); //This saves it, but can't get the object on the other side
+
+        jobUser_interview.setChatHistory(copy); //This saves it, but can't get the object on the other side-it's null
 
         //save jui
         juiRepository.save(jobUser_interview);
@@ -96,8 +103,9 @@ public class JesseController
             copy.add(tempqa);
         }
         jobUser_interview.setChatHistory(copy);
+
         JobUser jobUser = jobUser_interview.getJobUser();
-        jobUser.setAppStatus("Pending hiring manager");
+        jobUser.setAppStatus("Pending offer");
         jobUser_interview.setJobUser(jobUser);
         jobUserRepository.save(jobUser);
         juiRepository.save(jobUser_interview);

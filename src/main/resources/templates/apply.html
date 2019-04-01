@@ -6,33 +6,18 @@
 <body>
 <div th:replace="base :: nav"></div>
 <div class="container">
-    <form th:action="@{/apply}" th:object="${resumes}" method="POST">
-        <input type="hidden" th:field="${job.id}"/>
+    <form th:action="@{/apply}" th:object="${jobUser}" method="POST">
+        <input type="hidden" th:field="${jobUser.id}"/>
 
-        <h3>You are applying for: <span th:text="${job.getJobTitle().job_title}"></span></h3>
-        <input type="hidden" th:value="${job.id}" name="jobId"/>
+        <h3>You are applying for: <span th:text="${jobUser.getJob().getJobTitle().job_title}"></span></h3>
 
         <h4>Description:</h4>
-
-
-        <div th:text="${job.description}"></div>
-
-        <!--<div class="dropdown">-->
-            <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                <!--Please select your resume here:-->
-            <!--</button>-->
-            <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                <!--<th:each></th:each>-->
-                <!--<a class="dropdown-item" href="#">Action</a>-->
-                <!--<a class="dropdown-item" href="#">Another action</a>-->
-                <!--<a class="dropdown-item" href="#">Something else here</a>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div th:text="${jobUser.getJob().description}"></div>
 
 
         <div class="form-group">
             Category
-            <select name="resume" th:field="*{resumeVersionName}" class="form-control input-md">
+            <select name="resume" th:field="${resumes}" class="form-control input-md">
                 <!-- above name field holds the value of the selected category ie) compact -->
                 <option value="">Select Resume Version</option> <!-- th:selected not needed -->
 
