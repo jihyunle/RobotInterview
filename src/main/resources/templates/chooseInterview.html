@@ -25,7 +25,9 @@
                 <input type="hidden" th:field="*{id}"/>
 
                 <label for="stringInterviewTime">Choose Date and Time: </label>
-                <p><input type="date" name="interview time" id="stringInterviewTime" required="required" class="form" placeholder="Choose Interview Date" th:field="*{stringInterviewTime}"></p>
+                <p><input type="datetime-local" name="interview time" id="stringInterviewTime" required="required" class="form" placeholder="Choose Interview Date" th:field="*{stringInterviewTime}"></p>
+
+
 
 
                 <!--<input class="form-control"-->
