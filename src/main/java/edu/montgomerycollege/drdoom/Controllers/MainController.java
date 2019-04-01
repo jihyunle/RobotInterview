@@ -54,7 +54,6 @@ public class MainController
     @RequestMapping({"/index","/"})
     public String upcomingInterviews(Model model)
     {
-
 //        //get all user's jobs
 //        List<JobUser_Interview> jobUser_interviews = createCollection();
 //        //create list for final list of jobs being interviewed for
