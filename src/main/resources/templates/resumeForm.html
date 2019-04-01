@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="base :: header"></th:block>
+    <title>Upload Resume</title>
 </head>
 <body>
-
+<div th:replace="base :: nav"></div>
+<div class="container" >
 
 
 <section class="container">
@@ -36,5 +37,10 @@
 
 </section>
 
+</div>
+
+<div th:replace="base :: footer"></div>
+<div th:replace="base :: javascript"></div>
 </body>
+
 </html>
