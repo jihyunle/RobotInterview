@@ -83,5 +83,10 @@ public class JenniferController {
 
     }
 
+    @RequestMapping("/about")
+    public String aboutAuthors(){
+        return "about";
+    }
+
 
 }

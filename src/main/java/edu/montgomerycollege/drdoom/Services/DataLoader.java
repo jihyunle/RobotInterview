@@ -68,7 +68,7 @@ public class DataLoader implements CommandLineRunner {
 
         //new dataloader stuff
 
-        if (jobUserRepository.count() == 0) {
+        if (jobRepository.count() == 0) {
             //create QuestionAnswer->JobUser_Interview->JobUser
             QuestionAnswer questionAnswer = new QuestionAnswer("what is programming languages?", "A programming language is a formal language that specifies a set of instructions that can be used to produce various kinds of output. Programming languages generally consist of instructions for a computer. Programming languages can be used to create programs that implement specific algorithms.");
             questionAnswerRepository.save(questionAnswer);
