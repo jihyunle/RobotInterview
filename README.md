@@ -8,8 +8,10 @@ This project illustrates how companies can save time and resources in the hiring
 
 * Lastly, at the end of the interview, the application sends the entire chat history to the hiring manager for review, and whenever the pplicant logs in, they can check the status of their application.
 
-## Authors
+## Dr. Doom Team Members
 * Jennifer Lee
 * Jesse Berliner
 * Ayaleneh Yilma
 * Eyeal Mekonen
+
+### This project was archived on April 1st, 2019.
