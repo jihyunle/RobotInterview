@@ -14,4 +14,3 @@ This project illustrates how companies can save time and resources in the hiring
 * Ayaleneh Yilma
 * Eyeal Mekonen
 
-### This project was archived on April 1st, 2019.
