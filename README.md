@@ -6,7 +6,7 @@ This project illustrates how companies can save time and resources in the hiring
 
 * Secondly, during the interview, the robot interviewer asks the users (applicants) a combination of behavioral and technical questions.
 
-* Lastly, at the end of the interview, the application sends the entire chat history to the hiring manager for review, and whenever the pplicant logs in, they can check the status of their application.
+* Lastly, at the end of the interview, the application sends the entire chat history to the hiring manager for review, and whenever the applicant logs in, they can check the status of their application.
 
 ## Dr. Doom Team Members
 * Jennifer Lee
